@@ -1,24 +1,25 @@
+using NUnit.Compatibility;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class DiceScoreCalc : MonoBehaviour
 {
-    public
+    public UnityEvent diceRoll;
 
-    enum ScoreCategory
+   public enum ScoreCategory
     {
-        Aces,
-        Twos,
-        Threes,
-        Fours,
-        Fives,
-        Sixes,
-        ThreeOfAKind,
-        FourOfAKind,
-        FullHouse,
-        SmallStraight,
-        LargeStraight,
-        Yippee
+        Aces = 1,
+        Twos = 2,
+        Threes = 3,
+        Fours = 4,
+        Fives = 5,
+        Sixes = 6,
+        ThreeOfAKind = 7,
+        FourOfAKind = 8,
+        FullHouse = 9,
+        SmallStraight = 10,
+        LargeStraight = 11,
+        Yippee = 12
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -32,44 +33,44 @@ public class DiceScoreCalc : MonoBehaviour
     {
         
     }
-    public void CalculateScore(ScoreCategory category, int[] diceValues)
+    public void CalculateScore(ScoreCategory category)
     {
         switch (category)
         {
-            case ScoreCategory.Aces:
+            case (ScoreCategory)1:
                 //Aces();
                 break;
-            case ScoreCategory.Twos:
+            case (ScoreCategory)2:
                 //Twos();
                 break;
-            case ScoreCategory.Threes:
+            case (ScoreCategory)3:
                 //Threes();
                 break;
-            case ScoreCategory.Fours:
+            case (ScoreCategory)4:
                 //Fours();
                 break;
-            case ScoreCategory.Fives:
+            case (ScoreCategory)5:
                 //Fives();
                 break;
-            case ScoreCategory.Sixes:
+            case (ScoreCategory)6:
                 //Sixes();
                 break;
-            case ScoreCategory.ThreeOfAKind:
+            case (ScoreCategory)7:
                 //ThreeOfAKind();
                 break;
-            case ScoreCategory.FourOfAKind:
+            case (ScoreCategory)8:
                 //FourOfAKind();
                 break;
-            case ScoreCategory.FullHouse:
+            case (ScoreCategory)9:
                 //FullHouse();
                 break;
-            case ScoreCategory.SmallStraight:
+            case (ScoreCategory)10:
                 //SmallStraight();
                 break;
-            case ScoreCategory.LargeStraight:
+            case (ScoreCategory)11:
                 //LargeStraight();
                 break;
-            case ScoreCategory.Yippee:
+            case (ScoreCategory)12:
                 //Yippee();
                 break;
         }
