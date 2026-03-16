@@ -16,6 +16,7 @@ public class RollDice : MonoBehaviour
 
     void Start()
     {
+        
         for (int i = 0; i < dices.Count; i++)
         {
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = false;
