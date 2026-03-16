@@ -632,6 +632,9 @@ MonoBehaviour:
   diceBoxes:
   - {fileID: 6068846574515840349}
   - {fileID: 7939595272362317735}
+  - {fileID: 7939595273690266890}
+  - {fileID: 7939595273935464172}
+  - {fileID: 7939595272288217389}
   hovered: -1
   holding: -1
 --- !u!1 &566573465
@@ -1088,7 +1091,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 101
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: 0
   m_CullingMask:
@@ -2835,6 +2838,7 @@ GameObject:
   - component: {fileID: 9022303053130020020}
   - component: {fileID: 8016772646277953862}
   - component: {fileID: 8236744183506838565}
+  - component: {fileID: 9022303053130020021}
   m_Layer: 5
   m_Name: D (5)
   m_TagString: Untagged
@@ -2872,6 +2876,7 @@ GameObject:
   - component: {fileID: 9022303054511022227}
   - component: {fileID: 8016772646098611553}
   - component: {fileID: 8236744182740365314}
+  - component: {fileID: 9022303054511022228}
   m_Layer: 5
   m_Name: D (3)
   m_TagString: Untagged
@@ -2890,6 +2895,7 @@ GameObject:
   - component: {fileID: 9022303054777269109}
   - component: {fileID: 8016772645701826183}
   - component: {fileID: 8236744182940019684}
+  - component: {fileID: 9022303054777269110}
   m_Layer: 5
   m_Name: D (4)
   m_TagString: Untagged
@@ -3068,6 +3074,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9022303053130020021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939595272288217389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d2c8284a9a55246bdff849c1dea65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceTF: {fileID: 0}
+  rotationSpeed: 1
+  boxIndex: 0
+  containsDice: 0
+  diceImage: {fileID: 0}
 --- !u!224 &9022303053187271230
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3124,6 +3147,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9022303054511022228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939595273690266890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d2c8284a9a55246bdff849c1dea65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceTF: {fileID: 0}
+  rotationSpeed: 1
+  boxIndex: 0
+  containsDice: 0
+  diceImage: {fileID: 0}
 --- !u!224 &9022303054777269109
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3143,6 +3183,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9022303054777269110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7939595273935464172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d2c8284a9a55246bdff849c1dea65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  diceTF: {fileID: 0}
+  rotationSpeed: 1
+  boxIndex: 0
+  containsDice: 0
+  diceImage: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
