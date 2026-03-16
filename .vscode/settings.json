@@ -67,5 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "LoadedRoll.slnx"
+    "dotnet.defaultSolution": "LoadedRoll.slnx",
+    "zenMode.centerLayout": true
 }
