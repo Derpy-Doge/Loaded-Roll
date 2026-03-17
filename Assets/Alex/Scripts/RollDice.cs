@@ -16,6 +16,10 @@ public class RollDice : MonoBehaviour
     private float timeSinceCalc;
     private float calcCooldown = .25f;
 
+<<<<<<< HEAD
+    [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, int> _faces; //
+=======
+>>>>>>> d76d091b592b3af9a68b12202c848be80d753879
 
 
     void Start()
@@ -88,8 +92,12 @@ public class RollDice : MonoBehaviour
             };
 
             var ordered = sides.Select(item => item.Key).OrderByDescending(item => Vector3.Dot(item, Vector3.up));
+<<<<<<< HEAD
+            var num = sides[ordered.FirstOrDefault()];
+=======
             int num = sides[ordered.FirstOrDefault()].pips;
             sides[ordered.FirstOrDefault()].Effect.Invoke();
+>>>>>>> d76d091b592b3af9a68b12202c848be80d753879
 
             Debug.Log(num);
         }
