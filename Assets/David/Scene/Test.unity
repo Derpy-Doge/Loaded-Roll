@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 901452400}
   - component: {fileID: 901452399}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: DiceScoreCalculation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,12 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points: 0
-  diceValues:
-  - 1
-  - 1
-  - 1
-  - 2
-  - 2
+  diceValues: []
   Oness: []
   Twoss: []
   Threess: []

@@ -10,6 +10,7 @@ public class DiceScoreCalc : MonoBehaviour
 
     public float points;
 
+    public static DiceScoreCalc Instance { get; private set; }
 
     private float onePoints = 100f;
     private float twoPoints = 200f;
@@ -44,6 +45,17 @@ public class DiceScoreCalc : MonoBehaviour
 
     public ScoreCategory category;
 
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Start()
     {
         SortDice();
