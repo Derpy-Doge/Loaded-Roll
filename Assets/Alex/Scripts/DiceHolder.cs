@@ -31,9 +31,14 @@ public class DiceHolder : MonoBehaviour
     {
         visuals[oldI].boxIndex = newI;
         visuals[newI].boxIndex = oldI;
+        Debug.Log($"old {oldI} -- new {newI}");
         if (!visuals[newI].containsDice) //Can move the object freely
         {
+
             visuals[oldI].containsDice = false;
+            visuals[newI].diceTF = visuals[oldI].diceTF;
+            visuals[oldI].diceTF = null;
+
             visuals[newI].containsDice = true;
             visuals[oldI].transform.GetChild(0).parent = visuals[newI].transform;
             
@@ -50,7 +55,9 @@ public class DiceHolder : MonoBehaviour
 
             visuals[newI].transform.GetChild(0).parent = visuals[oldI].transform;
             visuals[oldI].transform.GetChild(0).parent = visuals[newI].transform;
-
+            var temp4 = visuals[newI].diceTF;
+            visuals[newI].diceTF = visuals[oldI].diceTF;
+            visuals[oldI].diceTF = temp4;
             var temp3 = visuals[newI].diceImage;
             visuals[newI].diceImage = visuals[oldI].diceImage; 
             visuals[oldI].diceImage = temp3; 

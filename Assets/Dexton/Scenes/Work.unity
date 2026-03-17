@@ -196,9 +196,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49f7b448fc7c3e4e907dc4c950e0be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textures: []
-  currentFace: 0
-  newFace: 0
+  textures:
+  - {fileID: 2800000, guid: 1ad1288139e1c794083c5110419aba1c, type: 3}
+  - {fileID: 2800000, guid: 879c13a64e2fa60419b017b88d5a8afc, type: 3}
+  - {fileID: 2800000, guid: 70c6577c1624f0f46b95e322f0467090, type: 3}
+  - {fileID: 2800000, guid: b12d5426780850144a4b1cc3467bdc86, type: 3}
+  - {fileID: 2800000, guid: b6b247c48011eed4a8e4bfe701160383, type: 3}
+  - {fileID: 2800000, guid: a45c161d9ff48d44e80777d76b086834, type: 3}
+  currentFace: 5
+  newFace: 3
 --- !u!1 &1276812330
 GameObject:
   m_ObjectHideFlags: 0

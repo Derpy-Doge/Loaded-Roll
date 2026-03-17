@@ -7,7 +7,7 @@ using System.Collections;
 public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
 {
 
-    [SerializeField] private Transform diceTF;
+    public Transform diceTF;
     [SerializeField] private float rotationSpeed = .2f;
 
 
@@ -20,12 +20,17 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     void Start()
     {
-        diceImage = transform.GetChild(0).GetComponent<RectTransform>();
+        if (containsDice)
+        {
+            diceImage = transform.GetChild(0).GetComponent<RectTransform>();
+
+        }
         dHolder = DiceHolder.Instance;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //Debug.Log($"Box Index: {boxIndex}");
         hovering = true;
         
 
@@ -41,7 +46,12 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerMove(PointerEventData eventData)
     {
-        Debug.Log($"x: {eventData.delta.x} y: {eventData.delta.y}");
+        if (!containsDice)
+        {
+            return;
+        }
+
+        //Debug.Log($"x: {eventData.delta.x} y: {eventData.delta.y}");
 
         if (hovering || holding)
         {
