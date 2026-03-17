@@ -196,7 +196,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f49f7b448fc7c3e4e907dc4c950e0be7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textures: []
+  textures:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   currentFace: 0
   newFace: 0
 --- !u!1 &1276812330
