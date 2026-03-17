@@ -10,6 +10,8 @@ public class DiceScoreCalc : MonoBehaviour
 
     public float points;
 
+    public static DiceScoreCalc Instance { get; private set; }
+
     private float onePoints = 100f;
     private float twoPoints = 200f;
     private float threePoints = 300f;
@@ -17,7 +19,8 @@ public class DiceScoreCalc : MonoBehaviour
     private float fivePoints = 500f;
     private float sixPoints = 600f;
 
-    [SerializeField] private List<float> diceValues = new List<float> {};
+    public List<float> diceValues = new List<float> {};
+
     [SerializeField] private List<float> Oness = new List<float> {};
     [SerializeField] private List<float> Twoss = new List<float> {};
     [SerializeField] private List<float> Threess = new List<float> {};
@@ -25,27 +28,46 @@ public class DiceScoreCalc : MonoBehaviour
     [SerializeField] private List<float> Fivess = new List<float> {};
     [SerializeField] private List<float> Sixess = new List<float> {};
 
+    private List<List<float>> numlist = new List<List<float>>();
+
     public enum ScoreCategory
     {
-        Aces = 1,
-        Twos = 2,
-        Threes = 3,
-        Fours = 4,
-        Fives = 5,
-        Sixes = 6,
-        ThreeOfAKind = 7,
-        FourOfAKind = 8,
-        FullHouse = 9,
-        SmallStraight = 10,
-        LargeStraight = 11,
-        Yippee = 12,
-        MegaYippee = 13
+        None = 0,
+        Standard = 1,
+        ThreeOfAKind = 2,
+        FourOfAKind = 3,
+        FullHouse = 4,
+        SmallStraight = 5,
+        LargeStraight = 6,
+        Yippee = 7,
+        MegaYippee = 8
     }
 
     public ScoreCategory category;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+    private void Start()
+    {
+        SortDice();
+            numlist.Add(Oness);
+            numlist.Add(Twoss);
+            numlist.Add(Threess);
+            numlist.Add(Fourss);
+            numlist.Add(Fivess);
+            numlist.Add(Sixess);
+    }
+
+    public void SortDice()
     {
         for (int i = 0; i < diceValues.Count; i++)
         {
@@ -83,62 +105,58 @@ public class DiceScoreCalc : MonoBehaviour
             }
 
         }
-        CalculateScore(category);
+
         diceValues.Clear();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CalcMoney(int stateIndex)
     {
+        // Validate index
+        if (stateIndex < 0 || stateIndex >= System.Enum.GetValues(typeof(ScoreCategory)).Length)
+        {
+            Debug.LogWarning("Invalid enum index!");
+            return;
+        }
 
+        category = (ScoreCategory)stateIndex;
+        Debug.Log("Game state changed to: " + category);
+        CalculateScore(category);
     }
-    public void CalculateScore(ScoreCategory category)
+
+    private void CalculateScore(ScoreCategory category)
     {
         switch (category)
         {
+            case (ScoreCategory)0:
+                break;
             case (ScoreCategory)1:
-                Aces();
+                Standard();
                 break;
             case (ScoreCategory)2:
-                Twos();
-                break;
-            case (ScoreCategory)3:
-                Threes();
-                break;
-            case (ScoreCategory)4:
-                Fours();
-                break;
-            case (ScoreCategory)5:
-                Fives();
-                break;
-            case (ScoreCategory)6:
-                Sixes();
-                break;
-            case (ScoreCategory)7:
                 ThreeOfAKind();
                 break;
-            case (ScoreCategory)8:
+            case (ScoreCategory)3:
                 FourOfAKind();
                 break;
-            case (ScoreCategory)9:
+            case (ScoreCategory)4:
                 FullHouse();
                 break;
-            case (ScoreCategory)10:
+            case (ScoreCategory)5:
                 SmallStraight();
                 break;
-            case (ScoreCategory)11:
+            case (ScoreCategory)6:
                 LargeStraight();
                 break;
-            case (ScoreCategory)12:
+            case (ScoreCategory)7:
                 Yippee();
                 break;
-            case (ScoreCategory)13:
+            case (ScoreCategory)8:
                 MegaYippee();
                 break;
         }
     }
 
-    public void Aces()
+    private void Standard()
     {
         if (Oness == null)
         {
@@ -153,10 +171,9 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(points);
             }
         }
-    }
+    
 
-    public void Twos()
-    {
+ 
         if (Twoss == null)
         {
             points += 0;
@@ -170,10 +187,9 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(points);
             }
         }
-    }
+    
 
-    public void Threes()
-    {
+
         if (Threess == null)
         {
             points += 0;
@@ -188,10 +204,9 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(points);
             }
         }
-    }
+    
 
-    public void Fours()
-    {
+
         if (Fourss == null)
         {
             points += 0;
@@ -206,10 +221,9 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(points);
             }
         }
-    }
+    
 
-    public void Fives()
-    {
+
         if (Fivess == null)
         {
             points += 0;
@@ -223,10 +237,9 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(points);
             }
         }
-    }
+    
 
-    public void Sixes()
-    {
+   
         if (Sixess == null)
         {
             points += 0;
@@ -243,44 +256,130 @@ public class DiceScoreCalc : MonoBehaviour
         }
     }
 
-    public void ThreeOfAKind()
+    private void ThreeOfAKind()
     {
-        if (Oness.Count == 3 || Twoss.Count == 3 || Threess.Count == 3 || Fourss.Count == 3 || Fivess.Count == 3 || Sixess.Count == 3)
+        if (Oness.Count == 3)
         {
-            points += 1500;
+            points += (onePoints * 3) * 5;
+        }
+
+        else if (Twoss.Count == 3)
+        {
+            points += (twoPoints * 3) * 5;
+        }
+
+        else if (Threess.Count == 3)
+        {
+            points += (threePoints * 3) * 5;
+        }
+
+        else if (Fourss.Count == 3)
+        {
+            points += (fourPoints * 3) * 5;
+        }
+
+        else if (Fivess.Count == 3)
+        {
+            points += (fivePoints = 3) * 5;
+        }
+
+        else if (Sixess.Count == 3)
+        {
+            points += (sixPoints * 3) * 5;
         }
     }
 
-    public void FourOfAKind()
+    private void FourOfAKind()
     {
-        if (Oness.Count == 4 || Twoss.Count == 4 || Threess.Count == 4 || Fourss.Count == 4 || Fivess.Count == 4 || Sixess.Count == 4)
+        if (Oness.Count == 4)
         {
-            points += 2000;
+            points += (onePoints * 4) * 5;
         }
-    }
 
-    public void FullHouse()
-    {
-
-    }
-
-    public void SmallStraight()
-    {
-        if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 || Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 || Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 && Sixess.Count >= 1)
-        {
-            points += 3000;
-        }
-    }
-
-    public void LargeStraight()
-    {
-        if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 || Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
+        else if (Twoss.Count == 4)
         { 
-            points += 4000;
+            points += (twoPoints * 4) * 5;
+        }
+
+        else if (Threess.Count == 4)
+        {
+            points += (threePoints * 4) * 5;
+        }
+
+        else if (Fourss.Count == 4)
+        {
+            points += (fourPoints * 4) * 5;
+        }
+
+        else if (Fivess.Count == 4)
+        {
+            points += (fivePoints = 4) * 5;
+        }
+
+        else if (Sixess.Count == 4)
+        {
+            points += (sixPoints * 4) * 5;
         }
     }
 
-    public void Yippee()
+    private void FullHouse()
+    {
+        for (int i = 0; i < numlist.Count; i++)
+        {
+            if (numlist[i].Count < 3)
+            {
+                continue;
+            }
+
+
+            for (int j = 0; j < numlist.Count; j++)
+            {
+
+                if (numlist[j].Count >= 2 && i != j)
+                {
+                    points += (((numlist[i][0] * 100) * 3) + ((numlist[j][0] * 100) * 2)) * 6;
+
+                }
+            }
+
+                          
+                       
+            
+        }
+    }
+
+    private void SmallStraight()
+    {
+        if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1)
+        {
+            points += (onePoints + twoPoints + threePoints + fourPoints) * 7;
+        }
+
+        else if ((Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1))
+        {
+            points += (twoPoints + threePoints + fourPoints + fivePoints) * 7;
+        }
+
+        else if ((Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 && Sixess.Count >= 1))
+        { 
+            points += (threePoints + fourPoints + fivePoints + sixPoints) * 7;
+        }
+    }
+
+    private void LargeStraight()
+    {
+        if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1)
+        { 
+            points += (onePoints + twoPoints + threePoints + fourPoints + fivePoints) * 8;
+        }
+
+        else if (Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
+        {
+            points += (twoPoints + threePoints + fourPoints + fivePoints + sixPoints) * 8;
+        }
+    }
+
+    private void Yippee()
     {
         if (Oness.Count == 5)
         {
@@ -313,7 +412,7 @@ public class DiceScoreCalc : MonoBehaviour
         }
     }
 
-    public void MegaYippee()
+    private void MegaYippee()
     {
         if (Oness.Count == 6)
         {

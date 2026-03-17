@@ -16,7 +16,10 @@ public class RollDice : MonoBehaviour
     private float timeSinceCalc;
     private float calcCooldown = .25f;
 
+<<<<<<< HEAD
     [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, int> _faces; //
+=======
+>>>>>>> d76d091b592b3af9a68b12202c848be80d753879
 
 
     void Start()
@@ -78,18 +81,23 @@ public class RollDice : MonoBehaviour
     {
         for (int i = 0; i < dices.Count; i++)
         {
-            Dictionary<Vector3, int> sides = new()
+            Dictionary<Vector3, Face> sides = new()
             {
-                [-dices[i].transform.up] = _faces[Vector3.down],
-                [dices[i].transform.up] = _faces[Vector3.up],
-                [-dices[i].transform.right] = _faces[Vector3.left],
-                [dices[i].transform.right] = _faces[Vector3.right],
-                [-dices[i].transform.forward] = _faces[Vector3.back],
-                [dices[i].transform.forward] = _faces[Vector3.forward]
+                [-dices[i].transform.up] = GlobalDie.Instance.Faces[Vector3.down],
+                [dices[i].transform.up] = GlobalDie.Instance.Faces[Vector3.up],
+                [-dices[i].transform.right] = GlobalDie.Instance.Faces[Vector3.left],
+                [dices[i].transform.right] = GlobalDie.Instance.Faces[Vector3.right],
+                [-dices[i].transform.forward] = GlobalDie.Instance.Faces[Vector3.back],
+                [dices[i].transform.forward] = GlobalDie.Instance.Faces[Vector3.forward]
             };
 
             var ordered = sides.Select(item => item.Key).OrderByDescending(item => Vector3.Dot(item, Vector3.up));
+<<<<<<< HEAD
             var num = sides[ordered.FirstOrDefault()];
+=======
+            int num = sides[ordered.FirstOrDefault()].pips;
+            sides[ordered.FirstOrDefault()].Effect.Invoke();
+>>>>>>> d76d091b592b3af9a68b12202c848be80d753879
 
             Debug.Log(num);
         }

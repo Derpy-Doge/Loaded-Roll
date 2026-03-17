@@ -605,6 +605,20 @@ MonoBehaviour:
   follow: 0
   dices:
   - {fileID: 1594711814}
+  _faces:
+    _serializedList:
+    - Key: {x: 0, y: 1, z: 0}
+      Value: {fileID: 11400000, guid: b775993ff498e3b478f9ff575521fd37, type: 2}
+    - Key: {x: 0, y: -1, z: 0}
+      Value: {fileID: 0}
+    - Key: {x: 1, y: 0, z: 0}
+      Value: {fileID: 0}
+    - Key: {x: -1, y: 0, z: 0}
+      Value: {fileID: 0}
+    - Key: {x: 0, y: 0, z: 1}
+      Value: {fileID: 0}
+    - Key: {x: 0, y: 0, z: -1}
+      Value: {fileID: 0}
 --- !u!4 &566573467
 Transform:
   m_ObjectHideFlags: 0
