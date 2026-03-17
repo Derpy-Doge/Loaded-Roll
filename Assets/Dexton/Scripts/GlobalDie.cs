@@ -1,16 +1,14 @@
+using System.ComponentModel;
 using UnityEngine;
 
 public class GlobalDie : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public static GlobalDie Instance { get; private set; }
+    //Place in save data
+    public AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> Faces;
+    private void Awake()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 }
