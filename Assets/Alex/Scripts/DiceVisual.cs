@@ -30,7 +30,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log($"Box Index: {boxIndex}");
+        //Debug.Log($"Box Index: {boxIndex}");
         hovering = true;
         
 

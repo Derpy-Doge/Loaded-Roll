@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class RollDice : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class RollDice : MonoBehaviour
     private bool calculated;
     private float timeSinceCalc;
     private float calcCooldown = .25f;
+
+    [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, int> _faces;
 
 
     void Start()
@@ -30,7 +33,7 @@ public class RollDice : MonoBehaviour
     void Update()
     {
         timeSinceCalc -= Time.deltaTime;
-        if (!calculated && timeSinceCalc <= 0f && CalculateSpeed() >= .5f)
+        if (!calculated && timeSinceCalc <= 0f)
         {
             Debug.Log("test");
             calculated = true;
@@ -70,23 +73,25 @@ public class RollDice : MonoBehaviour
 
     }
 
+    [ContextMenu("Read Faces")]
     private void ReadFaces()
     {
-        string[] faces = new string[dices.Count];
         for (int i = 0; i < dices.Count; i++)
         {
+            Dictionary<Vector3, int> sides = new()
+            {
+                [-dices[i].transform.up] = _faces[Vector3.down],
+                [dices[i].transform.up] = _faces[Vector3.up],
+                [-dices[i].transform.right] = _faces[Vector3.left],
+                [dices[i].transform.right] = _faces[Vector3.right],
+                [-dices[i].transform.forward] = _faces[Vector3.back],
+                [dices[i].transform.forward] = _faces[Vector3.forward]
+            };
 
+            var ordered = sides.Select(item => item.Key).OrderByDescending(item => Vector3.Dot(item, Vector3.up));
+            int num = sides[ordered.FirstOrDefault()];
+
+            Debug.Log(num);
         }
     }
-
-
-
-
-
-
-
-
-
-
-
 }
