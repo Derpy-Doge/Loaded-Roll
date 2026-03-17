@@ -16,7 +16,9 @@ public class RollDice : MonoBehaviour
     private float timeSinceCalc;
     private float calcCooldown = .25f;
 
-    [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, int> _faces;
+
+    //Place in save data
+    [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> _faces;
 
 
     void Start()
@@ -78,7 +80,7 @@ public class RollDice : MonoBehaviour
     {
         for (int i = 0; i < dices.Count; i++)
         {
-            Dictionary<Vector3, int> sides = new()
+            Dictionary<Vector3, Face> sides = new()
             {
                 [-dices[i].transform.up] = _faces[Vector3.down],
                 [dices[i].transform.up] = _faces[Vector3.up],
@@ -89,7 +91,7 @@ public class RollDice : MonoBehaviour
             };
 
             var ordered = sides.Select(item => item.Key).OrderByDescending(item => Vector3.Dot(item, Vector3.up));
-            int num = sides[ordered.FirstOrDefault()];
+            int num = sides[ordered.FirstOrDefault()].pips;
 
             Debug.Log(num);
         }

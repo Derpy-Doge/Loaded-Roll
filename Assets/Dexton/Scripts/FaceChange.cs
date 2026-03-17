@@ -11,10 +11,8 @@ public class FaceChange : MonoBehaviour
         _faces = GetComponent<MeshRenderer>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         _faces.materials[currentFace].SetTexture("_MainTex", textures[newFace]);
-        
     }
 }
