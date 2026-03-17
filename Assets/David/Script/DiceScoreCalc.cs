@@ -245,12 +245,18 @@ public class DiceScoreCalc : MonoBehaviour
 
     public void ThreeOfAKind()
     {
-
+        if (Oness.Count == 3 || Twoss.Count == 3 || Threess.Count == 3 || Fourss.Count == 3 || Fivess.Count == 3 || Sixess.Count == 3)
+        {
+            points += 1500;
+        }
     }
 
     public void FourOfAKind()
     {
-
+        if (Oness.Count == 4 || Twoss.Count == 4 || Threess.Count == 4 || Fourss.Count == 4 || Fivess.Count == 4 || Sixess.Count == 4)
+        {
+            points += 2000;
+        }
     }
 
     public void FullHouse()
@@ -260,12 +266,18 @@ public class DiceScoreCalc : MonoBehaviour
 
     public void SmallStraight()
     {
-
+        if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 || Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 || Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 && Sixess.Count >= 1)
+        {
+            points += 3000;
+        }
     }
 
     public void LargeStraight()
     {
-
+        if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 || Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
+        { 
+            points += 4000;
+        }
     }
 
     public void Yippee()
