@@ -18,13 +18,15 @@ public class DiceScoreCalc : MonoBehaviour
     private float fivePoints = 500f;
     private float sixPoints = 600f;
 
-    [SerializeField] private List<float> diceValues = new List<float> {};
+    public List<float> diceValues = new List<float> {};
+
     [SerializeField] private List<float> Oness = new List<float> {};
     [SerializeField] private List<float> Twoss = new List<float> {};
     [SerializeField] private List<float> Threess = new List<float> {};
     [SerializeField] private List<float> Fourss = new List<float> {};
     [SerializeField] private List<float> Fivess = new List<float> {};
     [SerializeField] private List<float> Sixess = new List<float> {};
+
     private List<List<float>> numlist = new List<List<float>>();
 
     public enum ScoreCategory
