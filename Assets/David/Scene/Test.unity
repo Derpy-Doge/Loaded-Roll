@@ -150,19 +150,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: 0
   diceValues:
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
-  - 1
+  - 0
+  - 0
+  - 3
+  - 4
+  - 5
+  - 6
   Oness: []
   Twoss: []
   Threess: []
   Fourss: []
   Fivess: []
   Sixess: []
-  category: 13
+  category: 10
 --- !u!4 &901452400
 Transform:
   m_ObjectHideFlags: 0
