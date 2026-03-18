@@ -4,11 +4,16 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
 
 public class DiceScoreCalc : MonoBehaviour
 {
 
+
     public float points;
+    [HideInInspector] public float addedPoints;
+
 
     public static DiceScoreCalc Instance { get; private set; }
 
@@ -66,6 +71,7 @@ public class DiceScoreCalc : MonoBehaviour
             numlist.Add(Fourss);
             numlist.Add(Fivess);
             numlist.Add(Sixess);
+
     }
 
     public void SortDice()
@@ -162,15 +168,15 @@ public class DiceScoreCalc : MonoBehaviour
     {
         if (Oness == null)
         {
-            points += 0;
-            Debug.Log(points);
+            addedPoints += 0;
+            Debug.Log(addedPoints);
         }
         else
         {
             for (int i = 0; i < Oness.Count; i++)
             {
-                points += onePoints;
-                Debug.Log(points);
+                addedPoints += onePoints;
+                Debug.Log(addedPoints);
             }
         }
     
@@ -178,15 +184,15 @@ public class DiceScoreCalc : MonoBehaviour
  
         if (Twoss == null)
         {
-            points += 0;
-            Debug.Log(points);
+            addedPoints += 0;
+            Debug.Log(addedPoints);
         }
         else
         {
             for (int i = 0; i < Twoss.Count; i++)
             {
-                points += twoPoints;
-                Debug.Log(points);
+                addedPoints += twoPoints;
+                Debug.Log(addedPoints);
             }
         }
     
@@ -194,16 +200,16 @@ public class DiceScoreCalc : MonoBehaviour
 
         if (Threess == null)
         {
-            points += 0;
-            Debug.Log(points);
+            addedPoints += 0;
+            Debug.Log(addedPoints);
         }
 
         else
         {
             for (int i = 0; i < Threess.Count; i++)
             {
-                points += threePoints;
-                Debug.Log(points);
+                addedPoints += threePoints;
+                Debug.Log(addedPoints);
             }
         }
     
@@ -211,16 +217,16 @@ public class DiceScoreCalc : MonoBehaviour
 
         if (Fourss == null)
         {
-            points += 0;
-            Debug.Log(points);
+            addedPoints += 0;
+            Debug.Log(addedPoints);
         }
 
         else
         {
             for (int i = 0; i < Fourss.Count; i++)
             {
-                points += fourPoints;
-                Debug.Log(points);
+                addedPoints += fourPoints;
+                Debug.Log(addedPoints);
             }
         }
     
@@ -228,15 +234,15 @@ public class DiceScoreCalc : MonoBehaviour
 
         if (Fivess == null)
         {
-            points += 0;
-            Debug.Log(points);
+            addedPoints += 0;
+            Debug.Log(addedPoints);
         }
         else
         {
             for (int i = 0; i < Fivess.Count; i++)
             {
-                points += fivePoints;
-                Debug.Log(points);
+                addedPoints += fivePoints;
+                Debug.Log(addedPoints);
             }
         }
     
@@ -244,50 +250,51 @@ public class DiceScoreCalc : MonoBehaviour
    
         if (Sixess == null)
         {
-            points += 0;
-            Debug.Log(points);
+            addedPoints += 0;
+            Debug.Log(addedPoints);
         }
 
         else
         {
             for (int i = 0; i < Sixess.Count; i++)
             {
-                points += sixPoints;
-                Debug.Log(points);
+                addedPoints += sixPoints;
+                Debug.Log(addedPoints);
             }
         }
+
     }
 
     private void ThreeOfAKind()
     {
         if (Oness.Count == 3)
         {
-            points += (onePoints * 3) * 5;
+            addedPoints += (onePoints * 3) * 5;
         }
 
         else if (Twoss.Count == 3)
         {
-            points += (twoPoints * 3) * 5;
+            addedPoints += (twoPoints * 3) * 5;
         }
 
         else if (Threess.Count == 3)
         {
-            points += (threePoints * 3) * 5;
+            addedPoints += (threePoints * 3) * 5;
         }
 
         else if (Fourss.Count == 3)
         {
-            points += (fourPoints * 3) * 5;
+            addedPoints += (fourPoints * 3) * 5;
         }
 
         else if (Fivess.Count == 3)
         {
-            points += (fivePoints = 3) * 5;
+            addedPoints += (fivePoints = 3) * 5;
         }
 
         else if (Sixess.Count == 3)
         {
-            points += (sixPoints * 3) * 5;
+            addedPoints += (sixPoints * 3) * 5;
         }
     }
 
@@ -295,32 +302,32 @@ public class DiceScoreCalc : MonoBehaviour
     {
         if (Oness.Count == 4)
         {
-            points += (onePoints * 4) * 5;
+            addedPoints += (onePoints * 4) * 5;
         }
 
         else if (Twoss.Count == 4)
-        { 
-            points += (twoPoints * 4) * 5;
+        {
+            addedPoints += (twoPoints * 4) * 5;
         }
 
         else if (Threess.Count == 4)
         {
-            points += (threePoints * 4) * 5;
+            addedPoints += (threePoints * 4) * 5;
         }
 
         else if (Fourss.Count == 4)
         {
-            points += (fourPoints * 4) * 5;
+            addedPoints += (fourPoints * 4) * 5;
         }
 
         else if (Fivess.Count == 4)
         {
-            points += (fivePoints = 4) * 5;
+            addedPoints += (fivePoints = 4) * 5;
         }
 
         else if (Sixess.Count == 4)
         {
-            points += (sixPoints * 4) * 5;
+            addedPoints += (sixPoints * 4) * 5;
         }
     }
 
@@ -339,7 +346,7 @@ public class DiceScoreCalc : MonoBehaviour
 
                 if (numlist[j].Count >= 2 && i != j)
                 {
-                    points += (((numlist[i][0] * 100) * 3) + ((numlist[j][0] * 100) * 2)) * 6;
+                    addedPoints += (((numlist[i][0] * 100) * 3) + ((numlist[j][0] * 100) * 2)) * 6;
 
                 }
             }
@@ -354,30 +361,30 @@ public class DiceScoreCalc : MonoBehaviour
     {
         if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1)
         {
-            points += (onePoints + twoPoints + threePoints + fourPoints) * 7;
+            addedPoints += (onePoints + twoPoints + threePoints + fourPoints) * 7;
         }
 
         else if ((Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1))
         {
-            points += (twoPoints + threePoints + fourPoints + fivePoints) * 7;
+            addedPoints += (twoPoints + threePoints + fourPoints + fivePoints) * 7;
         }
 
         else if ((Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 && Sixess.Count >= 1))
-        { 
-            points += (threePoints + fourPoints + fivePoints + sixPoints) * 7;
+        {
+            addedPoints += (threePoints + fourPoints + fivePoints + sixPoints) * 7;
         }
     }
 
     private void LargeStraight()
     {
         if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1)
-        { 
-            points += (onePoints + twoPoints + threePoints + fourPoints + fivePoints) * 8;
+        {
+            addedPoints += (onePoints + twoPoints + threePoints + fourPoints + fivePoints) * 8;
         }
 
         else if (Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
         {
-            points += (twoPoints + threePoints + fourPoints + fivePoints + sixPoints) * 8;
+            addedPoints += (twoPoints + threePoints + fourPoints + fivePoints + sixPoints) * 8;
         }
     }
 
@@ -385,32 +392,32 @@ public class DiceScoreCalc : MonoBehaviour
     {
         if (Oness.Count == 5)
         {
-            points += (onePoints * 5) * 10;
+            addedPoints += (onePoints * 5) * 10;
         }
 
         else if (Twoss.Count == 5)
         {
-            points += (twoPoints * 5) * 10;
+            addedPoints += (twoPoints * 5) * 10;
         }
 
         else if (Threess.Count == 5)
         {
-            points += (threePoints * 5) * 10;
+            addedPoints += (threePoints * 5) * 10;
         }
 
         else if (Fourss.Count == 5)
         {
-            points += (fourPoints * 5) * 10;
+            addedPoints += (fourPoints * 5) * 10;
         }
 
         else if (Fivess.Count == 5)
         {
-            points += (fivePoints = 5) * 10;
+            addedPoints += (fivePoints = 5) * 10;
         }
 
         else if (Sixess.Count == 5)
         {
-            points += (sixPoints * 5) * 10;
+            addedPoints += (sixPoints * 5) * 10;
         }
     }
 
@@ -418,32 +425,32 @@ public class DiceScoreCalc : MonoBehaviour
     {
         if (Oness.Count == 6)
         {
-            points += (onePoints * 6) * 10;
+            addedPoints += (onePoints * 6) * 10;
         }
 
         else if (Twoss.Count == 6)
         {
-            points += (twoPoints * 6) * 10;
+            addedPoints += (twoPoints * 6) * 10;
         }
 
         else if (Threess.Count == 6)
         {
-            points += (threePoints * 6) * 10;
+            addedPoints += (threePoints * 6) * 10;
         }
 
         else if (Fourss.Count == 6)
         {
-            points += (fourPoints * 6) * 10;
+            addedPoints += (fourPoints * 6) * 10;
         }
 
         else if (Fivess.Count == 6)
         {
-            points += (fivePoints = 6) * 10;
+            addedPoints += (fivePoints = 6) * 10;
         }
 
         else if (Sixess.Count == 6)
         {
-            points += (sixPoints * 6) * 10;
+            addedPoints += (sixPoints * 6) * 10;
         }
     }
 
