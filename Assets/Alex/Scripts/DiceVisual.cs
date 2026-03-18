@@ -1,11 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-<<<<<<< HEAD
-using UnityEngine.InputSystem;
-using System.Collections;
-using NUnit.Framework;
-=======
->>>>>>> 11a0c789d2fe88ca51e0cede52f6b5bd82503fcf
+
 
 
 public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
