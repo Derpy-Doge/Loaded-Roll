@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
 
@@ -25,12 +26,20 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         holder.hoveredSlot = this;
+        if (currentDice != null)
+        {
+            currentDice.GetComponent<RawImage>().material = holder.glow;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         
         holder.hoveredSlot = null;
+        if (currentDice != null && !currentDice.Dragging)
+        {
+            currentDice.GetComponent<RawImage>().material = null;
+        }
     }
 
     public void OnPointerMove(PointerEventData eventData)
@@ -71,6 +80,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
             oldSlot.currentDice = other;
             other.SetSlot(oldSlot);
+            other.GetComponent<RawImage>().material = null;
             Debug.Log($"Placing {dice.gameObject.name} in {this.gameObject.name} and {other.gameObject.name} in {oldSlot.gameObject.name}");
         }
     }

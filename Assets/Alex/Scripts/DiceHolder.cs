@@ -9,11 +9,13 @@ public class DiceHolder : MonoBehaviour
     private DiceVisual originalSlot;
     private DiceDragging heldDice;
     [SerializeField] private GameObject draggingLayer;
+    public Material glow;
 
 
     void Awake()
     {
         Instance = this;
+        glow = Resources.Load<Material>("Materials/Glow");
     }
 
     public void Click(InputAction.CallbackContext ctx)
