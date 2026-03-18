@@ -129,6 +129,12 @@ public class DiceScoreCalc : MonoBehaviour
         category = (ScoreCategory)stateIndex;
         Debug.Log("Game state changed to: " + category);
         CalculateScore(category);
+        Oness.Clear();
+        Twoss.Clear();
+        Threess.Clear();
+        Fourss.Clear();
+        Fivess.Clear();
+        Sixess.Clear();
     }
 
     private void CalculateScore(ScoreCategory category)
