@@ -58,6 +58,7 @@ public class DiceScoreCalc : MonoBehaviour
     }
     private void Start()
     {
+        // sorts the dice into their respective lists and adds those lists to a list of lists for easier access when calculating scores
         SortDice();
             numlist.Add(Oness);
             numlist.Add(Twoss);
@@ -69,6 +70,7 @@ public class DiceScoreCalc : MonoBehaviour
 
     public void SortDice()
     {
+        // sorts dice functions by checking the value of each die and adding it to the appropriate list, then clears the list of dice values for the next roll
         for (int i = 0; i < diceValues.Count; i++)
         {
 
