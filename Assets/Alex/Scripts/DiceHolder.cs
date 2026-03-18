@@ -4,100 +4,56 @@ using UnityEngine.InputSystem;
 
 public class DiceHolder : MonoBehaviour
 {
-
-    [SerializeField] private GameObject[] diceBoxes;
-    private DiceVisual[] visuals = new DiceVisual[5];
-    public int hovered = -1;
     public static DiceHolder Instance;
-    [HideInInspector] public int holding = -1;
+    [HideInInspector] public DiceVisual hoveredSlot;
+    private DiceVisual originalSlot;
+    private DiceDragging heldDice;
+    [SerializeField] private GameObject draggingLayer;
 
 
     void Awake()
     {
         Instance = this;
-        
-    }
-
-    void Start()
-    {
-        for (int i = 0; i < diceBoxes.Length; i++)
-        {
-            visuals[i] = diceBoxes[i].GetComponent<DiceVisual>();
-            visuals[i].boxIndex = i;
-        }
-    }
-
-    public void CheckAvailability(int oldI, int newI)
-    {
-        visuals[oldI].boxIndex = newI;
-        visuals[newI].boxIndex = oldI;
-        Debug.Log($"old {oldI} -- new {newI}");
-        if (!visuals[newI].containsDice) //Can move the object freely
-        {
-
-            visuals[oldI].containsDice = false;
-            visuals[newI].diceTF = visuals[oldI].diceTF;
-            visuals[oldI].diceTF = null;
-
-            visuals[newI].containsDice = true;
-            visuals[oldI].transform.GetChild(0).parent = visuals[newI].transform;
-            
-
-            visuals[newI] = visuals[oldI];
-            visuals[oldI] = null;
-            
-            diceBoxes[newI] = diceBoxes[oldI];
-            diceBoxes[oldI] = null;
-            visuals[newI].diceImage.anchoredPosition = Vector3.zero;
-        }
-        else //Swap the two positions
-        {
-
-            visuals[newI].transform.GetChild(0).parent = visuals[oldI].transform;
-            visuals[oldI].transform.GetChild(0).parent = visuals[newI].transform;
-            var temp4 = visuals[newI].diceTF;
-            visuals[newI].diceTF = visuals[oldI].diceTF;
-            visuals[oldI].diceTF = temp4;
-            var temp3 = visuals[newI].diceImage;
-            visuals[newI].diceImage = visuals[oldI].diceImage; 
-            visuals[oldI].diceImage = temp3; 
-
-
-            var temp1 = visuals[newI];
-            visuals[newI] = visuals[oldI];
-            visuals[oldI] = temp1;
-
-            var temp2 = diceBoxes[newI];
-            diceBoxes[newI] = diceBoxes[oldI];
-            diceBoxes[oldI] = temp2;
-
-            visuals[newI].diceImage.anchoredPosition = Vector3.zero;
-            visuals[oldI].diceImage.anchoredPosition = Vector3.zero;
-            
-            
-        }
     }
 
     public void Click(InputAction.CallbackContext ctx)
     {
-        if (ctx.performed)
+        if (!ctx.performed)
         {
-            if (holding != -1)
-            {
-                visuals[holding].Click();
-                
-            }
-            else if ( hovered != -1)
-            {
-                visuals[hovered].Click();
-            }
             return;
         }
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (heldDice != null)
+        {
+            if (hoveredSlot != null)
+            {
+                Debug.Log("SLOT FOUND");
+                hoveredSlot.PlaceDice(heldDice);
+            }
+            else
+            {
+                Debug.Log("NO SLOT FOUND");
+                heldDice.returning = true;
+                originalSlot.PlaceDice(heldDice);
+            }
+
+            heldDice.StopDragging();
+            heldDice = null;
+            originalSlot = null;
+        }
+        else
+        {
+            if (hoveredSlot != null && hoveredSlot.currentDice != null)
+            {
+                heldDice = hoveredSlot.currentDice;
+                originalSlot = hoveredSlot;
+                hoveredSlot.currentDice = null;
+
+                heldDice.Dragging = true;
+                heldDice.transform.SetParent(draggingLayer.transform);
+
+                Debug.Log($"PICKING UP {heldDice.gameObject.name} FROM {hoveredSlot.gameObject.name}");
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ public class RollDice : MonoBehaviour
 
     [SerializeField] private List<Transform> dices = new();
     private Dictionary<Transform, Rigidbody> diceRB = new();
-    private bool calculated;
+    private bool calculated = true;
     private float timeSinceCalc;
     private float calcCooldown = .25f;
 
@@ -67,6 +67,7 @@ public class RollDice : MonoBehaviour
             dices[i].Rotate(new Vector3(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f)));
             diceRB[dices[i]].linearVelocity = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
             diceRB[dices[i]].angularVelocity = new Vector3(Random.Range(-8f, 8f), Random.Range(-8f, 8f), Random.Range(-8f, 8f));
+            calculated = false;
             yield return new WaitForSeconds(diceSpinCooldown);
         }
 
