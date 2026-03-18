@@ -10,10 +10,10 @@ public class FaceChange : MonoBehaviour
     }
     private void Update()
     {
-        UpdateFaces();
+        UpdateDiceFaces();
     }
 
-    public void UpdateFaces()
+    public void UpdateDiceFaces()
     {
         _faces.materials[0].SetTexture("_BaseMap", GlobalDie.Instance.Faces[Vector3.down].Texture);
         _faces.materials[1].SetTexture("_BaseMap", GlobalDie.Instance.Faces[Vector3.up].Texture);
