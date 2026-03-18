@@ -81,9 +81,9 @@ public class DiceDragging : MonoBehaviour
 
     IEnumerator Return()
     {
-        Debug.Log("test");
         float elapsed = 0f;
         Vector2 startPos = rect.anchoredPosition;
+        Debug.Log($"Start Position: {startPos}");
         while (elapsed < 0.25f)//Change to variable later
         {
             elapsed += Time.deltaTime;

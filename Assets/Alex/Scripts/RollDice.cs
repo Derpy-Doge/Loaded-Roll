@@ -89,6 +89,8 @@ public class RollDice : MonoBehaviour
             };
 
             var ordered = sides.Select(item => item.Key).OrderByDescending(item => Vector3.Dot(item, Vector3.up));
+
+
             int num = sides[ordered.FirstOrDefault()].pips;
             sides[ordered.FirstOrDefault()].Effect.Invoke();
 
