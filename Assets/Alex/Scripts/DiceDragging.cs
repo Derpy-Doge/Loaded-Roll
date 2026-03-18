@@ -40,7 +40,7 @@ public class DiceDragging : MonoBehaviour
         }
 
         Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rect.parent as RectTransform, Input.mousePosition, null, out pos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rect.parent as RectTransform, Input.mousePosition, Camera.main, out pos);
         rect.anchoredPosition = pos;
         Vector2 mousePos = Mouse.current.delta.ReadValue();
 
