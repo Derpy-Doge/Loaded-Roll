@@ -5,7 +5,7 @@ using TMPro;
 public class ShowPoints : MonoBehaviour
 {
     public GameObject panelText;
-    public TMP_Text pointText;
+    private TMP_Text pointText;
 
     [Header("Calc Script")]
     public DiceScoreCalc Calc;
@@ -13,8 +13,10 @@ public class ShowPoints : MonoBehaviour
     [Header("Spawner Script")]
     public Spawner Spawn;
     [Space]
-    public float Timer;
-    private float CurrentTime;
+    private float Timer;
+    public float CurrentTime;
+
+    public float growSpeed;
 
     private float startSize = 0f;
     public float endSize;
@@ -24,7 +26,7 @@ public class ShowPoints : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CurrentTime = Timer;
+        Timer = CurrentTime;
 
     }
 
@@ -32,7 +34,6 @@ public class ShowPoints : MonoBehaviour
     void Update()
     {
         TextCalc();
-        
     }
 
 
@@ -46,43 +47,61 @@ public class ShowPoints : MonoBehaviour
         {
             pointText.color = Color.red;
         }
+
+        else if (Calc.addedPoints <= 10000 && Calc.addedPoints > 5000)
+        {
+            pointText.color = Color.blue;
+        }
+
+        else if (Calc.addedPoints <= 20000 && Calc.addedPoints > 10000)
+        {
+            pointText.color = Color.yellow;
+        }
+
+        else if (Calc.addedPoints <= 30000 && Calc.addedPoints > 20000)
+        {
+            pointText.color = Color.magenta;
+        }
+
+           else if (Calc.addedPoints <= 40000 && Calc.addedPoints > 30000)
+            {
+                pointText.color = Color.cyan;
+        }
     }
 
     private void TextCalc()
     { 
-        
-    if (Calc.addedPoints > 0)
-        {
+
+        if (Calc.addedPoints > 0)
+            {
             if (!spawned)
             {
                 StartCoroutine(Spawn.SpawnText());
                 pointText = panelText.GetComponentInChildren<TMP_Text>();
-                pointText.text = null;
+                pointText.text = string.Empty;
                 pointText.text += Calc.addedPoints.ToString();
                 Debug.Log("point text now shows points");
                 ColorCalc();
-                Timer -= Time.deltaTime;
                 spawned = true;
             }
 
-            else if (Timer > 0 && pointText.fontSize != endSize)
+            
+
+            if (pointText.fontSize < endSize)
             {
-                pointText.fontSize += 1;
+                pointText.fontSize += growSpeed * Time.deltaTime;
             }
 
-            else if (Timer <= 0)
+            else
             { 
-                Timer = CurrentTime;
                 Debug.Log("Points added: " + Calc.addedPoints);
                 Calc.points += Calc.addedPoints;
+                Timer = CurrentTime;
                 Calc.addedPoints = 0;
-
-
             }
 
-        }
-
-        else if (pointText.text != null)
+            }
+        else if (Calc.addedPoints == 0 && pointText.fontSize >= endSize)
         {
             Timer -= Time.deltaTime;
         }
@@ -90,10 +109,25 @@ public class ShowPoints : MonoBehaviour
 
         if (Timer <= 0 && Calc.addedPoints == 0)
         {
-            pointText.text = null;
-            Timer = CurrentTime;
-            pointText.IsDestroyed();
-            spawned = false;
+
+            //Debug.Log(pointText.color.a);
+            if (pointText.color.a > startSize)
+            {
+                pointText.color = new(pointText.color.r, pointText.color.g, pointText.color.b, pointText.color.a - 10f * Time.deltaTime);
+            }
+           else
+           { 
+                pointText.text = string.Empty;
+                pointText.color = Color.white;
+                Timer = CurrentTime;
+                spawned = false;
+                var textObj = GameObject.FindGameObjectWithTag("Points");
+                Destroy(textObj, 0f);
+           }
+            
+
+            
+
         }
     }
 }
