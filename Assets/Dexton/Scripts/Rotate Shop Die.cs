@@ -1,29 +1,49 @@
-/*using Unity.VisualScripting.YamlDotNet.Core.Tokens;
+using AYellowpaper.SerializedCollections;
+using System;
+using Unity.VisualScripting.YamlDotNet.Core.Tokens;
 using UnityEngine;
 
 public class RotateShopDie : MonoBehaviour
 {
+    public GameObject shopDie;
+    private Quaternion rotation;
+    public float lerpSpeed = 5f;
+    private Vector3 rotateAmount;
+    private int rotateFrames;
 
-    public void Rotate()
+    public SerializedDictionary<RotationDirection, Vector3> rotationDictionary = new ();
+
+    public void Awake()
     {
-        switch (RotationDirection)
-        {
-            case Up:
-                // Code to run if variableToTest == value1
-
-                break; // Exits the switch
-            case value2:
-                // Code to run if variableToTest == value2
-
-                break;
-            default:
-                // Code to run if no cases match
-
-                break;
-        }
+        shopDie = this.gameObject;
     }
 
-    enum RotationDirection
+    private void Update()
+    {
+    }
+    private void FixedUpdate()
+    {
+        if (rotateFrames > 0)
+        {
+            shopDie.transform.Rotate(rotateAmount.normalized*5, Space.World);
+        }
+        rotateFrames--;
+
+    }
+
+    public void Rotate(string direction)
+    {
+        if (rotateFrames > 0) { return; }
+
+        rotateAmount = rotationDictionary[Enum.Parse<RotationDirection>(direction)];
+        rotateFrames = 18;
+    }
+
+
+
+
+
+    public enum RotationDirection
     {
         Up,
         Down,
@@ -31,4 +51,3 @@ public class RotateShopDie : MonoBehaviour
         Right
     }
 }
-*/
