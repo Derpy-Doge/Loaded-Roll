@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
 using UnityEngine.InputSystem;
-
+using UnityEngine.UI;
 
 public class DiceDragging : MonoBehaviour
 {
@@ -24,7 +24,10 @@ public class DiceDragging : MonoBehaviour
     {
         currentSlot = slot; 
         transform.SetParent(slot.transform);
-        rect.anchoredPosition = Vector3.zero;
+        if (!returning)
+        {
+            rect.anchoredPosition = Vector3.zero;
+        }
     }
 
     public DiceVisual GetSlot()
@@ -92,6 +95,7 @@ public class DiceDragging : MonoBehaviour
             diceTF.Rotate((-startPos.normalized) * 200f * Time.deltaTime);
             yield return null;
         }
+        GetComponent<RawImage>().material = null;
         rect.anchoredPosition = Vector2.zero;
         returning = false;
     }
