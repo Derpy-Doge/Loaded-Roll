@@ -34,7 +34,6 @@ public class RollDice : MonoBehaviour
         timeSinceCalc -= Time.deltaTime;
         if (!calculated && timeSinceCalc <= 0f)
         {
-            Debug.Log("test");
             calculated = true;
             ReadFaces();
         }
@@ -42,7 +41,11 @@ public class RollDice : MonoBehaviour
 
     public void AHHAGBAH()
     {
-        StartCoroutine(Roll());
+        if (GameManager.Instance.Roll())
+        {
+            StartCoroutine(Roll());
+        }
+
     }
 
     private float CalculateSpeed()

@@ -6,26 +6,32 @@ public class ShowPoints : MonoBehaviour
 {
     public TMP_Text pointText;
 
+    [Header("Calc Script")]
     public DiceScoreCalc Calc;
 
+    [Header("Spawner Script")]
+    public Spawner Spawn;
+    [Space]
     public float Timer;
     private float CurrentTime;
 
     private float startSize = 0f;
     public float endSize;
 
+    private bool spawned = false;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         CurrentTime = Timer;
-        pointText.text = null;
-        pointText.fontSize = startSize;
+
     }
 
     // Update is called once per frame
     void Update()
     {
         TextCalc();
+        
     }
 
 
@@ -43,26 +49,37 @@ public class ShowPoints : MonoBehaviour
 
     private void TextCalc()
     { 
+        
     if (Calc.addedPoints > 0)
         {
-            if (pointText.text == null)
+            if (!spawned)
             {
-            pointText.text += Calc.addedPoints.ToString();
-            ColorCalc();
+                StartCoroutine(Spawn.SpawnText());
+                //pointText.text = null;
+                Timer -= Time.deltaTime;
+                if (Timer <= 0)
+                pointText.text += Calc.addedPoints.ToString();
 
+                Timer = CurrentTime;
+                Debug.Log("point text now shows points");
+                //ColorCalc();
+                Timer -= Time.deltaTime;
+                spawned = true;
             }
 
-            Timer -= Time.deltaTime;
-            if (Timer > 0 && pointText.fontSize != endSize)
+            else if (Timer > 0 && pointText.fontSize != endSize)
             {
                 pointText.fontSize += 1;
             }
-            else
+
+            else if (Timer <= 0)
             { 
                 Timer = CurrentTime;
+                Debug.Log("Points added: " + Calc.addedPoints);
                 Calc.points += Calc.addedPoints;
                 Calc.addedPoints = 0;
-                
+
+
             }
 
         }
@@ -77,8 +94,8 @@ public class ShowPoints : MonoBehaviour
         {
             pointText.text = null;
             Timer = CurrentTime;
-            pointText.fontSize = startSize;
-            pointText.color = Color.white;
+            pointText.IsDestroyed();
+            spawned = false;
         }
     }
 }

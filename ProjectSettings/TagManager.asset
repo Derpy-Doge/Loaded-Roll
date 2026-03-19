@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Dice
+  - Points
   layers:
   - Default
   - TransparentFX

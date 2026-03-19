@@ -12,7 +12,7 @@ public class DiceScoreCalc : MonoBehaviour
 
 
     public float points;
-    [HideInInspector] public float addedPoints;
+    public float addedPoints;
 
 
     public static DiceScoreCalc Instance { get; private set; }
