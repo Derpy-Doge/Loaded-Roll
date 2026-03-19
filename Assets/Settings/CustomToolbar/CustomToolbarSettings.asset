@@ -73,11 +73,11 @@ MonoBehaviour:
       isEnabled: 0
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarRecompile, CustomToolbar,
         Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      isEnabled: 0
+      isEnabled: 1
     - name: OpalStudio.CustomToolbar.Editor.ToolbarElements.ToolbarReserializeAll,
         CustomToolbar, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
       isEnabled: 0
-    isEnabled: 1
+    isEnabled: 0
   - groupName: Toolbox
     side: 1
     elements:

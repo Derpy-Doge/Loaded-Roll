@@ -6,6 +6,7 @@ using System.Linq;
 public class RollDice : MonoBehaviour
 {
     private Rigidbody rb;
+    public List<GlobalDie> diceTextures;
     [SerializeField] private float diceSpinCooldown;
     [SerializeField] private Transform diceCamera;
     [SerializeField] private bool follow;
@@ -16,10 +17,19 @@ public class RollDice : MonoBehaviour
     private float timeSinceCalc;
     private float calcCooldown = .25f;
 
+    public static RollDice Instance;
+
 
 
     void Start()
     {
+
+        if (Instance != null)
+        {
+            Debug.LogError("There is multiple RollDice scripts in this scene and it will not function properly");
+        }
+
+        Instance = this;
 
         for (int i = 0; i < dices.Count; i++)
         {
@@ -65,6 +75,7 @@ public class RollDice : MonoBehaviour
     {
         for (int i = 0; i < dices.Count; i++)
         {
+            dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;
             dices[i].position = new Vector3(i - 2f, -2f, i - 2f);
             dices[i].Rotate(new Vector3(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f)));
@@ -83,12 +94,12 @@ public class RollDice : MonoBehaviour
         {
             Dictionary<Vector3, Face> sides = new()
             {
-                [-dices[i].transform.up] = GlobalDie.Instance.Faces[Vector3.down],
-                [dices[i].transform.up] = GlobalDie.Instance.Faces[Vector3.up],
-                [-dices[i].transform.right] = GlobalDie.Instance.Faces[Vector3.left],
-                [dices[i].transform.right] = GlobalDie.Instance.Faces[Vector3.right],
-                [-dices[i].transform.forward] = GlobalDie.Instance.Faces[Vector3.back],
-                [dices[i].transform.forward] = GlobalDie.Instance.Faces[Vector3.forward]
+                [-dices[i].transform.up] = diceTextures[i].Faces[Vector3.down],
+                [dices[i].transform.up] = diceTextures[i].Faces[Vector3.up],
+                [-dices[i].transform.right] = diceTextures[i].Faces[Vector3.left],
+                [dices[i].transform.right] = diceTextures[i].Faces[Vector3.right],
+                [-dices[i].transform.forward] = diceTextures[i].Faces[Vector3.back],
+                [dices[i].transform.forward] = diceTextures[i].Faces[Vector3.forward]
             };
 
             var ordered = sides.Select(item => item.Key).OrderByDescending(item => Vector3.Dot(item, Vector3.up));
