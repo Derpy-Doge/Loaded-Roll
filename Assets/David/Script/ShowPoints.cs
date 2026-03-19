@@ -4,6 +4,7 @@ using TMPro;
 
 public class ShowPoints : MonoBehaviour
 {
+    public GameObject panelText;
     public TMP_Text pointText;
 
     [Header("Calc Script")]
@@ -55,14 +56,11 @@ public class ShowPoints : MonoBehaviour
             if (!spawned)
             {
                 StartCoroutine(Spawn.SpawnText());
-                //pointText.text = null;
-                Timer -= Time.deltaTime;
-                if (Timer <= 0)
+                pointText = panelText.GetComponentInChildren<TMP_Text>();
+                pointText.text = null;
                 pointText.text += Calc.addedPoints.ToString();
-
-                Timer = CurrentTime;
                 Debug.Log("point text now shows points");
-                //ColorCalc();
+                ColorCalc();
                 Timer -= Time.deltaTime;
                 spawned = true;
             }
