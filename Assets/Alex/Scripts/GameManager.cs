@@ -43,10 +43,20 @@ public class GameManager : MonoBehaviour
 
     public bool Roll()
     {
-        if (rolls + 1 > rolls || currentState != GameStates.Rolling)
+        if (rolls + 1 > rollsPerRound) //New Round
+        {
+            return false; 
+        }
+
+        else if (currentState != GameStates.Rolling) //Curent state isnt rolling
         {
             return false;
         }
+        else if (RollDice.Instance.diceTextures.Count != 5)
+        {
+            return false;
+        }
+
 
         rolls++;
 
