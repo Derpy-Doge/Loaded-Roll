@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class DiceHolder : MonoBehaviour
@@ -10,12 +11,15 @@ public class DiceHolder : MonoBehaviour
     private DiceDragging heldDice;
     [SerializeField] private GameObject draggingLayer;
     public Material glow;
+    private Material purpleGlow;
 
 
     void Awake()
     {
         Instance = this;
         glow = Resources.Load<Material>("Materials/Glow");
+        purpleGlow = Resources.Load<Material>("Materials/PurpleGlow");
+
     }
 
     public void Click(InputAction.CallbackContext ctx)
@@ -25,37 +29,70 @@ public class DiceHolder : MonoBehaviour
             return;
         }
 
-        if (heldDice != null)
+        int state = (int) GameManager.Instance.currentState;
+
+        if (state == (int) GameManager.GameStates.Rolling)
         {
-            if (hoveredSlot != null)
+            if (heldDice != null)
             {
-                Debug.Log("SLOT FOUND");
-                hoveredSlot.PlaceDice(heldDice);
+                if (hoveredSlot != null)
+                {
+                    //Debug.Log("SLOT FOUND");
+                    hoveredSlot.PlaceDice(heldDice);
+                }
+                else
+                {
+                    //Debug.Log("NO SLOT FOUND");
+                    heldDice.returning = true;
+                    originalSlot.PlaceDice(heldDice);
+                }
+
+                heldDice.StopDragging();
+                heldDice = null;
+                originalSlot = null;
             }
             else
             {
-                Debug.Log("NO SLOT FOUND");
-                heldDice.returning = true;
-                originalSlot.PlaceDice(heldDice);
-            }
+                if (hoveredSlot != null && hoveredSlot.currentDice != null)
+                {
+                    heldDice = hoveredSlot.currentDice;
+                    originalSlot = hoveredSlot;
+                    hoveredSlot.currentDice = null;
 
-            heldDice.StopDragging();
-            heldDice = null;
-            originalSlot = null;
+                    heldDice.Dragging = true;
+                    heldDice.transform.SetParent(draggingLayer.transform);
+
+                    //Debug.Log($"PICKING UP {heldDice.gameObject.name} FROM {hoveredSlot.gameObject.name}");
+                }
+            }
         }
-        else
+        else if (state == (int) GameManager.GameStates.Select)
         {
-            if (hoveredSlot != null && hoveredSlot.currentDice != null)
+            if (hoveredSlot != null) //other
             {
-                heldDice = hoveredSlot.currentDice;
-                originalSlot = hoveredSlot;
-                hoveredSlot.currentDice = null;
 
-                heldDice.Dragging = true;
-                heldDice.transform.SetParent(draggingLayer.transform);
+                if (hoveredSlot.GetStorageType() == DiceVisual.StorageType.Inventory)
+                {
+                    return;
+                }
 
-                Debug.Log($"PICKING UP {heldDice.gameObject.name} FROM {hoveredSlot.gameObject.name}");
+
+                if (hoveredSlot.selected)
+                {
+                    hoveredSlot.selected = false;
+                    hoveredSlot.currentDice.GetComponent<RawImage>().material = glow;
+
+                }
+                else
+                {
+                    hoveredSlot.currentDice.GetComponent<RawImage>().material = purpleGlow;
+                    hoveredSlot.selected = true;
+                    
+                }
+                Debug.Log("test");
             }
+            
         }
+
     }
 }

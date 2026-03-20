@@ -4,27 +4,31 @@ using TMPro;
 
 public class ShowPoints : MonoBehaviour
 {
-    public GameObject panelText;
+    [Header("Required Stuff")]
     public TMP_Text pointText;
-
-    [Header("Calc Script")]
     public DiceScoreCalc Calc;
-
-    [Header("Spawner Script")]
     public Spawner Spawn;
     [Space]
-    public float Timer;
-    private float CurrentTime;
-
+    [Header("How Long Should Text Pop-Up")]
+    private float Timer;
+    public float CurrentTime;
+    [Space]
+    [Header("How Fast Should Text Pop-Up")]
+    public float growSpeed;
+    [Space]
+    [Header("How large Should It Be")]
     private float startSize = 0f;
     public float endSize;
 
     private bool spawned = false;
 
+    [HideInInspector] public bool textFinished;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CurrentTime = Timer;
+        Timer = CurrentTime;
 
     }
 
@@ -32,57 +36,72 @@ public class ShowPoints : MonoBehaviour
     void Update()
     {
         TextCalc();
-        
     }
 
 
     private void ColorCalc()
-    { 
+    {
         if (Calc.addedPoints < 1000 && Calc.addedPoints >= 0)
         {
-            pointText.color = Color.green;
+        pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 0f, 1f));
         }
         else if (Calc.addedPoints <= 5000 && Calc.addedPoints >= 1000)
         {
-            pointText.color = Color.red;
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 0f, 0f, 1f));
+        }
+
+        else if (Calc.addedPoints <= 10000 && Calc.addedPoints > 5000)
+        {
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 0f, 1f, 1f));
+        }
+
+        else if (Calc.addedPoints <= 20000 && Calc.addedPoints > 10000)
+        {
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 0f, 1f));
+        }
+
+        else if (Calc.addedPoints <= 30000 && Calc.addedPoints > 20000)
+        {
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 0f, 1f, 1f));
+        }
+
+           else if (Calc.addedPoints <= 40000 && Calc.addedPoints > 30000)
+            {
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 1f, 1f));
         }
     }
 
     private void TextCalc()
     { 
-        
-    if (Calc.addedPoints > 0)
-        {
+
+        if (Calc.addedPoints > 0)
+            {
             if (!spawned)
             {
-                StartCoroutine(Spawn.SpawnText());
-                pointText = panelText.GetComponentInChildren<TMP_Text>();
-                pointText.text = null;
+                pointText.text = string.Empty;
                 pointText.text += Calc.addedPoints.ToString();
-                Debug.Log("point text now shows points");
+                pointText.color = Color.white;
                 ColorCalc();
-                Timer -= Time.deltaTime;
                 spawned = true;
             }
 
-            else if (Timer > 0 && pointText.fontSize != endSize)
+            
+
+            if (pointText.fontSize < endSize)
             {
-                pointText.fontSize += 1;
+                pointText.fontSize += growSpeed * Time.deltaTime;
             }
 
-            else if (Timer <= 0)
+            else
             { 
-                Timer = CurrentTime;
                 Debug.Log("Points added: " + Calc.addedPoints);
                 Calc.points += Calc.addedPoints;
+                Timer = CurrentTime;
                 Calc.addedPoints = 0;
-
-
             }
 
-        }
-
-        else if (pointText.text != null)
+            }
+        else if (Calc.addedPoints == 0 && pointText.fontSize >= endSize)
         {
             Timer -= Time.deltaTime;
         }
@@ -90,10 +109,18 @@ public class ShowPoints : MonoBehaviour
 
         if (Timer <= 0 && Calc.addedPoints == 0)
         {
-            pointText.text = null;
-            Timer = CurrentTime;
-            pointText.IsDestroyed();
-            spawned = false;
+
+            if (pointText.fontSize > startSize)
+            {
+                pointText.fontSize -= growSpeed * Time.deltaTime;
+            }
+           else
+           { 
+                pointText.text = string.Empty;
+                Timer = CurrentTime;
+                spawned = false;;
+           }
+            
         }
     }
 }

@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private enum GameStates
+    public enum GameStates
     {
         Rolling = 0,
         Shop = 1,
+        Select = 2,
     }
     public static GameManager Instance;
 
@@ -16,10 +17,12 @@ public class GameManager : MonoBehaviour
     [Tooltip("The amount of rounds per debt installment")] [SerializeField] private int roundsPerDebt = 5;
     [Tooltip("The amount of rools per round")] [SerializeField] private int rollsPerRound = 3;
 
+    [Range(1f, 10f)] [SerializeField] private float glowAmount;
+
     public int rolls; //the amount of rolls the player has taken this round
     public float currentRound; //The current round number for this debt installment /
 
-    private GameStates currentState = GameStates.Rolling;
+    [HideInInspector] public GameStates currentState = GameStates.Rolling;
 
     void Awake()
     {
@@ -31,6 +34,9 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("There is multiple Game Managers in this scene and it will not work properly");
         }
+        interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
+        interestText.fontMaterial.SetVector("_FaceColor", new Vector4(glowAmount, 0.5f, 0.5f, 1.0f)); 
+
     }
 
     void OnDestroy()
@@ -43,13 +49,23 @@ public class GameManager : MonoBehaviour
 
     public bool Roll()
     {
-        if (rolls + 1 > rolls || currentState != GameStates.Rolling)
+        if (rolls + 1 > rollsPerRound) //New Round
+        {
+            return false; 
+        }
+
+        else if (currentState != GameStates.Rolling) //Curent state isnt rolling
+        {
+            return false;
+        }
+        else if (RollDice.Instance.diceTextures.CheckNulls()) 
         {
             return false;
         }
 
-        rolls++;
 
+        rolls++;
+        currentState = GameStates.Select; 
         return true;
     }
 
@@ -59,4 +75,6 @@ public class GameManager : MonoBehaviour
         interest *= 1 + interestIncrease; 
         interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
     }
+
+
 }

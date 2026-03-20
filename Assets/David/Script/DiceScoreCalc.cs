@@ -273,67 +273,24 @@ public class DiceScoreCalc : MonoBehaviour
 
     private void ThreeOfAKind()
     {
-        if (Oness.Count == 3)
+        for (int i = 0; i < numlist.Count; i++)
         {
-            addedPoints += (onePoints * 3) * 5;
-        }
-
-        else if (Twoss.Count == 3)
-        {
-            addedPoints += (twoPoints * 3) * 5;
-        }
-
-        else if (Threess.Count == 3)
-        {
-            addedPoints += (threePoints * 3) * 5;
-        }
-
-        else if (Fourss.Count == 3)
-        {
-            addedPoints += (fourPoints * 3) * 5;
-        }
-
-        else if (Fivess.Count == 3)
-        {
-            addedPoints += (fivePoints = 3) * 5;
-        }
-
-        else if (Sixess.Count == 3)
-        {
-            addedPoints += (sixPoints * 3) * 5;
+            if (numlist[i].Count >= 3)
+            {
+                addedPoints += ((numlist[i][0] * 100) * 3) * 4;
+            }
         }
     }
 
     private void FourOfAKind()
     {
-        if (Oness.Count == 4)
+        for (int i = 0; i < numlist.Count; i++)
         {
-            addedPoints += (onePoints * 4) * 5;
-        }
-
-        else if (Twoss.Count == 4)
-        {
-            addedPoints += (twoPoints * 4) * 5;
-        }
-
-        else if (Threess.Count == 4)
-        {
-            addedPoints += (threePoints * 4) * 5;
-        }
-
-        else if (Fourss.Count == 4)
-        {
-            addedPoints += (fourPoints * 4) * 5;
-        }
-
-        else if (Fivess.Count == 4)
-        {
-            addedPoints += (fivePoints = 4) * 5;
-        }
-
-        else if (Sixess.Count == 4)
-        {
-            addedPoints += (sixPoints * 4) * 5;
+            if (numlist[i].Count >= 4)
+            {
+                Debug.Log(numlist[i]);
+                addedPoints += ((numlist[i][0] * 100) * 4) * 5;
+            }
         }
     }
 
@@ -396,68 +353,25 @@ public class DiceScoreCalc : MonoBehaviour
 
     private void Yippee()
     {
-        if (Oness.Count == 5)
+        for (int i = 0; i < numlist.Count; i++)
         {
-            addedPoints += (onePoints * 5) * 10;
-        }
-
-        else if (Twoss.Count == 5)
-        {
-            addedPoints += (twoPoints * 5) * 10;
-        }
-
-        else if (Threess.Count == 5)
-        {
-            addedPoints += (threePoints * 5) * 10;
-        }
-
-        else if (Fourss.Count == 5)
-        {
-            addedPoints += (fourPoints * 5) * 10;
-        }
-
-        else if (Fivess.Count == 5)
-        {
-            addedPoints += (fivePoints = 5) * 10;
-        }
-
-        else if (Sixess.Count == 5)
-        {
-            addedPoints += (sixPoints * 5) * 10;
+            if (numlist[i].Count >= 5)
+            {
+                addedPoints += ((numlist[i][0] * 100) * 5) * 10;
+            }
         }
     }
 
     private void MegaYippee()
     {
-        if (Oness.Count == 6)
+        for (int i = 0; i < numlist.Count; i++)
         {
-            addedPoints += (onePoints * 6) * 10;
+            if (numlist[i].Count == 6)
+            {
+                addedPoints += ((numlist[i][0] * 100) * 6) * 10;
+            }
         }
 
-        else if (Twoss.Count == 6)
-        {
-            addedPoints += (twoPoints * 6) * 10;
-        }
-
-        else if (Threess.Count == 6)
-        {
-            addedPoints += (threePoints * 6) * 10;
-        }
-
-        else if (Fourss.Count == 6)
-        {
-            addedPoints += (fourPoints * 6) * 10;
-        }
-
-        else if (Fivess.Count == 6)
-        {
-            addedPoints += (fivePoints = 6) * 10;
-        }
-
-        else if (Sixess.Count == 6)
-        {
-            addedPoints += (sixPoints * 6) * 10;
-        }
     }
 
 
