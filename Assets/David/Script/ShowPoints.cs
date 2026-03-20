@@ -4,24 +4,26 @@ using TMPro;
 
 public class ShowPoints : MonoBehaviour
 {
-    public GameObject panelText;
-    private TMP_Text pointText;
-
-    [Header("Calc Script")]
+    [Header("Required Stuff")]
+    public TMP_Text pointText;
     public DiceScoreCalc Calc;
-
-    [Header("Spawner Script")]
     public Spawner Spawn;
     [Space]
+    [Header("How Long Should Text Pop-Up")]
     private float Timer;
     public float CurrentTime;
-
+    [Space]
+    [Header("How Fast Should Text Pop-Up")]
     public float growSpeed;
-
+    [Space]
+    [Header("How large Should It Be")]
     private float startSize = 0f;
     public float endSize;
 
     private bool spawned = false;
+
+    [HideInInspector] public bool textFinished;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -38,34 +40,34 @@ public class ShowPoints : MonoBehaviour
 
 
     private void ColorCalc()
-    { 
+    {
         if (Calc.addedPoints < 1000 && Calc.addedPoints >= 0)
         {
-            pointText.color = Color.green;
+        pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 0f, 1f));
         }
         else if (Calc.addedPoints <= 5000 && Calc.addedPoints >= 1000)
         {
-            pointText.color = Color.red;
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 0f, 0f, 1f));
         }
 
         else if (Calc.addedPoints <= 10000 && Calc.addedPoints > 5000)
         {
-            pointText.color = Color.blue;
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 0f, 1f, 1f));
         }
 
         else if (Calc.addedPoints <= 20000 && Calc.addedPoints > 10000)
         {
-            pointText.color = Color.yellow;
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 0f, 1f));
         }
 
         else if (Calc.addedPoints <= 30000 && Calc.addedPoints > 20000)
         {
-            pointText.color = Color.magenta;
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 0f, 1f, 1f));
         }
 
            else if (Calc.addedPoints <= 40000 && Calc.addedPoints > 30000)
             {
-                pointText.color = Color.cyan;
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 1f, 1f));
         }
     }
 
@@ -76,11 +78,9 @@ public class ShowPoints : MonoBehaviour
             {
             if (!spawned)
             {
-                StartCoroutine(Spawn.SpawnText());
-                pointText = panelText.GetComponentInChildren<TMP_Text>();
                 pointText.text = string.Empty;
                 pointText.text += Calc.addedPoints.ToString();
-                Debug.Log("point text now shows points");
+                pointText.color = Color.white;
                 ColorCalc();
                 spawned = true;
             }
@@ -110,24 +110,17 @@ public class ShowPoints : MonoBehaviour
         if (Timer <= 0 && Calc.addedPoints == 0)
         {
 
-            //Debug.Log(pointText.color.a);
-            if (pointText.color.a > startSize)
+            if (pointText.fontSize > startSize)
             {
-                pointText.color = new(pointText.color.r, pointText.color.g, pointText.color.b, pointText.color.a - 10f * Time.deltaTime);
+                pointText.fontSize -= growSpeed * Time.deltaTime;
             }
            else
            { 
                 pointText.text = string.Empty;
-                pointText.color = Color.white;
                 Timer = CurrentTime;
-                spawned = false;
-                var textObj = GameObject.FindGameObjectWithTag("Points");
-                Destroy(textObj, 0f);
+                spawned = false;;
            }
             
-
-            
-
         }
     }
 }

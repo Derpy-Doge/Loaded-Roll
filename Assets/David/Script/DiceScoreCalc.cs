@@ -277,7 +277,7 @@ public class DiceScoreCalc : MonoBehaviour
         {
             if (numlist[i].Count >= 3)
             {
-                addedPoints += ((numlist[i][0] * 100) * 3) * 10;
+                addedPoints += ((numlist[i][0] * 100) * 3) * 4;
             }
         }
     }
@@ -288,7 +288,8 @@ public class DiceScoreCalc : MonoBehaviour
         {
             if (numlist[i].Count >= 4)
             {
-                addedPoints += ((numlist[i][0] * 100) * 4) * 10;
+                Debug.Log(numlist[i]);
+                addedPoints += ((numlist[i][0] * 100) * 4) * 5;
             }
         }
     }
