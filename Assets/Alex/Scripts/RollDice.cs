@@ -6,7 +6,7 @@ using System.Linq;
 public class RollDice : MonoBehaviour
 {
     private Rigidbody rb;
-    public List<GlobalDie> diceTextures;
+    public List<GlobalDie> diceTextures = new () {null, null, null, null, null};
     [SerializeField] private float diceSpinCooldown;
     [SerializeField] private Transform diceCamera;
     [SerializeField] private bool follow;
@@ -75,6 +75,7 @@ public class RollDice : MonoBehaviour
     {
         for (int i = 0; i < dices.Count; i++)
         {
+            dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
             dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;
             dices[i].position = new Vector3(i - 2f, -2f, i - 2f);

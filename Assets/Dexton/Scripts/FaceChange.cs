@@ -8,10 +8,14 @@ public class FaceChange : MonoBehaviour
     void Start()
     {
         _faces = GetComponent<MeshRenderer>();
+        if (Dice != null)
+        {
+            UpdateDiceFaces();
+            
+        }
     }
     private void Update()
     {
-        //UpdateDiceFaces();
     }
 
     public void UpdateDiceFaces()

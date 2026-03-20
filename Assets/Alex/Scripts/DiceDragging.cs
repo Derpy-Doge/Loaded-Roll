@@ -13,11 +13,13 @@ public class DiceDragging : MonoBehaviour
     private DiceVisual currentSlot; 
     private bool hovering;
     public bool returning;
+    [HideInInspector] public FaceChange visualFC; 
     [HideInInspector] public bool Dragging;
 
     void Awake()
     {
         rect = GetComponent<RectTransform>();
+        visualFC = diceTF.GetComponent<FaceChange>();
     }
 
     public void SetSlot (DiceVisual slot)
@@ -86,7 +88,7 @@ public class DiceDragging : MonoBehaviour
     {
         float elapsed = 0f;
         Vector2 startPos = rect.anchoredPosition;
-        Debug.Log($"Start Position: {startPos}");
+        //Debug.Log($"Start Position: {startPos}");
         while (elapsed < 0.25f)//Change to variable later
         {
             elapsed += Time.deltaTime;

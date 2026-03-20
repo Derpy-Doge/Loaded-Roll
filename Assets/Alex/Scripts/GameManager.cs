@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private enum GameStates
+    public enum GameStates
     {
         Rolling = 0,
         Shop = 1,
+        Select = 2,
     }
     public static GameManager Instance;
 
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
     public int rolls; //the amount of rolls the player has taken this round
     public float currentRound; //The current round number for this debt installment /
 
-    private GameStates currentState = GameStates.Rolling;
+    [HideInInspector] public GameStates currentState = GameStates.Rolling;
 
     void Awake()
     {
@@ -31,6 +32,8 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("There is multiple Game Managers in this scene and it will not work properly");
         }
+        interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
+
     }
 
     void OnDestroy()
@@ -52,14 +55,14 @@ public class GameManager : MonoBehaviour
         {
             return false;
         }
-        else if (RollDice.Instance.diceTextures.Count != 5)
+        else if (RollDice.Instance.diceTextures.CheckNulls()) 
         {
             return false;
         }
 
 
         rolls++;
-
+        currentState = GameStates.Select; 
         return true;
     }
 
