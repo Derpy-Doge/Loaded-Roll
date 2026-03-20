@@ -42,7 +42,7 @@ public class RollDice : MonoBehaviour
     void Update()
     {
         timeSinceCalc -= Time.deltaTime;
-        if (!calculated && timeSinceCalc <= 0f)
+        if (!calculated && timeSinceCalc <= 0f && CalculateSpeed() < .2f)
         {
             calculated = true;
             ReadFaces();
@@ -91,6 +91,7 @@ public class RollDice : MonoBehaviour
     [ContextMenu("Read Faces")]
     private void ReadFaces()
     {
+        List<Face> rolledFaces = new();
         for (int i = 0; i < dices.Count; i++)
         {
             Dictionary<Vector3, Face> sides = new()

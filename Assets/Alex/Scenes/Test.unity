@@ -509,6 +509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 8
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 0
 --- !u!114 &221470640
 MonoBehaviour:
@@ -835,6 +836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 9
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 0
 --- !u!114 &373372397
 MonoBehaviour:
@@ -2479,6 +2481,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 7
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 0
 --- !u!114 &1303456815
 MonoBehaviour:
@@ -2864,8 +2867,10 @@ MonoBehaviour:
   interestIncrease: 0.02
   roundsPerDebt: 5
   rollsPerRound: 3
+  glowAmount: 2
   rolls: 0
   currentRound: 0
+  currentState: 0
 --- !u!4 &1516604058
 Transform:
   m_ObjectHideFlags: 0
@@ -3882,6 +3887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 10
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 0
 --- !u!114 &2024359455
 MonoBehaviour:
@@ -4138,6 +4144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 6
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 0
 --- !u!114 &2140801571
 MonoBehaviour:
@@ -4371,6 +4378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 5
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 0
 --- !u!1001 &4748813831692946359
 PrefabInstance:
@@ -4669,6 +4677,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 0
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 1
 --- !u!4 &6575636968718150168
 Transform:
@@ -4949,6 +4958,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 4
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 1
 --- !u!224 &9022303053187271230
 RectTransform:
@@ -4984,6 +4994,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 1
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 1
 --- !u!224 &9022303054511022227
 RectTransform:
@@ -5019,6 +5030,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 2
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 1
 --- !u!224 &9022303054777269109
 RectTransform:
@@ -5054,6 +5066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxIndex: 3
   currentDice: {fileID: 0}
+  selected: 0
   storageType: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

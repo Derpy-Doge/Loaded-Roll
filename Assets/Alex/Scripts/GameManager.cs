@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("The amount of rounds per debt installment")] [SerializeField] private int roundsPerDebt = 5;
     [Tooltip("The amount of rools per round")] [SerializeField] private int rollsPerRound = 3;
 
+    [Range(1f, 10f)] [SerializeField] private float glowAmount;
+
     public int rolls; //the amount of rolls the player has taken this round
     public float currentRound; //The current round number for this debt installment /
 
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("There is multiple Game Managers in this scene and it will not work properly");
         }
         interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
+        interestText.fontMaterial.SetVector("_FaceColor", new Vector4(glowAmount, 0.5f, 0.5f, 1.0f)); 
 
     }
 
@@ -72,4 +75,6 @@ public class GameManager : MonoBehaviour
         interest *= 1 + interestIncrease; 
         interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
     }
+
+
 }
