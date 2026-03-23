@@ -10,7 +10,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform inventoryWorldCenter;
     [SerializeField] private float clickRadius;
     [SerializeField] private LayerMask diceLayer; //should likely make this its own unique inventory one later
-    [SerializeField] Transform tempObj; //del me later
 
 
     public bool TryGetPosition(out Vector3 worldPos)
@@ -47,10 +46,6 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
-    void FixedUpdate()
-    {
-       
-    }
 
     public void Click(InputAction.CallbackContext ctx)
     {
