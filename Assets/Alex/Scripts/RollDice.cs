@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using System.Linq;
 
 public class RollDice : MonoBehaviour
@@ -17,9 +18,11 @@ public class RollDice : MonoBehaviour
     private float timeSinceCalc;
     private float calcCooldown = .25f;
 
+
     public static RollDice Instance;
 
-
+    [HideInInspector] public List<RawImage> resultFaces = new ();
+    [HideInInspector] public List<Face> rolledFaces = new ();
 
     void Start()
     {
@@ -37,6 +40,10 @@ public class RollDice : MonoBehaviour
             diceRB.Add(dices[i], dices[i].GetComponent<Rigidbody>());
         }
         rb = gameObject.GetComponent<Rigidbody>();
+        foreach (GameObject gO in GameObject.FindGameObjectsWithTag("FaceResults"))
+        {
+            resultFaces.Add(gO.GetComponent<RawImage>());
+        } 
     }
 
     void Update()
@@ -73,6 +80,7 @@ public class RollDice : MonoBehaviour
 
     IEnumerator Roll() //Make this seeded
     {
+        rolledFaces.Clear();
         for (int i = 0; i < dices.Count; i++)
         {
             dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
@@ -91,7 +99,6 @@ public class RollDice : MonoBehaviour
     [ContextMenu("Read Faces")]
     private void ReadFaces()
     {
-        List<Face> rolledFaces = new();
         for (int i = 0; i < dices.Count; i++)
         {
             Dictionary<Vector3, Face> sides = new()
@@ -106,10 +113,10 @@ public class RollDice : MonoBehaviour
 
             var ordered = sides.Select(item => item.Key).OrderByDescending(item => Vector3.Dot(item, Vector3.up));
 
-
-            int num = sides[ordered.FirstOrDefault()].pips;
+            rolledFaces.Add(sides[ordered.FirstOrDefault()]);
+            int num = rolledFaces[i].pips;
             sides[ordered.FirstOrDefault()].Effect.Invoke();
-
+            resultFaces[i].texture = rolledFaces[i].Texture;
             Debug.Log(num);
         }
     }

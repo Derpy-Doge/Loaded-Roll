@@ -81,11 +81,13 @@ public class DiceHolder : MonoBehaviour
                 {
                     hoveredSlot.selected = false;
                     hoveredSlot.currentDice.GetComponent<RawImage>().material = glow;
+                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = glow;
 
                 }
                 else
                 {
                     hoveredSlot.currentDice.GetComponent<RawImage>().material = purpleGlow;
+                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleGlow;
                     hoveredSlot.selected = true;
                     
                 }
