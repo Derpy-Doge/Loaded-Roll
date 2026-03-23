@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: 5a3c338c342071e4a8a44f8da8acb78e
+guid: 0acde112a2cfdf2499a4f66906d36d2a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6566870655106744466
-    second: Ball Monokuma_0
-  - first:
-      213: -5165320716126176942
-    second: Ball Monokuma_1
+      213: -6541457481321390780
+    second: gulp_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Ball Monokuma_0
+      name: gulp_0
       rect:
         serializedVersion: 2
-        x: 61
+        x: 0
         y: 0
-        width: 1219
-        height: 929
+        width: 421
+        height: 576
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,30 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 290039b6116322b50800000000000000
-      internalID: 6566870655106744466
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Ball Monokuma_1
-      rect:
-        serializedVersion: 2
-        x: 1238
-        y: 308
-        width: 42
-        height: 626
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 259355cfc281158b0800000000000000
-      internalID: -5165320716126176942
+      spriteID: 44d548034131835a0800000000000000
+      internalID: -6541457481321390780
       vertices: []
       indices: 
       edges: []
@@ -186,8 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Ball Monokuma_0: 6566870655106744466
-      Ball Monokuma_1: -5165320716126176942
+      gulp_0: -6541457481321390780
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
