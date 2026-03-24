@@ -3018,6 +3018,7 @@ GameObject:
   - component: {fileID: 1126293590}
   - component: {fileID: 1126293589}
   - component: {fileID: 1126293588}
+  - component: {fileID: 1126293592}
   m_Layer: 5
   m_Name: Inventory
   m_TagString: Untagged
@@ -3084,6 +3085,7 @@ MonoBehaviour:
   diceLayer:
     serializedVersion: 2
     m_Bits: 128
+  map: {fileID: 845122550}
 --- !u!114 &1126293590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3122,6 +3124,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1126293586}
   m_CullTransparentMesh: 1
+--- !u!114 &1126293592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126293586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13d2c8284a9a55246bdff849c1dea65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxIndex: 0
+  currentDice: {fileID: 0}
+  selected: 0
+  storageType: 0
 --- !u!1 &1162009117
 GameObject:
   m_ObjectHideFlags: 0

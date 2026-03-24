@@ -10,10 +10,10 @@ public class DiceDragging : MonoBehaviour
     public Transform diceTF;
     [SerializeField] private float rotationSpeed = 1f;
     private RectTransform rect;
-    private DiceVisual currentSlot; 
+    private DiceVisual currentSlot;
     private bool hovering;
     public bool returning;
-    [HideInInspector] public FaceChange visualFC; 
+    [HideInInspector] public FaceChange visualFC;
     [HideInInspector] public bool Dragging;
 
     void Awake()
@@ -22,13 +22,22 @@ public class DiceDragging : MonoBehaviour
         visualFC = diceTF.GetComponent<FaceChange>();
     }
 
-    public void SetSlot (DiceVisual slot)
+    public void SetSlot(DiceVisual slot)
     {
-        currentSlot = slot; 
+        currentSlot = slot;
         transform.SetParent(slot.transform);
         if (!returning)
         {
             rect.anchoredPosition = Vector3.zero;
+        }
+    }
+
+    public void SetSlot(DiceVisual.StorageType type)
+    {
+        if (type == DiceVisual.StorageType.Inventory)
+        {
+            currentSlot = null;
+            transform.SetParent(Inventory.Instance.transform);
         }
     }
 

@@ -10,7 +10,23 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform inventoryWorldCenter;
     [SerializeField] private float clickRadius;
     [SerializeField] private LayerMask diceLayer; //should likely make this its own unique inventory one later
+    [SerializeField] private Transform map;
 
+    [HideInInspector] public static Inventory Instance;
+
+    private Vector3 spawnPos;
+    private DiceHolder diceHolder;
+
+    private void Start()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("There is multiple inventory scripts in this scene.");
+        }
+        Instance = this;
+        spawnPos = map.position + new Vector3(0f, 3f, 0f);
+        diceHolder = DiceHolder.Instance;
+    }
 
     public bool TryGetPosition(out Vector3 worldPos)
     {
@@ -33,9 +49,9 @@ public class Inventory : MonoBehaviour
             return false;
         }
 
-        Vector3 vpPos = new (x, y, 0f);
+        Vector3 vpPos = new(x, y, 0f);
         Ray ray = inventoryCamera.ViewportPointToRay(vpPos);
-        Plane plane = new (inventoryWorldCenter.up, inventoryWorldCenter.position);
+        Plane plane = new(inventoryWorldCenter.up, inventoryWorldCenter.position);
 
         if (plane.Raycast(ray, out float distance))
         {
@@ -83,6 +99,11 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PlaceDice(DiceDragging dice)
+    {
+        dice.diceTF.transform.position = spawnPos;
     }
 
 }
