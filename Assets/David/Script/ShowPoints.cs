@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class ShowPoints : MonoBehaviour
 {
     [Header("Required Stuff")]
     public TMP_Text pointText;
+    public TMP_Text CalcTexts;
     public DiceScoreCalc Calc;
     public Spawner Spawn;
     [Space]
@@ -22,7 +24,7 @@ public class ShowPoints : MonoBehaviour
 
     private bool spawned = false;
 
-    [HideInInspector] public bool textFinished;
+    public bool textFinished;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -35,7 +37,7 @@ public class ShowPoints : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        TextCalc();
+
     }
 
 
@@ -71,56 +73,80 @@ public class ShowPoints : MonoBehaviour
         }
     }
 
-    private void TextCalc()
-    { 
-
-        if (Calc.addedPoints > 0)
-            {
-            if (!spawned)
-            {
-                pointText.text = string.Empty;
-                pointText.text += Calc.addedPoints.ToString();
-                pointText.color = Color.white;
-                ColorCalc();
-                spawned = true;
-            }
-
-            
-
-            if (pointText.fontSize < endSize)
-            {
-                pointText.fontSize += growSpeed * Time.deltaTime;
-            }
-
-            else
-            { 
-                Debug.Log("Points added: " + Calc.addedPoints);
-                Calc.points += Calc.addedPoints;
-                Timer = CurrentTime;
-                Calc.addedPoints = 0;
-            }
-
-            }
-        else if (Calc.addedPoints == 0 && pointText.fontSize >= endSize)
+    public IEnumerator CalcTextEnter()
+    {
+        while (CalcTexts.fontSize < endSize)
         {
-            Timer -= Time.deltaTime;
+            CalcTexts.fontSize += growSpeed * Time.deltaTime;
         }
+        yield return new WaitForSeconds((growSpeed / 100) + CurrentTime);
+    }
 
-
-        if (Timer <= 0 && Calc.addedPoints == 0)
+    public IEnumerator CalcTextExit()
+    {
+        while (CalcTexts.fontSize <= startSize)
         {
-
-            if (pointText.fontSize > startSize)
+            CalcTexts.fontSize -= growSpeed * Time.deltaTime;
+        }
+        yield return new WaitForSeconds((growSpeed / 100) + CurrentTime);
+    }
+    public IEnumerator TextCalc(float amount)
+    {
+        while (textFinished)
+        {
+            if (amount > 0)
             {
-                pointText.fontSize -= growSpeed * Time.deltaTime;
+                if (!spawned)
+                {
+                    pointText.text = string.Empty;
+                    pointText.text += amount.ToString();
+                    pointText.color = Color.white;
+                    ColorCalc();
+                    StartCoroutine(CalcTextEnter());
+                    spawned = true;
+                    
+                }
+
+
+
+                if (pointText.fontSize < endSize)
+                {
+                    pointText.fontSize += growSpeed * Time.deltaTime;
+                }
+
+                else
+                {
+                    Debug.Log("Points added: " + amount);
+                    Calc.points += amount;
+                    Timer = CurrentTime;
+                    amount = 0;
+                }
+
             }
-           else
-           { 
-                pointText.text = string.Empty;
-                Timer = CurrentTime;
-                spawned = false;;
-           }
-            
+            else if (amount == 0 && pointText.fontSize >= endSize)
+            {
+                Timer -= Time.deltaTime;
+            }
+
+
+            if (Timer <= 0 && amount == 0)
+            {
+
+                if (pointText.fontSize > startSize + 1)
+                {
+                    pointText.fontSize -= growSpeed * Time.deltaTime;
+                }
+                else
+                {
+                    pointText.text = string.Empty;
+                    Timer = CurrentTime;
+                    spawned = false;
+                    textFinished = false;
+
+                }
+
+            }
+            yield return null;
         }
     }
 }
