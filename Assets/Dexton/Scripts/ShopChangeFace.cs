@@ -6,8 +6,27 @@ public class ShopChangeFace : MonoBehaviour
 {
     public GameObject shopDie;
     public GlobalDie dieTexture;
+    public Face newFace;
 
-    public void ReadFace()
+    public void Start()
+    {
+        shopDie = GameObject.Find("ShopDie");
+        dieTexture = Resources.Load<GlobalDie>("ScriptableObjects/Dice/Do_Not_Use_This_Or_I_Will_Steal_All_Your_Bagels");
+    }
+
+    public void Awake()
+    {
+        //foreach (Face face in faces)
+        //{
+        //    if (face.name == gameObject.name)
+        //    {
+        //        newFace = face;
+        //        break;
+        //    }
+        //}
+    }
+
+    public void ChangeFace()
     {
         Dictionary<Vector3, Face> sides = new()
         {
@@ -19,9 +38,10 @@ public class ShopChangeFace : MonoBehaviour
             [shopDie.transform.forward] = dieTexture.Faces[Vector3.forward]
         };
 
-        var ordered = sides.Select(item => item.Key).OrderBy(item => Vector3.Dot(item, -Camera.main.transform.forward));
-        
-        Debug.Log(sides[ordered.FirstOrDefault()].name);
+        var ordered = sides.Select(item => item.Key).OrderBy(item => Vector3.Dot(item, Camera.main.transform.forward));
 
+        dieTexture.Faces[ordered.FirstOrDefault()] = newFace;
+
+        shopDie.GetComponent<FaceChange>().UpdateDiceFaces();
     }
 }

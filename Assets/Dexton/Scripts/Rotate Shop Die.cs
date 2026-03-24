@@ -6,7 +6,6 @@ using UnityEngine;
 public class RotateShopDie : MonoBehaviour
 {
     public GameObject shopDie;
-    public float lerpSpeed = 5f;
     private Vector3 rotateAmount;
     private int rotateFrames;
 
