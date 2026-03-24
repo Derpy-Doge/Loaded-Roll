@@ -20,7 +20,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     [HideInInspector] public bool selected;
     [SerializeField] StorageType storageType;
-    
+
     private DiceHolder holder;
 
     void Start()
@@ -29,13 +29,14 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
         if (transform.childCount > 0)
         {
-            currentDice = transform.GetChild(0).GetComponent<DiceDragging>();
-            currentDice.SetSlot(this);
             if (storageType == StorageType.Hotbar)
             {
+                currentDice = transform.GetChild(0).GetComponent<DiceDragging>();
+                currentDice.SetSlot(this);
                 RollDice.Instance.diceTextures[boxIndex] = currentDice.visualFC.Dice;
                 
             }
+            
         }
     }
 
@@ -86,13 +87,14 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             {
                 RollDice.Instance.diceTextures.Swap(boxIndex, dice.GetSlot().boxIndex);
             }
-            else if (storageType == StorageType.Inventory) //Moving dice from inventory slot to empty hotbar slot
+            else if (storageType == StorageType.Inventory) //Moving dice from hotbar slot to empty inventory slot
             {
-                Debug.Log($"Box Index: {boxIndex}");
-
+                Inventory.Instance.PlaceDice(dice);  
                 RollDice.Instance.diceTextures[dice.GetSlot().boxIndex] = null;
+                dice.SetSlot(StorageType.Inventory);
+                return;
             }
-            else //Moving dice from hotbar slot to empty inventory slot
+            else //Moving from inventory slot to empty hotbar slot
             {
                 Debug.Log($"Box Index: {boxIndex}");
                 RollDice.Instance.diceTextures[boxIndex] = dice.visualFC.Dice;
