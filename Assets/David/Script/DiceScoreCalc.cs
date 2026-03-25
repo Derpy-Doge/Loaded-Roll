@@ -61,12 +61,16 @@ public class DiceScoreCalc : MonoBehaviour
     {
         timer = show.CurrentTime;
         currentTime = timer;
-        SortDice();
+        
 
 
     }
+    private void Update()
+    {
+        SortDice();
+    }
 
-    public void SortDice()
+    private void SortDice()
     {
         // sorts dice functions by checking the value of each die and adding it to the appropriate list, then clears the list of dice values for the next roll
         for (int i = 0; i < diceValues.Count; i++)
