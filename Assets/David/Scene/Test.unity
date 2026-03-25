@@ -276,6 +276,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2888938464890188769, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888938464890188769, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
       propertyPath: m_fontSizeBase
       value: 0
       objectReference: {fileID: 0}
@@ -493,14 +497,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: 0
   addedPoints: 0
-  timer: 0
   show: {fileID: 1036734632}
   diceValues:
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
+  - 6
+  - 6
+  - 6
+  - 6
+  - 6
   - 6
   Oness: []
   Twoss: []
