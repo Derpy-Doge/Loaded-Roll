@@ -37,7 +37,7 @@ public class DiceDragging : MonoBehaviour
         if (type == DiceVisual.StorageType.Inventory)
         {
             currentSlot = null;
-            transform.SetParent(Inventory.Instance.transform);
+            transform.SetParent(Inventory.Instance.map);
         }
     }
 
