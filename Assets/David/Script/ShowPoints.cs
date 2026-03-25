@@ -22,6 +22,8 @@ public class ShowPoints : MonoBehaviour
     private float startSize = 0f;
     public float endSize;
 
+    private float colorPoints;
+
     private bool spawned = false;
 
     public bool textFinished;
@@ -43,55 +45,59 @@ public class ShowPoints : MonoBehaviour
 
     private void ColorCalc()
     {
-        if (Calc.addedPoints < 1000 && Calc.addedPoints >= 0)
+        if (colorPoints < 1000 && colorPoints >= 0)
         {
-        pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 0f, 1f));
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 0f, 1f));
         }
-        else if (Calc.addedPoints <= 5000 && Calc.addedPoints >= 1000)
+        else if (colorPoints <= 5000 && colorPoints >= 1000)
         {
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 0f, 0f, 1f));
         }
 
-        else if (Calc.addedPoints <= 10000 && Calc.addedPoints > 5000)
+        else if (colorPoints <= 10000 && colorPoints > 5000)
         {
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 0f, 1f, 1f));
         }
 
-        else if (Calc.addedPoints <= 20000 && Calc.addedPoints > 10000)
+        else if (colorPoints <= 20000 && colorPoints > 10000)
         {
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 0f, 1f));
         }
 
-        else if (Calc.addedPoints <= 30000 && Calc.addedPoints > 20000)
+        else if (colorPoints <= 30000 && colorPoints > 20000)
         {
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 0f, 1f, 1f));
         }
 
-           else if (Calc.addedPoints <= 40000 && Calc.addedPoints > 30000)
-            {
+        else if (colorPoints <= 40000 && colorPoints > 30000)
+        {
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 1f, 1f));
         }
     }
 
-    public IEnumerator CalcTextEnter()
+    private IEnumerator CalcTextEnter()
     {
         while (CalcTexts.fontSize < endSize)
         {
             CalcTexts.fontSize += growSpeed * Time.deltaTime;
+            yield return null;
         }
-        yield return new WaitForSeconds((growSpeed / 100) + CurrentTime);
+
     }
 
-    public IEnumerator CalcTextExit()
+    private IEnumerator CalcTextExit()
     {
-        while (CalcTexts.fontSize <= startSize)
+        while (CalcTexts.fontSize > startSize)
         {
-            CalcTexts.fontSize -= growSpeed * Time.deltaTime;
+            CalcTexts.fontSize -= (growSpeed / 2) * Time.deltaTime;
+            yield return null;
         }
-        yield return new WaitForSeconds((growSpeed / 100) + CurrentTime);
     }
+
+
     public IEnumerator TextCalc(float amount)
     {
+        colorPoints = amount;
         while (textFinished)
         {
             if (amount > 0)
@@ -104,7 +110,7 @@ public class ShowPoints : MonoBehaviour
                     ColorCalc();
                     StartCoroutine(CalcTextEnter());
                     spawned = true;
-                    
+
                 }
 
 
@@ -131,10 +137,68 @@ public class ShowPoints : MonoBehaviour
 
             if (Timer <= 0 && amount == 0)
             {
-
+                StartCoroutine(CalcTextExit());
                 if (pointText.fontSize > startSize + 1)
                 {
-                    pointText.fontSize -= growSpeed * Time.deltaTime;
+                    pointText.fontSize -= (growSpeed * 2) * Time.deltaTime;
+                }
+                else
+                {
+                    pointText.text = string.Empty;
+                    Timer = CurrentTime;
+                    spawned = false;
+                    textFinished = false;
+
+                }
+
+            }
+            yield return null;
+        }
+    }
+
+    public IEnumerator TotalCalc()
+    {
+        while (textFinished)
+        {
+            if (!spawned)
+            {
+                pointText.text = string.Empty;
+                pointText.text += Calc.points.ToString();
+                pointText.color = Color.white;
+                ColorCalc();
+                StartCoroutine(CalcTextEnter());
+                spawned = true;
+
+            }
+
+
+
+            if (pointText.fontSize < endSize)
+            {
+                pointText.fontSize += growSpeed * Time.deltaTime;
+            }
+            else
+            {
+                Timer = CurrentTime;
+            }
+
+
+            Timer += 5f;
+
+
+
+            if (pointText.fontSize >= endSize)
+            {
+                Timer -= Time.deltaTime;
+            }
+
+
+            if (Timer <= 0)
+            {
+                StartCoroutine(CalcTextExit());
+                if (pointText.fontSize > startSize + 1)
+                {
+                    pointText.fontSize -= (growSpeed * 2) * Time.deltaTime;
                 }
                 else
                 {
@@ -150,3 +214,4 @@ public class ShowPoints : MonoBehaviour
         }
     }
 }
+

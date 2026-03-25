@@ -1,6 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System.Collections;
+using System.Collections.Generic;
+
+
 
 
 public class Inventory : MonoBehaviour
@@ -10,7 +14,30 @@ public class Inventory : MonoBehaviour
     [SerializeField] Transform inventoryWorldCenter;
     [SerializeField] private float clickRadius;
     [SerializeField] private LayerMask diceLayer; //should likely make this its own unique inventory one later
+    public Transform map;
 
+    [HideInInspector] public static Inventory Instance;
+
+    private GameObject dicePrefab;
+    private List<GameObject> diceInv;
+    
+    private Vector3 spawnPos;
+    private DiceHolder diceHolder;
+
+    private void Start()
+    {
+        if (Instance != null)
+        {
+            Debug.LogError("There is multiple inventory scripts in this scene.");
+        }
+        Instance = this;
+
+        dicePrefab = Resources.Load<GameObject>("Prefabs/DiceInventory");
+        spawnPos = map.position + new Vector3(0f, 3f, 0f);
+        diceHolder = DiceHolder.Instance;
+    }
+
+   
 
     public bool TryGetPosition(out Vector3 worldPos)
     {
@@ -33,9 +60,9 @@ public class Inventory : MonoBehaviour
             return false;
         }
 
-        Vector3 vpPos = new (x, y, 0f);
+        Vector3 vpPos = new(x, y, 0f);
         Ray ray = inventoryCamera.ViewportPointToRay(vpPos);
-        Plane plane = new (inventoryWorldCenter.up, inventoryWorldCenter.position);
+        Plane plane = new(inventoryWorldCenter.up, inventoryWorldCenter.position);
 
         if (plane.Raycast(ray, out float distance))
         {
@@ -83,6 +110,20 @@ public class Inventory : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void PlaceDice(DiceDragging dice)
+    {
+        //dice.diceTF.transform.position = spawnPos;
+        GameObject newDice = Instantiate(dicePrefab, spawnPos, Quaternion.identity);
+        MeshRenderer mr = newDice.GetComponent<MeshRenderer>(); 
+        MeshRenderer nmr = dice.diceTF.GetComponent<MeshRenderer>();
+        for (int i = 0; i < 6; i++)
+        {
+            mr.materials[i].SetTexture("_BaseMap", nmr.materials[i].GetTexture("_BaseMap"));
+        }
+        diceInv.Add(newDice);
+        
     }
 
 }

@@ -6,8 +6,6 @@ using UnityEngine;
 public class RotateShopDie : MonoBehaviour
 {
     public GameObject shopDie;
-    private Quaternion rotation;
-    public float lerpSpeed = 5f;
     private Vector3 rotateAmount;
     private int rotateFrames;
 
@@ -18,9 +16,6 @@ public class RotateShopDie : MonoBehaviour
         shopDie = this.gameObject;
     }
 
-    private void Update()
-    {
-    }
     private void FixedUpdate()
     {
         if (rotateFrames > 0)
@@ -28,7 +23,6 @@ public class RotateShopDie : MonoBehaviour
             shopDie.transform.Rotate(rotateAmount.normalized*5, Space.World);
         }
         rotateFrames--;
-
     }
 
     public void Rotate(string direction)
@@ -38,10 +32,6 @@ public class RotateShopDie : MonoBehaviour
         rotateAmount = rotationDictionary[Enum.Parse<RotationDirection>(direction)];
         rotateFrames = 18;
     }
-
-
-
-
 
     public enum RotationDirection
     {
