@@ -45,7 +45,14 @@ public class ShowPoints : MonoBehaviour
 
     private void ColorCalc()
     {
-        if (colorPoints < 1000 && colorPoints >= 0)
+        if (colorPoints == 0)
+
+        {
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 0f, 0f, 1f));
+            pointText.color = Color.red;
+        }
+
+        else if (colorPoints < 1000 && colorPoints >= 0)
         {
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 1f, 0f, 1f));
         }
@@ -89,7 +96,7 @@ public class ShowPoints : MonoBehaviour
     {
         while (CalcTexts.fontSize > startSize)
         {
-            CalcTexts.fontSize -= (growSpeed / 2) * Time.deltaTime;
+            CalcTexts.fontSize -= (growSpeed / 10f) * Time.deltaTime;
             yield return null;
         }
     }
@@ -100,36 +107,35 @@ public class ShowPoints : MonoBehaviour
         colorPoints = amount;
         while (textFinished)
         {
-            if (amount > 0)
+            if (!spawned)
             {
-                if (!spawned)
-                {
-                    pointText.text = string.Empty;
-                    pointText.text += amount.ToString();
-                    pointText.color = Color.white;
-                    ColorCalc();
-                    StartCoroutine(CalcTextEnter());
-                    spawned = true;
-
-                }
-
-
-
-                if (pointText.fontSize < endSize)
-                {
-                    pointText.fontSize += growSpeed * Time.deltaTime;
-                }
-
-                else
-                {
-                    Debug.Log("Points added: " + amount);
-                    Calc.points += amount;
-                    Timer = CurrentTime;
-                    amount = 0;
-                }
+                pointText.text = string.Empty;
+                pointText.text += amount.ToString();
+                pointText.color = Color.white;
+                pointText.fontMaterial.SetVector("_GlowColor", new Vector4(0f, 0f, 0f, 1f));
+                ColorCalc();
+                StartCoroutine(CalcTextEnter());
+                spawned = true;
 
             }
-            else if (amount == 0 && pointText.fontSize >= endSize)
+
+
+
+            if (pointText.fontSize < endSize)
+            {
+                pointText.fontSize += growSpeed * Time.deltaTime;
+            }
+
+            else
+            {
+                Debug.Log("Points added: " + amount);
+                Calc.addedPoints += amount;
+                Timer = CurrentTime;
+                amount = 0;
+            }
+
+        
+             if (amount == 0 && pointText.fontSize >= endSize)
             {
                 Timer -= Time.deltaTime;
             }
@@ -158,12 +164,13 @@ public class ShowPoints : MonoBehaviour
 
     public IEnumerator TotalCalc()
     {
+        colorPoints = Calc.addedPoints;
         while (textFinished)
         {
             if (!spawned)
             {
                 pointText.text = string.Empty;
-                pointText.text += Calc.points.ToString();
+                pointText.text += Calc.addedPoints.ToString();
                 pointText.color = Color.white;
                 ColorCalc();
                 StartCoroutine(CalcTextEnter());
@@ -181,11 +188,6 @@ public class ShowPoints : MonoBehaviour
             {
                 Timer = CurrentTime;
             }
-
-
-            Timer += 5f;
-
-
 
             if (pointText.fontSize >= endSize)
             {
@@ -206,6 +208,7 @@ public class ShowPoints : MonoBehaviour
                     Timer = CurrentTime;
                     spawned = false;
                     textFinished = false;
+                    Calc.points += Calc.addedPoints;
 
                 }
 
