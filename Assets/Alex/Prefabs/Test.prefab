@@ -85,5 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13d2c8284a9a55246bdff849c1dea65e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceTF: {fileID: 0}
-  rotationSpeed: 1
+  boxIndex: 0
+  currentDice: {fileID: 0}
+  selected: 0
+  storageType: 0

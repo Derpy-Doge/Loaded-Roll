@@ -1,10 +1,5 @@
 fileFormatVersion: 2
 guid: faa17c5f81c60c74bb083f52a1e535c7
-TextScriptImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 309659
@@ -12,3 +7,8 @@ AssetOrigin:
   packageVersion: 1.0
   assetPath: Assets/ClipboardPlus/package.json
   uploadId: 730182
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

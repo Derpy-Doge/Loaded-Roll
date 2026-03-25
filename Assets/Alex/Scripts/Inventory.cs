@@ -13,6 +13,8 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Camera inventoryCamera;
     [SerializeField] Transform inventoryWorldCenter;
     [SerializeField] private float clickRadius;
+    [SerializeField] private float pullRadius = 5f;
+
     [SerializeField] private LayerMask diceLayer; //should likely make this its own unique inventory one later
     public Transform map;
 
@@ -23,6 +25,7 @@ public class Inventory : MonoBehaviour
     
     private Vector3 spawnPos;
     private DiceHolder diceHolder;
+    private bool pulling;
 
     private void Start()
     {
@@ -37,7 +40,13 @@ public class Inventory : MonoBehaviour
         diceHolder = DiceHolder.Instance;
     }
 
-   
+    private void FixedUpdate()
+    {
+        if (pulling)
+        {
+            HandlePull();
+        }
+    }
 
     public bool TryGetPosition(out Vector3 worldPos)
     {
@@ -80,33 +89,72 @@ public class Inventory : MonoBehaviour
         {
             return;
         }
-        else
+
+        if (TryGetPosition(out Vector3 pos))
         {
-            if (TryGetPosition(out Vector3 pos))
+            Collider[] hits = Physics.OverlapSphere(pos, clickRadius, diceLayer);
+            Collider closest = null;
+            float minDist = 0f;
+
+            for (int i = 0; i < hits.Length; i++)
             {
-                Collider[] hits = Physics.OverlapSphere(pos, clickRadius, diceLayer);
-                Collider closest = null;
-                float minDist = 0f;
-
-                for (int i = 0; i < hits.Length; i++)
+                float dist = Vector3.Distance(pos, hits[i].transform.position);
+                if (i == 0)
                 {
-                    float dist = Vector3.Distance(pos, hits[i].transform.position);
-                    if (i == 0)
-                    {
-                        minDist = dist;
-                        closest = hits[i];
+                    minDist = dist;
+                    closest = hits[i];
 
-                    }
-
-                    if (dist < minDist)
-                    {
-                        minDist = dist;
-                        closest = hits[i];
-                    }
                 }
-                if (closest != null)
+
+                if (dist < minDist)
                 {
-                    Debug.Log(closest.gameObject.name);
+                    minDist = dist;
+                    closest = hits[i];
+                }
+            }
+            if (closest != null)
+            {
+                Debug.Log(closest.gameObject.name);
+            }
+        }
+
+    }
+
+    public void RightClick(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            pulling = true;
+
+        }
+        else if (ctx.canceled)
+        {
+            pulling = false;
+
+        }
+
+       
+    }
+
+    private void HandlePull()
+    {
+        if (TryGetPosition(out Vector3 pos))
+        {
+            Debug.Log(pos.ToString());
+            Collider[] hits = Physics.OverlapSphere(pos, pullRadius, diceLayer);
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Vector3 direction = pos - hits[i].transform.position;
+                direction.y = 0f;
+                if (Vector3.Distance(pos, direction) > 1f)
+                {
+                    Rigidbody rb = hits[i].gameObject.GetComponent<Rigidbody>();
+                    rb.AddForce(direction * 5f, ForceMode.Impulse);
+                    rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, 10f);
+                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -100, 2f), rb.linearVelocity.z);
+
+
                 }
             }
         }

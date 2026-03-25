@@ -1,10 +1,5 @@
 fileFormatVersion: 2
 guid: e3d492d93555141479a7fb02383f8bc6
-TextScriptImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 353186
@@ -12,3 +7,8 @@ AssetOrigin:
   packageVersion: 1.0.0
   assetPath: Packages/ca.tim-cstj.fast-play/LICENSE.md
   uploadId: 843378
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
