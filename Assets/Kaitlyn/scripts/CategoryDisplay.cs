@@ -14,7 +14,7 @@ public class CategoryDisplay : MonoBehaviour
     void Start()
     {
         categoryDisplayObject = this.gameObject;
-        calc = DiceScoreCalc.Instance;
+        calc = FindAnyObjectByType<DiceScoreCalc>();
     }
 
     
