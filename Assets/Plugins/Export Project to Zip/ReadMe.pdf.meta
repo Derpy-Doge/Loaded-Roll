@@ -1,10 +1,5 @@
 fileFormatVersion: 2
 guid: 1a3e0cdc0feb2e74ab97d0656213a019
-DefaultImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 243983
@@ -12,3 +7,8 @@ AssetOrigin:
   packageVersion: 1.1.5
   assetPath: Packages/ca.tim-cstj.export-project-to-zip/ReadMe.pdf
   uploadId: 843732
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

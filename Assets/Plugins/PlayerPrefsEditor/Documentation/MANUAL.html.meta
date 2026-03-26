@@ -1,10 +1,5 @@
 fileFormatVersion: 2
 guid: 03d31859f447a4246befec42b62f5e6c
-TextScriptImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 167903
@@ -12,3 +7,8 @@ AssetOrigin:
   packageVersion: 1.2.4
   assetPath: Assets/PlayerPrefsEditor/Documentation/MANUAL.html
   uploadId: 782444
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

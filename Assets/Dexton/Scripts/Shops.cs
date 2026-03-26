@@ -1,11 +1,12 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shops : MonoBehaviour
 {
     public GameObject shopArea;
     public GameObject buyButton;
     public Face[] faces;
-
+    public ShopChangeFace shopChangeFace;
 
     public void Awake()
     {
@@ -21,8 +22,8 @@ public class Shops : MonoBehaviour
         {
             GameObject instance = Instantiate(buyButton, shopArea.transform);
             
-            instance.GetComponent<ShopChangeFace>().newFace = face;
             instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(face.name);
+            instance.GetComponent<Button>().onClick.AddListener(() => shopChangeFace.ChangeFace(face));
         }
     }
 

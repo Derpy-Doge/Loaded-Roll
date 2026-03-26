@@ -390,10 +390,11 @@ MonoBehaviour:
   inventoryCamera: {fileID: 858144059}
   inventoryWorldCenter: {fileID: 770794929}
   clickRadius: 1
+  pullRadius: 5
   diceLayer:
     serializedVersion: 2
     m_Bits: 128
-  tempObj: {fileID: 1920698354}
+  map: {fileID: 0}
 --- !u!114 &464492651
 MonoBehaviour:
   m_ObjectHideFlags: 0
