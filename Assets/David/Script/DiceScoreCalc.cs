@@ -14,7 +14,7 @@ public class DiceScoreCalc : MonoBehaviour
 
     public float points;
     [HideInInspector]public float addedPoints;
-    private float showpoint = 0f;
+    [HideInInspector]public float showpoint = 0f;
 
     public ShowPoints show;
 
@@ -161,15 +161,13 @@ public class DiceScoreCalc : MonoBehaviour
                 
             }
             StartCoroutine(show.TextCalc(showpoint));
-                yield return new WaitForSeconds((show.growSpeed / 100) + show.CurrentTime);
+            yield return new WaitForSeconds((show.growSpeed / 100) + show.CurrentTime);
             
         }
-         
+        Debug.Log("ones finished");
 
         if (Twoss.Count == 0)
         {
-            points += 0;
-            Debug.Log(points);
             if (showpoint == 0)
             {
                 show.CalcTexts.text = "Standard\n2";
@@ -307,11 +305,11 @@ public class DiceScoreCalc : MonoBehaviour
             yield return new WaitForSeconds((show.growSpeed / 100) + show.CurrentTime);
 
         }
+        yield return new WaitForSeconds((show.growSpeed / 100) + show.CurrentTime);
     }
 
     private IEnumerator ThreeOfAKind()
     {
-        
         if (!show.textFinished)
         {
             
@@ -327,18 +325,21 @@ public class DiceScoreCalc : MonoBehaviour
                     yield return new WaitForSeconds((show.growSpeed / 100) + show.CurrentTime);
                 }
 
-                else
+                
+
+
+            }
+            if (showpoint == 0)
                 {
+                    Debug.Log("nothreeofakind");
                     showpoint = 0;
                     StartCoroutine(show.TextCalc(showpoint));
                     yield return new WaitForSeconds((show.growSpeed / 100) + show.CurrentTime);
                 }
-                    yield return null;
-            }
-            
             
         }
-        
+        yield return new WaitForSeconds((show.growSpeed / 100) + show.CurrentTime);
+
     }
 
     private IEnumerator FourOfAKind()
@@ -427,10 +428,10 @@ public class DiceScoreCalc : MonoBehaviour
 
     private IEnumerator SmallStraight()
     {
-        Debug.Log("is smal straight running");
+       
         if (!show.textFinished)
         {
-            
+             Debug.Log("is smal straight running");
             Debug.Log("Small straight starts");
             if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1)
             {
