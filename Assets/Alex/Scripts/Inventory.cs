@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] private List<Camera> cameras = new ();
+    private List <int> openCameras = new List<int> ();
+
     [SerializeField] private RawImage inventoryImage;
     [SerializeField] private Camera inventoryCamera;
     [SerializeField] Transform inventoryWorldCenter;
@@ -21,7 +24,7 @@ public class Inventory : MonoBehaviour
     [HideInInspector] public static Inventory Instance;
 
     private GameObject dicePrefab;
-    private List<GameObject> diceInv;
+    private List<GameObject> diceInv = new();
     
     private Vector3 spawnPos;
     private DiceHolder diceHolder;
@@ -34,6 +37,8 @@ public class Inventory : MonoBehaviour
             Debug.LogError("There is multiple inventory scripts in this scene.");
         }
         Instance = this;
+
+        openCameras.Add(5);
 
         dicePrefab = Resources.Load<GameObject>("Prefabs/DiceInventory");
         spawnPos = map.position + new Vector3(0f, 3f, 0f);
@@ -140,7 +145,6 @@ public class Inventory : MonoBehaviour
     {
         if (TryGetPosition(out Vector3 pos))
         {
-            Debug.Log(pos.ToString());
             Collider[] hits = Physics.OverlapSphere(pos, pullRadius, diceLayer);
 
             for (int i = 0; i < hits.Length; i++)
@@ -160,6 +164,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void Scroll(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && pulling)
+        {
+            pullRadius = Mathf.Clamp(pullRadius + ctx.ReadValue<Vector2>().y, 1f, 10f);
+        }
+    }
+
     public void PlaceDice(DiceDragging dice)
     {
         //dice.diceTF.transform.position = spawnPos;
@@ -171,7 +183,10 @@ public class Inventory : MonoBehaviour
             mr.materials[i].SetTexture("_BaseMap", nmr.materials[i].GetTexture("_BaseMap"));
         }
         diceInv.Add(newDice);
+        Destroy(dice.gameObject);
         
     }
+
+
 
 }
