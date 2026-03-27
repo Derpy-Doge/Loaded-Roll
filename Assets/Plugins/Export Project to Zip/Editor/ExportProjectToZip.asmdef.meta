@@ -1,10 +1,5 @@
 fileFormatVersion: 2
 guid: bb2a5b79ad3d259459a862f6d3003a3f
-AssemblyDefinitionImporter:
-  externalObjects: {}
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 
 AssetOrigin:
   serializedVersion: 1
   productId: 243983
@@ -12,3 +7,8 @@ AssetOrigin:
   packageVersion: 1.1.5
   assetPath: Packages/ca.tim-cstj.export-project-to-zip/Editor/ExportProjectToZip.asmdef
   uploadId: 843732
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

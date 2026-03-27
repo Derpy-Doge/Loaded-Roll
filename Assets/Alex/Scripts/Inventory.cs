@@ -9,20 +9,26 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
+    [SerializeField] private List<Camera> cameras = new ();
+    private List <int> openCameras = new List<int> ();
+
     [SerializeField] private RawImage inventoryImage;
     [SerializeField] private Camera inventoryCamera;
     [SerializeField] Transform inventoryWorldCenter;
     [SerializeField] private float clickRadius;
+    [SerializeField] private float pullRadius = 5f;
+
     [SerializeField] private LayerMask diceLayer; //should likely make this its own unique inventory one later
     public Transform map;
 
     [HideInInspector] public static Inventory Instance;
 
     private GameObject dicePrefab;
-    private List<GameObject> diceInv;
+    private List<GameObject> diceInv = new();
     
     private Vector3 spawnPos;
     private DiceHolder diceHolder;
+    private bool pulling;
 
     private void Start()
     {
@@ -32,12 +38,20 @@ public class Inventory : MonoBehaviour
         }
         Instance = this;
 
+        openCameras.Add(5);
+
         dicePrefab = Resources.Load<GameObject>("Prefabs/DiceInventory");
         spawnPos = map.position + new Vector3(0f, 3f, 0f);
         diceHolder = DiceHolder.Instance;
     }
 
-   
+    private void FixedUpdate()
+    {
+        if (pulling)
+        {
+            HandlePull();
+        }
+    }
 
     public bool TryGetPosition(out Vector3 worldPos)
     {
@@ -80,35 +94,81 @@ public class Inventory : MonoBehaviour
         {
             return;
         }
-        else
+
+        if (TryGetPosition(out Vector3 pos))
         {
-            if (TryGetPosition(out Vector3 pos))
+            Collider[] hits = Physics.OverlapSphere(pos, clickRadius, diceLayer);
+            Collider closest = null;
+            float minDist = 0f;
+
+            for (int i = 0; i < hits.Length; i++)
             {
-                Collider[] hits = Physics.OverlapSphere(pos, clickRadius, diceLayer);
-                Collider closest = null;
-                float minDist = 0f;
-
-                for (int i = 0; i < hits.Length; i++)
+                float dist = Vector3.Distance(pos, hits[i].transform.position);
+                if (i == 0)
                 {
-                    float dist = Vector3.Distance(pos, hits[i].transform.position);
-                    if (i == 0)
-                    {
-                        minDist = dist;
-                        closest = hits[i];
+                    minDist = dist;
+                    closest = hits[i];
 
-                    }
-
-                    if (dist < minDist)
-                    {
-                        minDist = dist;
-                        closest = hits[i];
-                    }
                 }
-                if (closest != null)
+
+                if (dist < minDist)
                 {
-                    Debug.Log(closest.gameObject.name);
+                    minDist = dist;
+                    closest = hits[i];
                 }
             }
+            if (closest != null)
+            {
+                Debug.Log(closest.gameObject.name);
+            }
+        }
+
+    }
+
+    public void RightClick(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            pulling = true;
+
+        }
+        else if (ctx.canceled)
+        {
+            pulling = false;
+
+        }
+
+       
+    }
+
+    private void HandlePull()
+    {
+        if (TryGetPosition(out Vector3 pos))
+        {
+            Collider[] hits = Physics.OverlapSphere(pos, pullRadius, diceLayer);
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Vector3 direction = pos - hits[i].transform.position;
+                direction.y = 0f;
+                if (Vector3.Distance(pos, direction) > 1f)
+                {
+                    Rigidbody rb = hits[i].gameObject.GetComponent<Rigidbody>();
+                    rb.AddForce(direction * 5f, ForceMode.Impulse);
+                    rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, 10f);
+                    rb.linearVelocity = new Vector3(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -100, 2f), rb.linearVelocity.z);
+
+
+                }
+            }
+        }
+    }
+
+    public void Scroll(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && pulling)
+        {
+            pullRadius = Mathf.Clamp(pullRadius + ctx.ReadValue<Vector2>().y, 1f, 10f);
         }
     }
 
@@ -123,7 +183,10 @@ public class Inventory : MonoBehaviour
             mr.materials[i].SetTexture("_BaseMap", nmr.materials[i].GetTexture("_BaseMap"));
         }
         diceInv.Add(newDice);
+        Destroy(dice.gameObject);
         
     }
+
+
 
 }

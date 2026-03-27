@@ -39,6 +39,12 @@ public class DiceHolder : MonoBehaviour
                 {
                     //Debug.Log("SLOT FOUND");
                     hoveredSlot.PlaceDice(heldDice);
+                    if (hoveredSlot.GetStorageType() == DiceVisual.StorageType.Inventory)
+                    {
+                        heldDice = null;
+                        originalSlot = null;
+                        return;
+                    }
                 }
                 else
                 {

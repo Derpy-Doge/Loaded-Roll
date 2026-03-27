@@ -956,7 +956,7 @@ Transform:
   m_GameObject: {fileID: 403087519}
   serializedVersion: 2
   m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalPosition: {x: 0, y: 23.4, z: -5}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1777,6 +1777,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1126293589}
+        m_TargetAssemblyTypeName: Inventory, Alex
+        m_MethodName: RightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 834a191a-c4de-45dd-a9c4-4e8e6cd90101
+    m_ActionName: 'Player/RightClick[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
@@ -1923,7 +1939,7 @@ Transform:
   m_GameObject: {fileID: 735445981}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -5, y: 0, z: 0}
+  m_LocalPosition: {x: -3.333, y: 23.4, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3082,6 +3098,7 @@ MonoBehaviour:
   inventoryCamera: {fileID: 1211583292}
   inventoryWorldCenter: {fileID: 845122550}
   clickRadius: 1
+  pullRadius: 5
   diceLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -3307,8 +3324,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 4.6
-  orthographic: 1
+  field of view: 35.6
+  orthographic: 0
   orthographic size: 11.5
   m_Depth: 0
   m_CullingMask:
@@ -3334,7 +3351,7 @@ Transform:
   m_GameObject: {fileID: 1211583290}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0.7071068, w: 0}
-  m_LocalPosition: {x: -25, y: 10, z: -25}
+  m_LocalPosition: {x: -25, y: 53, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4129,7 +4146,7 @@ Transform:
   m_GameObject: {fileID: 1550419849}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: -0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: 23.4, z: 5}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4783,7 +4800,7 @@ Transform:
   m_GameObject: {fileID: 1704463694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 5, y: 0, z: 0}
+  m_LocalPosition: {x: 3.333, y: 23.4, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
