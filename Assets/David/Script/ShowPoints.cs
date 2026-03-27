@@ -16,7 +16,7 @@ public class ShowPoints : MonoBehaviour
     public float CurrentTime;
     [Space]
     [Header("How Fast Should Text Pop-Up")]
-    public float growSpeed;
+    [Range(200,10000)]public float growSpeed;
     [Space]
     [Header("How large Should It Be")]
     private float startSize = 0f;
