@@ -7,6 +7,7 @@ public class ShopChangeFace : MonoBehaviour
 {
     private GameObject _shopDie;
     private GlobalDie _dieTexture;
+    public DiceScoreCalc diceScoreCalc;
 
     public void Start()
     {
@@ -16,14 +17,7 @@ public class ShopChangeFace : MonoBehaviour
 
     public void Awake()
     {
-        //foreach (Face face in faces)
-        //{
-        //    if (face.name == gameObject.name)
-        //    {
-        //        newFace = face;
-        //        break;
-        //    }
-        //}
+       diceScoreCalc = FindAnyObjectByType<DiceScoreCalc>();
     }
 
     public void ChangeFace(Face newFace)
@@ -41,7 +35,10 @@ public class ShopChangeFace : MonoBehaviour
         var ordered = sides.Select(item => item.Key).OrderBy(item => Vector3.Dot(item, Camera.main.transform.forward));
 
         Vector3 index = sides[ordered.FirstOrDefault()].Item2;
+
         _dieTexture.Faces[index] = newFace;
+
+        diceScoreCalc.points -= newFace.price;
 
         _shopDie.GetComponent<FaceChange>().UpdateDiceFaces();
     }
