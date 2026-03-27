@@ -70,7 +70,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             float rotX = eventData.delta.y; 
             float rotY = eventData.delta.x; 
-            float rotZ = eventData.delta.x; //change this later
+            float rotZ = -eventData.delta.x; //change this later
             currentDice.diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
         }
     }

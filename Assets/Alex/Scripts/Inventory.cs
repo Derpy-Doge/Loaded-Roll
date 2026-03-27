@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Constraints;
 
 
 
@@ -56,6 +57,15 @@ public class Inventory : MonoBehaviour
     public bool TryGetPosition(out Vector3 worldPos)
     {
         worldPos = Vector3.zero;
+
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //if (Physics.Raycast(ray, out RaycastHit hit))
+        //{
+        //    worldPos = hit.point;
+        //    return true;
+        //}
+
+        //return false;
 
         RectTransform rectTransform = inventoryImage.rectTransform;
 
@@ -175,7 +185,9 @@ public class Inventory : MonoBehaviour
     public void PlaceDice(DiceDragging dice)
     {
         //dice.diceTF.transform.position = spawnPos;
-        GameObject newDice = Instantiate(dicePrefab, spawnPos, Quaternion.identity);
+        TryGetPosition(out Vector3 pos);
+        Debug.Log(dice.diceTF.rotation);
+        GameObject newDice = Instantiate(dicePrefab, new Vector3(pos.x, 3f, pos.z), dice.diceTF.rotation);
         MeshRenderer mr = newDice.GetComponent<MeshRenderer>(); 
         MeshRenderer nmr = dice.diceTF.GetComponent<MeshRenderer>();
         for (int i = 0; i < 6; i++)

@@ -59,7 +59,7 @@ public class DiceDragging : MonoBehaviour
 
         float rotX = mousePos.y * rotationSpeed; //could prob multiply these by time.deltatime
         float rotY = mousePos.x * rotationSpeed; 
-        float rotZ = mousePos.x * rotationSpeed; 
+        float rotZ = -mousePos.x * rotationSpeed; 
         diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
 
     }
@@ -97,10 +97,10 @@ public class DiceDragging : MonoBehaviour
         float elapsed = 0f;
         Vector2 startPos = rect.anchoredPosition;
         //Debug.Log($"Start Position: {startPos}");
-        while (elapsed < 0.25f)//Change to variable later
+        while (elapsed < 0.15f)//Change to variable later
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / 0.25f;
+            float t = elapsed / 0.15f;
             rect.anchoredPosition = Vector2.Lerp(startPos, Vector2.zero, t);
             diceTF.Rotate((-startPos.normalized) * 200f * Time.deltaTime);
             yield return null;
