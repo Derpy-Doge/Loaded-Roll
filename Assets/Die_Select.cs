@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Shops : MonoBehaviour
+public class Die_Select : MonoBehaviour
 {
     public ShopChangeFace shopChangeFace;
-    public Face[] faces;
+    public GlobalDie[] dice;
 
     public GameObject shopArea, buyButton;
 
@@ -12,17 +12,18 @@ public class Shops : MonoBehaviour
     {
         shopArea = this.gameObject;
         buyButton = Resources.Load<GameObject>("Prefabs/BuyButton");
-        faces = Resources.LoadAll<Face>("ScriptableObjects/Faces");
+        dice = Resources.LoadAll<GlobalDie>("ScriptableObjects/Dice");
     }
 
     public void Start()
     {
-        foreach (Face face in faces)
+        foreach (GlobalDie face in dice)
         {
             GameObject instance = Instantiate(buyButton, shopArea.transform);
-            
+
             instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(face.name);
-            instance.GetComponent<Button>().onClick.AddListener(() => shopChangeFace.ChangeFace(face));
+            //instance.GetComponent<Button>().onClick.AddListener(() => shopChangeFace.ChangeFace(face));
+            //instance.GetComponent<Button>().onClick.AddListener(() => shopChangeFace.ChangeFace(face));
         }
     }
 }

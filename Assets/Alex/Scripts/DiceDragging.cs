@@ -8,23 +8,31 @@ public class DiceDragging : MonoBehaviour
 {
 
     public Transform diceTF;
+    public int cameraIndex;
     [SerializeField] private float rotationSpeed = 1f;
     private RectTransform rect;
     private DiceVisual currentSlot;
     private bool hovering;
-    public bool returning;
+    public bool returning; //pretty sure this can be hideininspector but ima not change for now
     [HideInInspector] public FaceChange visualFC;
     [HideInInspector] public bool Dragging;
 
-    void Awake()
+    void Start()
     {
         rect = GetComponent<RectTransform>();
         visualFC = diceTF.GetComponent<FaceChange>();
     }
 
+
     public void SetSlot(DiceVisual slot)
     {
         currentSlot = slot;
+
+        if (rect == null)
+        {
+            return;
+        }
+
         transform.SetParent(slot.transform);
         if (!returning)
         {
@@ -37,7 +45,6 @@ public class DiceDragging : MonoBehaviour
         if (type == DiceVisual.StorageType.Inventory)
         {
             currentSlot = null;
-            transform.SetParent(Inventory.Instance.map);
         }
     }
 
@@ -60,7 +67,7 @@ public class DiceDragging : MonoBehaviour
 
         float rotX = mousePos.y * rotationSpeed; //could prob multiply these by time.deltatime
         float rotY = mousePos.x * rotationSpeed; 
-        float rotZ = mousePos.x * rotationSpeed; 
+        float rotZ = -mousePos.x * rotationSpeed; 
         diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
 
     }
@@ -98,10 +105,10 @@ public class DiceDragging : MonoBehaviour
         float elapsed = 0f;
         Vector2 startPos = rect.anchoredPosition;
         //Debug.Log($"Start Position: {startPos}");
-        while (elapsed < 0.25f)//Change to variable later
+        while (elapsed < 0.15f)//Change to variable later
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / 0.25f;
+            float t = elapsed / 0.15f;
             rect.anchoredPosition = Vector2.Lerp(startPos, Vector2.zero, t);
             diceTF.Rotate((-startPos.normalized) * 200f * Time.deltaTime);
             yield return null;

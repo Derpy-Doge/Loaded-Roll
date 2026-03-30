@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Texture: {fileID: 2800000, guid: a45c161d9ff48d44e80777d76b086834, type: 3}
   pips: 6
-  price: 0
+  price: 11
   Description: 6
   Effect:
     m_PersistentCalls:

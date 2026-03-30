@@ -497,14 +497,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   points: 0
   addedPoints: 0
+  showpoint: 0
   show: {fileID: 1036734632}
   diceValues:
-  - 6
-  - 6
-  - 6
-  - 6
-  - 6
-  - 6
+  - 1
+  - 1
+  - 1
   Oness: []
   Twoss: []
   Threess: []
