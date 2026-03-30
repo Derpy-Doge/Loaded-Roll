@@ -9,14 +9,14 @@ public class ShowPoints : MonoBehaviour
     public TMP_Text pointText;
     public TMP_Text CalcTexts;
     public DiceScoreCalc Calc;
-    public Spawner Spawn;
+    public Animator animator;
     [Space]
     [Header("How Long Should Text Pop-Up")]
     private float Timer;
     public float CurrentTime;
     [Space]
     [Header("How Fast Should Text Pop-Up")]
-    [Range(200,10000)]public float growSpeed;
+    [Range(200, 1500)] public float growSpeed;
     [Space]
     [Header("How large Should It Be")]
     private float startSize = 0f;
@@ -127,14 +127,15 @@ public class ShowPoints : MonoBehaviour
 
             else if (amount != 0)
             {
+                animator.SetTrigger("Shake");
                 Debug.Log("Points added");
                 Calc.addedPoints += amount;
                 Timer = CurrentTime;
                 amount = 0;
             }
 
-        
-             if (pointText.fontSize >= endSize && amount == 0)
+
+            if (pointText.fontSize >= endSize && amount == 0)
             {
                 Timer -= Time.deltaTime;
             }
@@ -173,6 +174,7 @@ public class ShowPoints : MonoBehaviour
                 pointText.text = string.Empty;
                 pointText.text += Calc.addedPoints.ToString();
                 pointText.color = Color.white;
+                pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
                 ColorCalc();
                 StartCoroutine(CalcTextEnter());
                 spawned = true;
@@ -185,21 +187,27 @@ public class ShowPoints : MonoBehaviour
             {
                 pointText.fontSize += growSpeed * Time.deltaTime;
             }
-            else
+
+            else if (Calc.addedPoints != 0)
             {
+                Debug.Log("Points added");
+                Calc.points += Calc.addedPoints;
                 Timer = CurrentTime;
+                Calc.addedPoints = 0;
             }
 
-            if (pointText.fontSize >= endSize)
+
+            if (pointText.fontSize >= endSize && Calc.addedPoints == 0)
             {
                 Timer -= Time.deltaTime;
             }
 
 
-            if (Timer <= 0)
+            if (Timer <= 0 && Calc.addedPoints == 0)
             {
+                Debug.Log("byebye");
                 StartCoroutine(CalcTextExit());
-                if (pointText.fontSize > startSize + 1)
+                if (pointText.fontSize > startSize && Calc.addedPoints == 0)
                 {
                     pointText.fontSize -= (growSpeed * 2) * Time.deltaTime;
                 }
@@ -209,7 +217,67 @@ public class ShowPoints : MonoBehaviour
                     Timer = CurrentTime;
                     spawned = false;
                     textFinished = false;
-                    Calc.points += Calc.addedPoints;
+
+                }
+
+            }
+            yield return null;
+        }
+    }
+
+    public IEnumerator TotalZeroCalc()
+    {
+        colorPoints = 0;
+        while (textFinished)
+        {
+            if (!spawned)
+            {
+                pointText.text = string.Empty;
+                pointText.text += Calc.zeros.ToString();
+                pointText.color = Color.white;
+                pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
+                ColorCalc();
+                StartCoroutine(CalcTextEnter());
+                spawned = true;
+
+            }
+
+
+
+            if (pointText.fontSize < endSize)
+            {
+                pointText.fontSize += growSpeed * Time.deltaTime;
+            }
+
+            else if (Calc.zeros != 0)
+            {
+                Debug.Log("Points added");
+                Timer = CurrentTime;
+                Calc.zeros = 0;
+            }
+
+
+            if (pointText.fontSize >= endSize && Calc.zeros == 0)
+            {
+                Timer -= Time.deltaTime;
+            }
+
+
+            if (Timer <= 0 && Calc.zeros == 0)
+            {
+                Debug.Log("zero byes");
+                StartCoroutine(CalcTextExit());
+                if (pointText.fontSize > startSize && Calc.zeros == 0)
+                {
+                    pointText.fontSize -= (growSpeed * 2) * Time.deltaTime;
+                }
+                else
+                {
+                    pointText.text = string.Empty;
+                    Timer = CurrentTime;
+                    spawned = false;
+                    Calc.zeros = 0f;
+                    textFinished = false;
 
                 }
 

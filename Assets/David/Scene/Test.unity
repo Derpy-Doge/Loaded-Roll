@@ -361,12 +361,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7836758649843051669, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 21.36
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1058905142253054672, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1012763565}
   m_SourcePrefab: {fileID: 100100000, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
 --- !u!1 &850404482
 GameObject:
@@ -499,7 +502,11 @@ MonoBehaviour:
   addedPoints: 0
   showpoint: 0
   show: {fileID: 1036734632}
+  zeros: 0
   diceValues:
+  - 1
+  - 1
+  - 1
   - 1
   - 1
   - 1
@@ -545,6 +552,23 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7836758649843051669, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
   m_PrefabInstance: {fileID: 811081719}
   m_PrefabAsset: {fileID: 0}
+--- !u!111 &1012763565
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012763560}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: ac9281f282660e740ae8dac946e737d3, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: ac9281f282660e740ae8dac946e737d3, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
 --- !u!1 &1036734627
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +689,7 @@ MonoBehaviour:
   pointText: {fileID: 1012763561}
   CalcTexts: {fileID: 1254777688}
   Calc: {fileID: 901452399}
-  Spawn: {fileID: 850404483}
+  animator: {fileID: 0}
   CurrentTime: 3
   growSpeed: 200
   endSize: 100
