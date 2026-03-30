@@ -3,15 +3,11 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System.Collections.Generic;
-using NUnit.Framework.Constraints;
-
-
-
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField] private List<Camera> cameras = new ();
-    private List <int> openCameras = new List<int> ();
+    [SerializeField] private List <GameObject> visuals; 
+    [SerializeField] private List <int> openVisuals = new List<int> ();
 
     [SerializeField] private RawImage inventoryImage;
     [SerializeField] private Camera inventoryCamera;
@@ -19,7 +15,7 @@ public class Inventory : MonoBehaviour
     [SerializeField] private float clickRadius;
     [SerializeField] private float pullRadius = 5f;
 
-    [SerializeField] private LayerMask diceLayer; //should likely make this its own unique inventory one later
+    [SerializeField] private LayerMask diceLayer; //should likely make this its own unique inventory one later ee
     public Transform map;
 
     [HideInInspector] public static Inventory Instance;
@@ -30,6 +26,13 @@ public class Inventory : MonoBehaviour
     private Vector3 spawnPos;
     private DiceHolder diceHolder;
     private bool pulling;
+    private bool placing;
+
+    private float minX;
+    private float maxX;
+    private float minZ;
+    private float maxZ;
+
 
     private void Start()
     {
@@ -39,11 +42,15 @@ public class Inventory : MonoBehaviour
         }
         Instance = this;
 
-        openCameras.Add(5);
-
         dicePrefab = Resources.Load<GameObject>("Prefabs/DiceInventory");
         spawnPos = map.position + new Vector3(0f, 3f, 0f);
         diceHolder = DiceHolder.Instance;
+
+
+        maxX = inventoryWorldCenter.GetChild(0).position.x;
+        minX = inventoryWorldCenter.GetChild(1).position.x;
+        maxZ = inventoryWorldCenter.GetChild(2).position.z;
+        minZ = inventoryWorldCenter.GetChild(3).position.z;
     }
 
     private void FixedUpdate()
@@ -100,10 +107,11 @@ public class Inventory : MonoBehaviour
 
     public void Click(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed)
+        if (!ctx.performed) 
         {
             return;
         }
+
 
         if (TryGetPosition(out Vector3 pos))
         {
@@ -127,11 +135,26 @@ public class Inventory : MonoBehaviour
                     closest = hits[i];
                 }
             }
-            if (closest != null)
+            if (closest != null) //if you clicked on an object in the inventory
             {
-                Debug.Log(closest.gameObject.name);
+                if (!placing) 
+                {
+                    Debug.Log("Dont Swap Places");
+                    if (openVisuals.Count <= 0)
+                    {
+                        Debug.LogError("Trying to display more dice than available cameras");
+                        return;
+                    }
+                    diceHolder.CreateDice(closest.gameObject.GetComponent<FaceChange>().Dice, visuals[openVisuals[0]], openVisuals[0]); //When we change global dice this will have to chagne too'
+                    openVisuals.RemoveAt(0);
+                    diceInv.Remove(closest.gameObject);
+                    Destroy(closest.gameObject);
+                }
             }
         }
+       
+       placing = false;
+
 
     }
 
@@ -181,24 +204,69 @@ public class Inventory : MonoBehaviour
             pullRadius = Mathf.Clamp(pullRadius + ctx.ReadValue<Vector2>().y, 1f, 10f);
         }
     }
+    
 
-    public void PlaceDice(DiceDragging dice)
+
+    private void CalculatePlacePosition(ref Vector3 newPos)
     {
-        //dice.diceTF.transform.position = spawnPos;
-        TryGetPosition(out Vector3 pos);
-        Debug.Log(dice.diceTF.rotation);
-        GameObject newDice = Instantiate(dicePrefab, new Vector3(pos.x, 3f, pos.z), dice.diceTF.rotation);
-        MeshRenderer mr = newDice.GetComponent<MeshRenderer>(); 
-        MeshRenderer nmr = dice.diceTF.GetComponent<MeshRenderer>();
-        for (int i = 0; i < 6; i++)
+        newPos.y = 3f;
+        if (newPos.x <= minX)
         {
-            mr.materials[i].SetTexture("_BaseMap", nmr.materials[i].GetTexture("_BaseMap"));
+            newPos.y += minX - newPos.x;   
+            newPos.x = minX + 1f;
         }
-        diceInv.Add(newDice);
-        Destroy(dice.gameObject);
-        
+        else if (newPos.x >= maxX)
+        {
+            newPos.y += newPos.x - maxX;
+            newPos.x = maxX - 1f;
+
+        }
+
+        if (newPos.z <= minZ)
+        {
+            newPos.y += minZ - newPos.z;   
+            newPos.z = minZ + 1f;
+        }
+        else if (newPos.z >= maxZ)
+        {
+            newPos.y += newPos.z - maxZ; //
+            newPos.z = maxZ - 1f;
+
+        }
     }
 
+    public void PlaceDice(DiceDragging dice, bool defaultLoc)
+    {
+        //dice.diceTF.transform.position = spawnPos;
+        Vector3 pos;
 
+        if (TryGetPosition(out Vector3 ePos) || !defaultLoc)
+        {
+            CalculatePlacePosition(ref ePos);
+            pos = ePos;
 
+        }
+        else
+        {
+            pos = spawnPos;
+            
+        }
+
+        GameObject newDice = Instantiate(dicePrefab, pos, dice.diceTF.rotation);
+
+        FaceChange fc = newDice.AddComponent<FaceChange>();
+        fc.Dice = dice.diceTF.GetComponent<FaceChange>().Dice; //if we make globaldie not a scriptable object then we'll need to add the global die script instead the face change script and uncomment the below code
+
+        // MeshRenderer mr = newDice.GetComponent<MeshRenderer>(); 
+        // MeshRenderer nmr = dice.diceTF.GetComponent<MeshRenderer>();
+        // for (int i = 0; i < 6; i++)
+        // {
+        //     mr.materials[i].SetTexture("_BaseMap", nmr.materials[i].GetTexture("_BaseMap"));
+        // }
+        diceInv.Add(newDice);
+        
+        openVisuals.Add(dice.cameraIndex);
+        placing = true;
+        Destroy(dice.gameObject);
+    }
 }

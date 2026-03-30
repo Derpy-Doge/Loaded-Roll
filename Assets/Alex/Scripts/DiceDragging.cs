@@ -8,23 +8,31 @@ public class DiceDragging : MonoBehaviour
 {
 
     public Transform diceTF;
+    public int cameraIndex;
     [SerializeField] private float rotationSpeed = 1f;
     private RectTransform rect;
     private DiceVisual currentSlot;
     private bool hovering;
-    public bool returning;
+    public bool returning; //pretty sure this can be hideininspector but ima not change for now
     [HideInInspector] public FaceChange visualFC;
     [HideInInspector] public bool Dragging;
 
-    void Awake()
+    void Start()
     {
         rect = GetComponent<RectTransform>();
         visualFC = diceTF.GetComponent<FaceChange>();
     }
 
+
     public void SetSlot(DiceVisual slot)
     {
         currentSlot = slot;
+
+        if (rect == null)
+        {
+            return;
+        }
+
         transform.SetParent(slot.transform);
         if (!returning)
         {

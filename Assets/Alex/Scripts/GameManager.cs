@@ -1,4 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -7,6 +10,7 @@ public class GameManager : MonoBehaviour
         Rolling = 0,
         Shop = 1,
         Select = 2,
+        Busy = 3,
     }
     public static GameManager Instance;
 
@@ -16,13 +20,22 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The amount of rounds per debt installment")] [SerializeField] private int roundsPerDebt = 5;
     [Tooltip("The amount of rools per round")] [SerializeField] private int rollsPerRound = 3;
+    [Tooltip("The Animator Component for the inventory.")] [SerializeField] private Animator invAnim; 
+    [Tooltip("The Animator Component for the roll / select button.")] [SerializeField] private Animator rollAnim; 
+
+    [Tooltip("The Sprite for the roll button.")] [SerializeField] private Sprite rollSprite;
+    [Tooltip("The Sprite for the select button.")] [SerializeField] private Sprite selectSprite; 
+    [Tooltip("The Button for roll & select.")] [SerializeField] private Button stateButton;
+
+
+
 
     [Range(1f, 10f)] [SerializeField] private float glowAmount;
 
     public int rolls; //the amount of rolls the player has taken this round
     public float currentRound; //The current round number for this debt installment /
 
-    [HideInInspector] public GameStates currentState = GameStates.Rolling;
+    [HideInInspector] public GameStates CurrentState = GameStates.Rolling;
 
     void Awake()
     {
@@ -49,12 +62,12 @@ public class GameManager : MonoBehaviour
 
     public bool Roll()
     {
-        if (rolls + 1 > rollsPerRound) //New Round
+        if (rolls + 1 > rollsPerRound) //New Round 
         {
             return false; 
         }
 
-        else if (currentState != GameStates.Rolling) //Curent state isnt rolling
+        else if (CurrentState != GameStates.Rolling) //Curent state isnt rolling
         {
             return false;
         }
@@ -63,10 +76,28 @@ public class GameManager : MonoBehaviour
             return false;
         }
 
+        invAnim.SetTrigger("Out");
+        rollAnim.SetTrigger("Shrink");
 
         rolls++;
-        currentState = GameStates.Select; 
+        CurrentState = GameStates.Busy; 
         return true;
+    }
+
+    public void SwapStateButton()
+    {   
+        Image stateImage = stateButton.gameObject.GetComponent<Image>();
+        rollAnim.SetTrigger("Grow");
+
+        if (stateImage.sprite == rollSprite)
+        {
+            stateImage.sprite = selectSprite;
+        }
+        else
+        {
+            stateImage.sprite = rollSprite;
+            
+        }
     }
 
     [ContextMenu("Add Interest")]

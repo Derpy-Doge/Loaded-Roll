@@ -10,16 +10,30 @@ public class DiceHolder : MonoBehaviour
     private DiceVisual originalSlot;
     private DiceDragging heldDice;
     [SerializeField] private GameObject draggingLayer;
+    private GameObject diceTexturePrefab;
+    [SerializeField] private DiceVisual inventorySlot;
+
+    //Materials
     public Material glow;
     private Material purpleGlow;
+    private Material purpleFullGlow;
+
+
 
 
     void Awake()
     {
         Instance = this;
         glow = Resources.Load<Material>("Materials/Glow");
+        purpleFullGlow = Resources.Load<Material>("Materials/FullGlow");
         purpleGlow = Resources.Load<Material>("Materials/PurpleGlow");
+        diceTexturePrefab = Resources.Load<GameObject>("Prefabs/diceTexture");
 
+    }
+
+    public DiceDragging GetHeld()
+    {
+        return heldDice;
     }
 
     public void Click(InputAction.CallbackContext ctx)
@@ -29,7 +43,7 @@ public class DiceHolder : MonoBehaviour
             return;
         }
 
-        int state = (int) GameManager.Instance.currentState;
+        int state = (int) GameManager.Instance.CurrentState;
 
         if (state == (int) GameManager.GameStates.Rolling)
         {
@@ -49,8 +63,15 @@ public class DiceHolder : MonoBehaviour
                 else
                 {
                     //Debug.Log("NO SLOT FOUND");
-                    heldDice.returning = true;
-                    originalSlot.PlaceDice(heldDice);
+                    if (originalSlot == null) //Means dice comes from inventory (hopefully)
+                    {
+                        inventorySlot.PlaceDice(heldDice);
+                    }
+                    else
+                    {
+                        heldDice.returning = true;
+                        originalSlot.PlaceDice(heldDice);
+                    }
                 }
 
                 heldDice.StopDragging();
@@ -93,7 +114,7 @@ public class DiceHolder : MonoBehaviour
                 else
                 {
                     hoveredSlot.currentDice.GetComponent<RawImage>().material = purpleGlow;
-                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleGlow;
+                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleFullGlow;
                     hoveredSlot.selected = true;
                     
                 }
@@ -103,4 +124,23 @@ public class DiceHolder : MonoBehaviour
         }
 
     }
+
+    public void CreateDice(GlobalDie die, GameObject visualReference, int index)
+    {
+        GameObject newDie =  Instantiate(diceTexturePrefab, draggingLayer.transform);
+        newDie.GetComponent<RawImage>().texture = visualReference.transform.GetChild(1).GetComponent<Camera>().targetTexture;
+        newDie.GetComponent<RawImage>().material = glow;
+        DiceDragging diceDragging = newDie.GetComponent<DiceDragging>();
+        diceDragging.diceTF = visualReference.transform.GetChild(0);
+        diceDragging.diceTF.GetComponent<FaceChange>().Dice = die; //When we change GlobalDie to not be a scriptable object this will need changed too
+        diceDragging.diceTF.GetComponent<FaceChange>().UpdateDiceFaces();
+        diceDragging.cameraIndex = index;
+        diceDragging.SetSlot(inventorySlot);
+        heldDice = diceDragging; //DiceDragging
+        originalSlot = null; 
+
+        heldDice.Dragging = true;
+        //heldDice.transform.SetParent(draggingLayer.transform);
+    }
+
 }
