@@ -253,9 +253,10 @@ public class Inventory : MonoBehaviour
         }
 
         GameObject newDice = Instantiate(dicePrefab, pos, dice.diceTF.rotation);
-
+        GlobalDie gDie = newDice.AddComponent<GlobalDie>();
         FaceChange fc = newDice.AddComponent<FaceChange>();
-        fc.Dice = dice.diceTF.GetComponent<FaceChange>().Dice; //if we make globaldie not a scriptable object then we'll need to add the global die script instead the face change script and uncomment the below code
+        gDie.Faces = dice.diceTF.GetComponent<FaceChange>().Dice.Faces; //if we make globaldie not a scriptable object then we'll need to add the global die script instead the face change script and uncomment the below code
+        fc.Dice = gDie;
 
         // MeshRenderer mr = newDice.GetComponent<MeshRenderer>(); 
         // MeshRenderer nmr = dice.diceTF.GetComponent<MeshRenderer>();
