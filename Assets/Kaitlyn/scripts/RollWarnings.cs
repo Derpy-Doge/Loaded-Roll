@@ -40,7 +40,7 @@ public class RollWarnings : MonoBehaviour
             selectedWarning = warnings[0];
         }
 
-        else if (gm.currentState != GameStates.Rolling) //Curent state isnt rolling
+        else if (gm.CurrentState != GameStates.Rolling) //Curent state isnt rolling
         {
             selectedWarning = warnings[1];
         }
