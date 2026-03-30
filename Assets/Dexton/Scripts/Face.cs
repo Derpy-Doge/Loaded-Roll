@@ -26,6 +26,6 @@ public class Face : ScriptableObject
     }
     public void Choice()
     {
-        // Get to choose a face on a diffrent die
+        // Get to choose a face on a different die
     }
 }
