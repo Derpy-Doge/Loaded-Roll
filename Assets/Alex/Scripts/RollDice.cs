@@ -17,6 +17,8 @@ public class RollDice : MonoBehaviour
     private bool calculated = true;
     private float timeSinceCalc;
     private float calcCooldown = .25f;
+    private GameManager gameManager;
+
 
 
     public static RollDice Instance;
@@ -33,7 +35,6 @@ public class RollDice : MonoBehaviour
         }
 
         Instance = this;
-
         for (int i = 0; i < dices.Count; i++)
         {
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = false;
@@ -44,6 +45,7 @@ public class RollDice : MonoBehaviour
         {
             resultFaces.Add(gO.GetComponent<RawImage>());
         } 
+        gameManager = GameManager.Instance;
     }
 
     void Update()
@@ -57,8 +59,14 @@ public class RollDice : MonoBehaviour
     }
 
     public void AHHAGBAH()
-    {
-        if (GameManager.Instance.Roll())
+    {   
+        if (gameManager.CurrentState == GameManager.GameStates.Select)
+        {
+            return;
+        }
+
+
+        if (gameManager.Roll())
         {
             StartCoroutine(Roll());
         }
@@ -118,6 +126,8 @@ public class RollDice : MonoBehaviour
             sides[ordered.FirstOrDefault()].Effect.Invoke();
             resultFaces[i].texture = rolledFaces[i].Texture;
             Debug.Log(num);
+            gameManager.CurrentState = GameManager.GameStates.Select;
+            gameManager.SwapStateButton();
         }
     }
 }
