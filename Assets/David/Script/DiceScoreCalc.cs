@@ -167,7 +167,7 @@ public class DiceScoreCalc : MonoBehaviour
                 
             }
             StartCoroutine(show.TextCalc(showpoint));
-            yield return new WaitForSeconds(2 + show.CurrentTime);
+            yield return new WaitForSeconds(9999999999 + show.CurrentTime);
         }
         Debug.Log("ones finished");
 
