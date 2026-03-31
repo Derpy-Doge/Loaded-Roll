@@ -114,19 +114,16 @@ public class ShowPoints : MonoBehaviour
                 pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
                 ColorCalc();
                 StartCoroutine(CalcTextEnter());
+                animator.SetTrigger("Grow");
+                yield return new WaitForSeconds(5);
                 spawned = true;
 
             }
 
 
-
-            if (pointText.fontSize < endSize)
+             if (amount != 0)
             {
-                pointText.fontSize += growSpeed * Time.deltaTime;
-            }
-
-            else if (amount != 0)
-            {
+                pointText.fontSize = 100;
                 animator.SetTrigger("Shake");
                 Debug.Log("Points added");
                 Calc.addedPoints += amount;
@@ -137,19 +134,16 @@ public class ShowPoints : MonoBehaviour
 
             if (pointText.fontSize >= endSize && amount == 0)
             {
-                Timer -= Time.deltaTime;
+               Timer -= Time.deltaTime;
             }
 
 
             if (Timer <= 0 && amount == 0)
             {
+                animator.SetTrigger("Shrink");
                 Debug.Log("byebye");
                 StartCoroutine(CalcTextExit());
-                if (pointText.fontSize > startSize && amount == 0)
-                {
-                    pointText.fontSize -= (growSpeed * 2) * Time.deltaTime;
-                }
-                else
+                if (pointText.fontSize <= startSize && amount == 0)
                 {
                     pointText.text = string.Empty;
                     Timer = CurrentTime;
