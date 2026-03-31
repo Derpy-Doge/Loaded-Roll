@@ -1,0 +1,23 @@
+﻿<Solution>
+  <Project Path="FastScriptReload.Editor.csproj" />
+  <Project Path="BetterHierarchy.csproj" />
+  <Project Path="Alex.csproj" />
+  <Project Path="AYellowpaper.SerializedCollections.csproj" />
+  <Project Path="SaveData.csproj" />
+  <Project Path="CustomToolbar.csproj" />
+  <Project Path="Assembly-CSharp-Editor-firstpass.csproj" />
+  <Project Path="AYellowpaper.SerializedCollections.Editor.csproj" />
+  <Project Path="ExportProjectToZip.csproj" />
+  <Project Path="Unity.PlayerPrefsEditor.Editor.csproj" />
+  <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="ASoliman.Utils.ClipboardPlus.csproj" />
+  <Project Path="FastPlay.csproj" />
+  <Project Path="FastScriptReload.Runtime.csproj" />
+  <Project Path="david.csproj" />
+  <Project Path="Dexton.csproj" />
+  <Project Path="Kaitlyn.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Unity.PlayerPrefsEditor.EditorResources.csproj" />
+  <Project Path="UnityPlayModeSaverEditor.csproj" />
+  <Project Path="UnityPlayModeSaver.csproj" />
+</Solution>
