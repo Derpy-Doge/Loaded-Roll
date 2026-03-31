@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: e4a18d5133af410bab07d9c1a973fe7a
+AssetOrigin:
+  serializedVersion: 1
+  productId: 239351
+  packageName: Fast Script Reload
+  packageVersion: 1.6.1
+  assetPath: Assets/FastScriptReload/Scripts/Editor/Compilation/CodeRewriting/FieldsWalker.cs
+  uploadId: 710802
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

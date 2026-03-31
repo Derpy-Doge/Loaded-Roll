@@ -1,0 +1,19 @@
+{
+    "name": "Kaitlyn",
+    "rootNamespace": "",
+    "references": [
+        "GUID:21b0c8d1703a94250bfac916590cea4f",
+        "GUID:8334f08def2162242acb2d275382b3ea",
+        "GUID:a497a59e0bdea08459a4479603a8e5ce",
+        "GUID:a590bc19d0019934ea55c464168408ab"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

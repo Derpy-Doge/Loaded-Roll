@@ -1,114 +1,152 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using System.Collections;
+using UnityEngine.UI;
+
 
 
 public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
 {
 
-    [SerializeField] private Transform diceTF;
-    [SerializeField] private float rotationSpeed = .2f;
+    public enum StorageType
+    {
+        Inventory = 0,
+        Hotbar = 1,
+    }
 
+    
 
-    [HideInInspector] public int boxIndex;
-     public bool containsDice = false;
-    [HideInInspector] public RectTransform diceImage;
-    private bool hovering = false;
-    private bool holding = false;
-    private DiceHolder dHolder;
+    public int boxIndex;
+    public DiceDragging currentDice; //The dice in this slot
+
+    [HideInInspector] public bool selected;
+    [SerializeField] StorageType storageType;
+
+    private DiceHolder holder;
 
     void Start()
     {
-        diceImage = transform.GetChild(0).GetComponent<RectTransform>();
-        dHolder = DiceHolder.Instance;
-    }
+        holder = DiceHolder.Instance;
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        hovering = true;
-        
-
-        dHolder.hovered = boxIndex;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        hovering = false;
-        dHolder.hovered = -1;
-
-    }
-
-    public void OnPointerMove(PointerEventData eventData)
-    {
-        Debug.Log($"x: {eventData.delta.x} y: {eventData.delta.y}");
-
-        if (hovering || holding)
+        if (transform.childCount > 0)
         {
-            float rotX = eventData.delta.y * rotationSpeed;
-            float rotY = eventData.delta.x * rotationSpeed;
-            float rotZ = eventData.delta.x * rotationSpeed;
-            diceTF.Rotate(rotX, rotY, rotZ, Space.World);
-        }
-
-
-    }
-
-    void Update()
-    {
-        if (holding)
-        {
-            Vector2 pos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(diceImage.parent as RectTransform, Input.mousePosition, null, out pos);
-            diceImage.anchoredPosition = pos;  
-        }
-    }
-
-    public void Click()
-    {
-        if (!hovering && !holding)
-        {
-            return;
-        }
-
-        if (holding)
-        {
-            holding = false;
-            dHolder.holding = -1;
-            int hoveredIndex = dHolder.hovered;
-            if (hoveredIndex != boxIndex && hoveredIndex != -1) //means its a different box
+            if (storageType == StorageType.Hotbar)
             {
-                Debug.Log("test");
-                dHolder.CheckAvailability(boxIndex, hoveredIndex);
+                currentDice = transform.GetChild(0).GetComponent<DiceDragging>();
+                currentDice.SetSlot(this);
+                RollDice.Instance.diceTextures[boxIndex] = currentDice.visualFC.Dice;
+                
             }
-            else
-            {
-                StartCoroutine(Return(diceImage.anchoredPosition));
-            }
-        }
-        else
-        {
-            holding = true;
-            dHolder.holding = boxIndex;
-
             
         }
     }
 
-    IEnumerator Return(Vector2 startPos)
+    public StorageType GetStorageType()
     {
-        float elapsed = 0f;
-        while (elapsed < 0.25f)
+        return storageType;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        holder.hoveredSlot = this;
+        if (currentDice != null && !selected)
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / 0.25f;
-
-            diceImage.anchoredPosition = Vector2.Lerp(startPos, Vector2.zero, t);
-            diceTF.Rotate((-startPos.normalized) * 200f * Time.deltaTime);
-            yield return null;
+            currentDice.GetComponent<RawImage>().material = holder.glow;
         }
+    }
 
-        diceImage.anchoredPosition = Vector2.zero;
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        
+        holder.hoveredSlot = null;
+        if (currentDice != null && !currentDice.Dragging && !selected)
+        {
+            currentDice.GetComponent<RawImage>().material = null;
+        }
+    }
+
+    public void OnPointerMove(PointerEventData eventData)
+    {
+        if (holder.hoveredSlot == this && currentDice != null)
+        {
+            float rotX = eventData.delta.y; 
+            float rotY = eventData.delta.x; 
+            float rotZ = -eventData.delta.x; //change this later
+            currentDice.diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
+        }
+    }
+
+    public void PlaceDice(DiceDragging dice)
+    {
+        if (currentDice == null)
+        {
+
+            if (storageType == StorageType.Inventory && dice.GetSlot().storageType == StorageType.Inventory) //Moving dice from inventory slot to empty inventory slot
+            {
+                Inventory.Instance.PlaceDice(dice, true);  
+                dice.SetSlot(StorageType.Inventory); //I think this is pointless
+                return;
+
+            }
+            else if (storageType == StorageType.Hotbar && dice.GetSlot().storageType == StorageType.Hotbar) //Moving dice from hotbar slot to empty hotbar slot
+            {
+                RollDice.Instance.diceTextures.Swap(boxIndex, dice.GetSlot().boxIndex);
+            }
+            else if (storageType == StorageType.Inventory) //Moving dice from hotbar slot to empty inventory slot
+            {
+                Inventory.Instance.PlaceDice(dice, false);  
+                RollDice.Instance.diceTextures[dice.GetSlot().boxIndex] = null;
+                dice.SetSlot(StorageType.Inventory); //I think this is pointless
+                return;
+            }
+            else //Moving from inventory slot to empty hotbar slot
+            {
+                Debug.Log($"Box Index: {boxIndex}");
+                RollDice.Instance.diceTextures[boxIndex] = dice.visualFC.Dice;
+                
+            }
+        
+            currentDice = dice;
+            dice.SetSlot(this);
+            //Debug.Log("Placing in an empty slot");
+
+        }
+        else
+        {
+            DiceDragging other = currentDice;
+            DiceVisual oldSlot = dice.GetSlot();
+
+            currentDice = dice;
+            dice.SetSlot(this);
+
+            oldSlot.currentDice = other;
+            other.SetSlot(oldSlot);
+
+            if (oldSlot.storageType == StorageType.Inventory && storageType == StorageType.Inventory) //Moving dice from inventory slot to inventory slot
+            {
+                Debug.Log("Moving dice from inventory slot to inventory slot");
+            }
+            else if (oldSlot.storageType == StorageType.Hotbar && storageType == StorageType.Hotbar) //Moving dice from hotbar slot to hotbar slot
+            {
+                Debug.Log("Moving dice from hotbar slot to hotbar slot");
+                RollDice.Instance.diceTextures.Swap(boxIndex, oldSlot.boxIndex);
+
+            }
+            else if (oldSlot.storageType == StorageType.Inventory) //Moved from inventory to hotbar
+            {
+                Debug.Log("Moving dice from inventory to hotbar");
+                RollDice.Instance.diceTextures[boxIndex] = currentDice.visualFC.Dice;
+                Inventory.Instance.PlaceDice(other, true);  
+                other.SetSlot(StorageType.Inventory); 
+            }
+            else //Moved from hotbar to inventory 
+            {
+                Debug.Log("Moving dice from hotbar to inventory");
+                RollDice.Instance.diceTextures[oldSlot.boxIndex] = other.visualFC.Dice;
+            }
+
+            other.GetComponent<RawImage>().material = null;
+            //Debug.Log($"Placing {dice.gameObject.name} in {this.gameObject.name} and {other.gameObject.name} in {oldSlot.gameObject.name}");
+        }
     }
     
 
