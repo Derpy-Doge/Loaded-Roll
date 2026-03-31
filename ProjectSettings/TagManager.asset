@@ -8,6 +8,7 @@ TagManager:
   - Dice
   - Points
   - FaceResults
+  - Warnings
   layers:
   - Default
   - TransparentFX
