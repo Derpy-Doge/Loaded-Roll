@@ -400,11 +400,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a35600cb4d7939d42b5c548e820f3353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitTime: 2
-  cubeSpawnTotal: 1
-  imagesList:
-  - {fileID: 1058905142253054672, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
-  panel: {fileID: 0}
 --- !u!4 &850404484
 Transform:
   m_ObjectHideFlags: 0
@@ -694,9 +689,11 @@ MonoBehaviour:
   pointText: {fileID: 1012763561}
   CalcTexts: {fileID: 1254777688}
   Calc: {fileID: 901452399}
-  animator: {fileID: 1012763567}
+  pointanim: {fileID: 1012763567}
+  textanim: {fileID: 1254777690}
   CurrentTime: 3
-  growSpeed: 200
+  speed: 4
+  growSpeed: 100
   endSize: 100
   textFinished: 0
 --- !u!1 &1184152496
@@ -843,6 +840,7 @@ GameObject:
   - component: {fileID: 1254777687}
   - component: {fileID: 1254777689}
   - component: {fileID: 1254777688}
+  - component: {fileID: 1254777690}
   m_Layer: 5
   m_Name: CalcType
   m_TagString: Untagged
@@ -968,6 +966,28 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254777686}
   m_CullTransparentMesh: 1
+--- !u!95 &1254777690
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254777686}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c22269b9d79092469c32c1805947c4e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1449995664
 GameObject:
   m_ObjectHideFlags: 0

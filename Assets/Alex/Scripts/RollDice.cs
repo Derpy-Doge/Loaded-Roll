@@ -24,7 +24,7 @@ public class RollDice : MonoBehaviour
 
     [HideInInspector] public List<RawImage> resultFaces = new ();
     [HideInInspector] public List<Face> rolledFaces = new ();
-    [HideInInspector] public List<RawImage> SelectedDice = new();
+    public List<RawImage> UnselectedDice = new();
     public RawImage[] AllDice = new RawImage[5];
 
 
@@ -109,6 +109,7 @@ public class RollDice : MonoBehaviour
     [ContextMenu("Read Faces")]
     private void ReadFaces()
     {
+        UnselectedDice = AllDice.ToList();
         for (int i = 0; i < dices.Count; i++)
         {
             Dictionary<Vector3, Face> sides = new()

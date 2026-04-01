@@ -106,8 +106,8 @@ public class DiceHolder : MonoBehaviour
                 if (hoveredSlot.selected)
                 {
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
+                    RollDice.Instance.UnselectedDice.Add(rI);
                     hoveredSlot.selected = false;
-                    RollDice.Instance.SelectedDice.Remove(rI);
                     rI.material = glow;
                     RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = null;
 
@@ -116,7 +116,7 @@ public class DiceHolder : MonoBehaviour
                 {
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
                     hoveredSlot.selected = true;
-                    RollDice.Instance.SelectedDice.Add(rI);
+                    RollDice.Instance.UnselectedDice.Remove(rI);
                     rI.material = purpleGlow;
                     RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleFullGlow;
                     
