@@ -14,6 +14,11 @@ public static class ListExtensions
 
     public static void Swap<T>(this IList<T> list, int indexA, int indexB)
     {
+        if (indexA == indexB) 
+        {
+            return;
+        }
+        
         T temp = list[indexA];
         list[indexA] = list[indexB];
         list[indexB] = temp;

@@ -16,12 +16,15 @@ public class DiceDragging : MonoBehaviour
     public bool returning; //pretty sure this can be hideininspector but ima not change for now
     [HideInInspector] public FaceChange visualFC;
     [HideInInspector] public bool Dragging;
+    [HideInInspector] public RawImage diceTexture;
 
     void Start()
     {
+        diceTexture = GetComponent<RawImage>();
         rect = GetComponent<RectTransform>();
         visualFC = diceTF.GetComponent<FaceChange>();
     }
+
 
 
     public void SetSlot(DiceVisual slot)
