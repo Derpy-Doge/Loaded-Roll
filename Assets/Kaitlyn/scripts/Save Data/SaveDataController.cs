@@ -16,7 +16,7 @@ public class SaveDataController : MonoBehaviour
     private void Start()
     {
         _instance = this;
-       // Load();
+        Load();
         Debug.Log("beep");
         Debug.Log($"deese count: {current.run.Deese.Count}");
         if (current.run.Deese.Count < 1)
