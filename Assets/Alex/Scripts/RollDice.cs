@@ -20,11 +20,13 @@ public class RollDice : MonoBehaviour
     private GameManager gameManager;
 
 
-
     public static RollDice Instance;
 
     [HideInInspector] public List<RawImage> resultFaces = new ();
     [HideInInspector] public List<Face> rolledFaces = new ();
+    [HideInInspector] public List<RawImage> SelectedDice = new();
+    public RawImage[] AllDice = new RawImage[5];
+
 
     void Start()
     {

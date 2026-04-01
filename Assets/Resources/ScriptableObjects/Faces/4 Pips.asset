@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d490a6efc1153414c9dd450599214281, type: 3}
   m_Name: 4 Pips
   m_EditorClassIdentifier: 
-  Texture: {fileID: 2800000, guid: b12d5426780850144a4b1cc3467bdc86, type: 3}
+  Texture: {fileID: 2800000, guid: 76edbdfbfb4e3074891affb057b3d78e, type: 3}
   pips: 4
-  price: 8
+  price: 4000
   Description: 
   Effect:
     m_PersistentCalls:

@@ -18,6 +18,6 @@ public struct SaveData
 [Serializable]
 public class Run
 {
-    public List<string> Skins; //To access this use SaveDataController.Instance.current.UnlockedSkins.Skins
+    
     public List<AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>> Deese;
 }
