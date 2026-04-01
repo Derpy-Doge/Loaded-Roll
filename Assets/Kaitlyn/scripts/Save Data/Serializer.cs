@@ -15,11 +15,15 @@ public static class Serializer
         sw.Write(json);
         sw.Flush();
 
+        Debug.Log("looking cool jokr");
+
         Debug.Log($"Save data successfully saved as {json}");
     }
 
     public static T Load<T>(T defaultValue, string directory, string fileName)
     {
+        Debug.Log("bingus");
+
         if (!File.Exists(Path.Combine(directory, fileName)))
         {
             Debug.Log($"Save data successfully loaded default as {JsonUtility.ToJson(defaultValue)}");

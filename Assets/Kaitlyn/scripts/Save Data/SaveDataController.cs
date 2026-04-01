@@ -13,21 +13,25 @@ public class SaveDataController : MonoBehaviour
     [SerializeField] private string _directory;
     [SerializeField] private string _fileName;
 
-    private void Awake()
+    private void Start()
     {
         _instance = this;
-        Load();
+       // Load();
+        Debug.Log("beep");
+        Debug.Log($"deese count: {current.run.Deese.Count}");
         if (current.run.Deese.Count < 1)
         {
+            Debug.Log("gurt: yo");
             var test = new AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>();
             test[Vector3.up] = Resources.Load<Face>("ScriptableObjects/Faces/2 Pips");
             test[Vector3.down] = Resources.Load<Face>("ScriptableObjects/Faces/1 Pip");
             test[Vector3.left] = Resources.Load<Face>("ScriptableObjects/Faces/3 Pips");
             test[Vector3.right] = Resources.Load<Face>("ScriptableObjects/Faces/4 Pips");
             test[Vector3.forward] = Resources.Load<Face>("ScriptableObjects/Faces/5 Pips");
-            test[Vector3.back] = Resources.Load<Face>("ScriptableObjects/Faces/6 Pips");
+            test[Vector3.back] = Resources.Load<Face>("ScriptableObjects/Faces/4 Pips");
 
             current.run.Deese.Add(test);
+            Debug.Log("meep");
         }
     }
     //
