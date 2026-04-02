@@ -7,7 +7,11 @@ public class FaceChange : MonoBehaviour
 
     void Start()
     {
+        Dice = this.gameObject.GetComponent<GlobalDie>();
+
         _faces = GetComponent<MeshRenderer>();
+        
+
         if (Dice != null)
         {
             UpdateDiceFaces();
