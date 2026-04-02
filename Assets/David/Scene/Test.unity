@@ -292,6 +292,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -5917579261909984879, guid: cd0c3f72edb9cf74698620f46ebeb1e5, type: 2}
     - target: {fileID: 2888938464890188769, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2888938464890188769, guid: 566371ac476c02a48b98221d0b5d97b4, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
@@ -703,7 +707,7 @@ MonoBehaviour:
   Calc: {fileID: 901452399}
   pointanim: {fileID: 1012763567}
   textanim: {fileID: 1254777690}
-  CurrentTime: 3
+  CurrentTime: 2
   speed: 4
   growSpeed: 0
   endSize: 100
