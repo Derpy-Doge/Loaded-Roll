@@ -1543,6 +1543,12 @@ MonoBehaviour:
   rolledFaces: []
   UnselectedDice: []
   UnselectedSlot: []
+  AllSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   AllDice:
   - {fileID: 0}
   - {fileID: 0}

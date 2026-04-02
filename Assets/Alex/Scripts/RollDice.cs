@@ -176,6 +176,8 @@ public class RollDice : MonoBehaviour
 
     IEnumerator Roll() //Make this seeded
     {
+        Debug.Log(UnselectedSlot.Count);
+        Debug.Log(UnselectedDice.Count);
         rolledFaces.Clear();
         for (int i = 0; i < nextDiceRoll; i++)
         {
@@ -190,13 +192,20 @@ public class RollDice : MonoBehaviour
             yield return new WaitForSeconds(diceSpinCooldown);
         }
 
+
     }
 
     [ContextMenu("Read Faces")]
     private void ReadFaces()
     {
-        UnselectedDice = AllDice.ToList();
         UnselectedSlot = AllSlots.ToList();
+        for (int i = 0; i < AllSlots.Length; i++)
+        {
+            AllDice[i] = AllSlots[i].diceTexture;
+        }
+        UnselectedDice = AllDice.ToList();
+
+
         for (int i = 0; i < dices.Count; i++)
         {
             Dictionary<Vector3, Face> sides = new()
