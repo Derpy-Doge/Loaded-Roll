@@ -66,8 +66,8 @@
   <Project Path="FastPlay.csproj" />
   <Project Path="Unity.InputSystem.TestFramework.csproj" />
   <Project Path="FastScriptReload.Runtime.csproj" />
-  <Project Path="david.csproj" />
   <Project Path="Unity.VisualScripting.Shared.Editor.csproj" />
+  <Project Path="david.csproj" />
   <Project Path="Unity.Toolchain.Win-x86_64-Linux-x86_64.csproj" />
   <Project Path="Dexton.csproj" />
   <Project Path="Kaitlyn.csproj" />

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
+using System.Collections.Generic;
 
 
 public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
@@ -11,6 +11,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         Inventory = 0,
         Hotbar = 1,
+        Recycle = 2,
     }
 
     
@@ -18,7 +19,9 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public int boxIndex;
     public DiceDragging currentDice; //The dice in this slot
 
-    [HideInInspector] public bool selected;
+    [HideInInspector]  public bool selected; 
+
+    [HideInInspector] public List<DiceDragging> recyclingDice = new();
     [SerializeField] StorageType storageType;
 
     private DiceHolder holder;
@@ -35,6 +38,8 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 currentDice.SetSlot(this);
                 RollDice.Instance.diceTextures[boxIndex] = currentDice.visualFC.Dice;
                 RollDice.Instance.AllDice[boxIndex] = currentDice.diceTexture;
+                RollDice.Instance.AllSlots[boxIndex] = currentDice;
+
                 
             }
             
@@ -48,6 +53,11 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        if (storageType == StorageType.Recycle)
+        {
+            return;
+        }
+
         holder.hoveredSlot = this;
         if (currentDice != null && !selected)
         {
@@ -57,7 +67,11 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        
+        if (storageType == StorageType.Recycle)
+        {
+            return;
+        }
+
         holder.hoveredSlot = null;
         if (currentDice != null && !currentDice.Dragging && !selected)
         {
@@ -67,6 +81,11 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerMove(PointerEventData eventData)
     {
+        if (storageType == StorageType.Recycle)
+        {
+            return;
+        }
+
         if (holder.hoveredSlot == this && currentDice != null)
         {
             float rotX = eventData.delta.y; 
@@ -92,6 +111,9 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             {
                 RollDice.Instance.diceTextures.Swap(boxIndex, dice.GetSlot().boxIndex);
                 RollDice.Instance.AllDice.Swap(boxIndex, dice.GetSlot().boxIndex); 
+                RollDice.Instance.AllSlots.Swap(boxIndex, dice.GetSlot().boxIndex); 
+
+
 
             }
             else if (storageType == StorageType.Inventory) //Moving dice from hotbar slot to empty inventory slot
@@ -99,6 +121,8 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 Inventory.Instance.PlaceDice(dice, false);  
                 RollDice.Instance.diceTextures[dice.GetSlot().boxIndex] = null;
                 RollDice.Instance.AllDice[dice.GetSlot().boxIndex] = null;
+                RollDice.Instance.AllSlots[dice.GetSlot().boxIndex] = null;
+
 
                 dice.SetSlot(StorageType.Inventory); //I think this is pointless
                 return;
@@ -108,6 +132,8 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 Debug.Log($"Box Index: {boxIndex}");
                 RollDice.Instance.diceTextures[boxIndex] = dice.visualFC.Dice;
                 RollDice.Instance.AllDice[boxIndex] = currentDice.diceTexture;
+                RollDice.Instance.AllSlots[boxIndex] = currentDice;
+
                 
             }
         
@@ -136,6 +162,8 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 Debug.Log("Moving dice from hotbar slot to hotbar slot");
                 RollDice.Instance.diceTextures.Swap(boxIndex, oldSlot.boxIndex);
                 RollDice.Instance.AllDice.Swap(boxIndex, oldSlot.boxIndex); 
+                RollDice.Instance.AllSlots.Swap(boxIndex, oldSlot.boxIndex); 
+
 
 
             }
@@ -144,6 +172,8 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 Debug.Log("Moving dice from inventory to hotbar");
                 RollDice.Instance.diceTextures[boxIndex] = currentDice.visualFC.Dice;
                 RollDice.Instance.AllDice[boxIndex] = currentDice.diceTexture;
+                RollDice.Instance.AllSlots[boxIndex] = currentDice;
+
 
                 Inventory.Instance.PlaceDice(other, true);  
                 other.SetSlot(StorageType.Inventory); 
@@ -153,6 +183,8 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
                 Debug.Log("Moving dice from hotbar to inventory");
                 RollDice.Instance.diceTextures[oldSlot.boxIndex] = other.visualFC.Dice;
                 RollDice.Instance.AllDice[oldSlot.boxIndex] = other.diceTexture;
+                RollDice.Instance.AllSlots[oldSlot.boxIndex] = other;
+
 
             }
 

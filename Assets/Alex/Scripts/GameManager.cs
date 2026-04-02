@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The Sprite for the roll button.")] [SerializeField] private Sprite rollSprite;
     [Tooltip("The Sprite for the select button.")] [SerializeField] private Sprite selectSprite; 
+    [Tooltip("The Text for the roll/select button.")] [SerializeField] private TMPro.TMP_Text rollText; 
+
     [Tooltip("The Button for roll & select.")] [SerializeField] private Button stateButton;
 
 
@@ -89,6 +91,13 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
+    public void SwapInventory()
+    {
+        recycleAnimOne.SetTrigger("Out");
+        recycleAnimTwo.SetTrigger("Out");
+        StartCoroutine(AnimateWithCooldown(invAnim, "In", .25f));
+    }
+
     IEnumerator AnimateWithCooldown(Animator anim, string triggerType, float cooldown)
     {
         yield return new WaitForSeconds(cooldown);
@@ -103,10 +112,12 @@ public class GameManager : MonoBehaviour
         if (stateImage.sprite == rollSprite)
         {
             stateImage.sprite = selectSprite;
+            rollText.text = "Select";
         }
         else
         {
             stateImage.sprite = rollSprite;
+            rollText.text = "Roll";
             
         }
     }

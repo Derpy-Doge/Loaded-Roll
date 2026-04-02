@@ -11,6 +11,7 @@ public class RollDice : MonoBehaviour
     [SerializeField] private float diceSpinCooldown;
     [SerializeField] private Transform diceCamera;
     [SerializeField] private bool follow;
+    [SerializeField] private RectTransform arcReference;
 
     [SerializeField] private List<Transform> dices = new();
     private Dictionary<Transform, Rigidbody> diceRB = new();
@@ -18,14 +19,21 @@ public class RollDice : MonoBehaviour
     private float timeSinceCalc;
     private float calcCooldown = .25f;
     private GameManager gameManager;
+    private int nextDiceRoll = 5;
+
+    private bool ignoreSelectWarning; //should likely have this in save data
+    private bool selectWarningSpawned;
+
 
 
     public static RollDice Instance;
 
-    [HideInInspector] public List<RawImage> resultFaces = new ();
+    public List<RawImage> resultFaces = new ();
     [HideInInspector] public List<Face> rolledFaces = new ();
     public List<RawImage> UnselectedDice = new();
-    public RawImage[] AllDice = new RawImage[5];
+    public List<DiceDragging> UnselectedSlot = new();
+    public DiceDragging[] AllSlots = new DiceDragging[5]; 
+    public RawImage[] AllDice = new RawImage[5]; //When i have more time remove this in place of using allslots
 
 
     void Start()
@@ -64,6 +72,23 @@ public class RollDice : MonoBehaviour
     {   
         if (gameManager.CurrentState == GameManager.GameStates.Select)
         {
+            if (UnselectedDice.Count == 5 && !ignoreSelectWarning)
+            {
+                if (selectWarningSpawned)
+                {
+                    //Means the user pressed the select button again after the warning, either like shake the warning or just assume its the same as press okay but not dont show again
+                }
+                else
+                {
+                    selectWarningSpawned = true;
+                    //play a warning here
+                    
+                }
+            }
+            else
+            {
+                StartCoroutine(Select()); 
+            }
             return;
         }
 
@@ -88,10 +113,71 @@ public class RollDice : MonoBehaviour
         return speed;
     }
 
+    IEnumerator Select()
+    {
+        gameManager.CurrentState = GameManager.GameStates.Busy;
+        int count = UnselectedDice.Count;
+        if (count == 0) //Means all dice are selected
+        {
+            nextDiceRoll = 5;
+        }
+        else
+        {
+            nextDiceRoll = count;
+            //Animation Stuff
+            //-----------------------------------------------------------------------------------
+            float time = 0f;
+            float duration = .8f;
+            List<Vector2> startPositions = new();
+            Vector2 endPosition; // = arcReference.anchoredPosition;
+            List<RectTransform> rTS = new();
+            List<Transform> orgParents = new();
+            RectTransform dragging = DiceHolder.Instance.GetDraggingObj();
+            for (int i = 0; i < count; i++)
+            {
+                rTS.Add(UnselectedDice[i].gameObject.GetComponent<RectTransform>());
+                UnselectedDice[i].transform.SetParent(dragging);
+                startPositions.Add(rTS[i].anchoredPosition);  
+            }
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rTS[0].parent as RectTransform, RectTransformUtility.WorldToScreenPoint(null, arcReference.position), null, out endPosition);
+
+            while (time < duration)
+            {
+                Debug.Log("test");
+                time += Time.deltaTime;
+                float t = time / duration;
+                for (int i = 0; i < count; i++)
+                {
+                    Vector2 pos = Vector2.Lerp(startPositions[i], new Vector2 (endPosition.x - (2 - i) * 50, endPosition.y), t);
+
+                    float height = 330 * 4 * (t- t * t);
+                    rTS[i].anchoredPosition = pos + Vector2.up * height;
+                }
+                yield return null;
+            }
+
+            for (int i = 0; i < count; i++)
+            {
+                rTS[i].anchoredPosition = new Vector2 (endPosition.x - (2 - i) * 50, endPosition.y);
+            }
+            //-----------------------------------------------------------------------------------
+
+            //Transfer the dice to a recycle slot
+            for (int i = 0; i < count; i++)
+            {
+                //UnselectedSlot[i]
+                DiceHolder.Instance.RecycleDice(UnselectedSlot[i]);
+            }
+            gameManager.SwapInventory();
+        }
+
+        yield break;
+    }
+
     IEnumerator Roll() //Make this seeded
     {
         rolledFaces.Clear();
-        for (int i = 0; i < dices.Count; i++)
+        for (int i = 0; i < nextDiceRoll; i++)
         {
             dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
             dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
@@ -110,6 +196,7 @@ public class RollDice : MonoBehaviour
     private void ReadFaces()
     {
         UnselectedDice = AllDice.ToList();
+        UnselectedSlot = AllSlots.ToList();
         for (int i = 0; i < dices.Count; i++)
         {
             Dictionary<Vector3, Face> sides = new()
