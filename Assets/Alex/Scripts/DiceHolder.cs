@@ -11,10 +11,12 @@ public class DiceHolder : MonoBehaviour
     private DiceDragging heldDice;
     [SerializeField] private GameObject draggingLayer;
     private GameObject diceTexturePrefab;
-    [SerializeField] private DiceVisual inventorySlot;
+    [SerializeField] private DiceVisual inventorySlot; //These could probably be static and set in the dicevisual start function
+    [SerializeField] private DiceVisual recycleSlot; //These could probably be static and set in the dicevisual start function
+
 
     //Materials
-    public Material glow;
+    [HideInInspector] public Material glow;
     private Material purpleGlow;
     private Material purpleFullGlow;
 
@@ -29,6 +31,11 @@ public class DiceHolder : MonoBehaviour
         purpleGlow = Resources.Load<Material>("Materials/PurpleGlow");
         diceTexturePrefab = Resources.Load<GameObject>("Prefabs/diceTexture");
 
+    }
+
+    public RectTransform GetDraggingObj()
+    {
+        return draggingLayer.GetComponent<RectTransform>();
     }
 
     public DiceDragging GetHeld()
@@ -88,7 +95,6 @@ public class DiceHolder : MonoBehaviour
 
                     heldDice.Dragging = true;
                     heldDice.transform.SetParent(draggingLayer.transform);
-
                     //Debug.Log($"PICKING UP {heldDice.gameObject.name} FROM {hoveredSlot.gameObject.name}");
                 }
             }
@@ -97,7 +103,7 @@ public class DiceHolder : MonoBehaviour
         {
             if (hoveredSlot != null) //other
             {
-
+                
                 if (hoveredSlot.GetStorageType() == DiceVisual.StorageType.Inventory)
                 {
                     return;
@@ -106,16 +112,22 @@ public class DiceHolder : MonoBehaviour
 
                 if (hoveredSlot.selected)
                 {
+                    RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
+                    RollDice.Instance.UnselectedDice.Add(rI);
+                    RollDice.Instance.UnselectedSlot.Add(hoveredSlot.currentDice);
                     hoveredSlot.selected = false;
-                    hoveredSlot.currentDice.GetComponent<RawImage>().material = glow;
-                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = glow;
+                    rI.material = glow;
+                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = null;
 
                 }
                 else
                 {
-                    hoveredSlot.currentDice.GetComponent<RawImage>().material = purpleGlow;
-                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleFullGlow;
+                    RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
                     hoveredSlot.selected = true;
+                    RollDice.Instance.UnselectedDice.Remove(rI);
+                    RollDice.Instance.UnselectedSlot.Remove(hoveredSlot.currentDice);
+                    rI.material = purpleGlow;
+                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleFullGlow;
                     
                 }
                 Debug.Log("test");
@@ -123,6 +135,13 @@ public class DiceHolder : MonoBehaviour
             
         }
 
+    }
+
+    public void RecycleDice(DiceDragging diceDragging)
+    {
+        recycleSlot.recyclingDice.Add(diceDragging);
+        diceDragging.transform.SetParent(recycleSlot.transform);
+        diceDragging.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
     }
 
     public void CreateDice(GlobalDie die, GameObject visualReference, int index)

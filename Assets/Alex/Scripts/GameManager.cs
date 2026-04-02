@@ -21,10 +21,15 @@ public class GameManager : MonoBehaviour
     [Tooltip("The amount of rounds per debt installment")] [SerializeField] private int roundsPerDebt = 5;
     [Tooltip("The amount of rools per round")] [SerializeField] private int rollsPerRound = 3;
     [Tooltip("The Animator Component for the inventory.")] [SerializeField] private Animator invAnim; 
+    [Tooltip("The Animator Component for the back recycling bin.")] [SerializeField] private Animator recycleAnimOne; 
+    [Tooltip("The Animator Component for the front recycling bin.")] [SerializeField] private Animator recycleAnimTwo; 
+
     [Tooltip("The Animator Component for the roll / select button.")] [SerializeField] private Animator rollAnim; 
 
     [Tooltip("The Sprite for the roll button.")] [SerializeField] private Sprite rollSprite;
     [Tooltip("The Sprite for the select button.")] [SerializeField] private Sprite selectSprite; 
+    [Tooltip("The Text for the roll/select button.")] [SerializeField] private TMPro.TMP_Text rollText; 
+
     [Tooltip("The Button for roll & select.")] [SerializeField] private Button stateButton;
 
 
@@ -77,11 +82,26 @@ public class GameManager : MonoBehaviour
         }
 
         invAnim.SetTrigger("Out");
+        StartCoroutine(AnimateWithCooldown(recycleAnimOne, "In", .25f));
+        StartCoroutine(AnimateWithCooldown(recycleAnimTwo, "In", .25f));
         rollAnim.SetTrigger("Shrink");
 
         rolls++;
         CurrentState = GameStates.Busy; 
         return true;
+    }
+
+    public void SwapInventory()
+    {
+        recycleAnimOne.SetTrigger("Out");
+        recycleAnimTwo.SetTrigger("Out");
+        StartCoroutine(AnimateWithCooldown(invAnim, "In", .25f));
+    }
+
+    IEnumerator AnimateWithCooldown(Animator anim, string triggerType, float cooldown)
+    {
+        yield return new WaitForSeconds(cooldown);
+        anim.SetTrigger(triggerType);
     }
 
     public void SwapStateButton()
@@ -92,10 +112,12 @@ public class GameManager : MonoBehaviour
         if (stateImage.sprite == rollSprite)
         {
             stateImage.sprite = selectSprite;
+            rollText.text = "Select";
         }
         else
         {
             stateImage.sprite = rollSprite;
+            rollText.text = "Roll";
             
         }
     }

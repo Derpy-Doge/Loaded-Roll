@@ -6565,7 +6565,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diceTextures:
-  - {fileID: 0}
+  - {fileID: 260930055}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
