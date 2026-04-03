@@ -15,7 +15,7 @@ public class ShowPoints : MonoBehaviour
     [Header("How Long Should Text Pop-Up")]
     private float Timer;
     public float CurrentTime;
-    [HideInInspector]public float speed = 2;
+    [HideInInspector]public float speed = .1f;
     [Space]
     [Header("How Fast Should Text Pop-Up(in percent)")]
     public float growSpeed;
@@ -34,7 +34,8 @@ public class ShowPoints : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        CurrentTime = CurrentTime * (1 + growSpeed / 100);
+        //CurrentTime = (3 - (growSpeed / 100));
+        speed = 1f;
         pointanim.speed = 1 + (growSpeed / 100);
         textanim.speed = 1 + (growSpeed / 100);
         Timer = CurrentTime;
@@ -90,55 +91,22 @@ public class ShowPoints : MonoBehaviour
     public IEnumerator TextCalc(float amount)
     {
         colorPoints = amount;
-        while (textFinished)
-        {
-            if (!spawned)
-            {
-                pointText.text = string.Empty;
-                pointText.text += amount.ToString();
-                pointText.color = Color.white;
-                pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
-                ColorCalc();
-                pointanim.SetTrigger("Grow");
-                textanim.SetTrigger("GrowText");
-                yield return new WaitForSeconds(speed);
-                spawned = true;
-
-            }
-
-
-             if (amount != 0)
-            {
-                pointText.fontSize = 100;
-                Debug.Log("Points added");
-                Calc.addedPoints += amount;
-                Timer = CurrentTime;
-                amount = 0;
-            }
-
-
-            if (pointText.fontSize >= endSize && amount == 0)
-            {
-               Timer -= Time.deltaTime;
-            }
-
-
-            else
-            {
-                Debug.Log("byebye");
-                if (pointText.fontSize <= startSize && amount == 0)
-                {
-                    pointText.text = string.Empty;
-                    Timer = CurrentTime;
-                    spawned = false;
-                    Calc.showpoint = 0f;
-                    textFinished = false;
-
-                }
-
-            }
-            yield return null;
-        }
+            //pointText.text = string.Empty;
+            pointText.text = amount.ToString();
+            pointText.color = Color.white;
+            pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
+            ColorCalc();
+            pointanim.SetTrigger("Grow");
+            textanim.SetTrigger("GrowText");
+            yield return new WaitForSeconds(speed);
+            pointText.fontSize = 100;
+            Debug.Log("Points added");
+            Calc.addedPoints += amount;
+            Timer = CurrentTime;
+            amount = 0;
+             spawned = false;
+             Calc.showpoint = 0f;
+             textFinished = false;
     }
 
     public IEnumerator TotalCalc()

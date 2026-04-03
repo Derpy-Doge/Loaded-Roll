@@ -27,8 +27,8 @@ public class SaveDataController : MonoBehaviour
             test[Vector3.down] = Resources.Load<Face>("ScriptableObjects/Faces/1 Pip");
             test[Vector3.left] = Resources.Load<Face>("ScriptableObjects/Faces/3 Pips");
             test[Vector3.right] = Resources.Load<Face>("ScriptableObjects/Faces/4 Pips");
-            test[Vector3.forward] = Resources.Load<Face>("ScriptableObjects/Faces/5 Pips");
-            test[Vector3.back] = Resources.Load<Face>("ScriptableObjects/Faces/4 Pips");
+            test[Vector3.forward] = Resources.Load<Face>("ScriptableObjects/Faces/1 Pip");
+            test[Vector3.back] = Resources.Load<Face>("ScriptableObjects/Faces/3 Pips");
 
             current.run.Deese.Add(test);
             Debug.Log("meep");
@@ -37,7 +37,7 @@ public class SaveDataController : MonoBehaviour
     //
     private void OnDestroy()
     {
-        Save();
+        //Save();
     }
 
     public void Save()
