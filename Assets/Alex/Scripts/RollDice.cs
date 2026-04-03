@@ -117,9 +117,10 @@ public class RollDice : MonoBehaviour
     {
         gameManager.CurrentState = GameManager.GameStates.Busy;
         int count = UnselectedDice.Count;
-        if (count == 0) //Means all dice are selected
+        if (count == 0) //Means all dice are selected //Run calculation here.
         {
             nextDiceRoll = 5;
+            
         }
         else
         {
@@ -173,6 +174,8 @@ public class RollDice : MonoBehaviour
 
         yield break;
     }
+
+    //private void 
 
     IEnumerator Roll() //Make this seeded
     {
