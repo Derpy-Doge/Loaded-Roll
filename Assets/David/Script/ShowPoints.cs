@@ -11,11 +11,13 @@ public class ShowPoints : MonoBehaviour
     public DiceScoreCalc Calc;
     public Animator pointanim;
     public Animator textanim;
+    [SerializeField]private Slider speedSlider;
     [Space]
     [Header("How Long Should Text Pop-Up")]
     private float Timer;
     public float CurrentTime;
-    [HideInInspector]public float speed = .1f;
+    public float speed = .1f;
+    private float saveSpeed;
     [Space]
     [Header("How Fast Should Text Pop-Up(in percent)")]
     public float growSpeed;
@@ -34,17 +36,45 @@ public class ShowPoints : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        speedSlider.value = growSpeed;
+        speedSlider.onValueChanged.AddListener(delegate { UpdateSpeed(speedSlider.value); });
         //CurrentTime = (3 - (growSpeed / 100));
-        speed = 1f;
-        pointanim.speed = 1 + (growSpeed / 100);
-        textanim.speed = 1 + (growSpeed / 100);
+        speed = 0.5f;
+        saveSpeed = speed;
         Timer = CurrentTime;
     }
 
     // Update is called once per frame
     void Update()
     {
+        pointanim.speed = growSpeed;
+        textanim.speed = growSpeed;
+        if (growSpeed < 1)
+            growSpeed = 1;
 
+       
+
+        
+    }
+
+    private void UpdateSpeed(float newvalue)
+    {
+        growSpeed = newvalue; 
+        
+        if (growSpeed == 1)
+        {
+            CurrentTime = Timer;
+            speed = saveSpeed;
+            
+        }
+
+        else
+        {
+            CurrentTime = Timer;
+            speed = saveSpeed;
+            CurrentTime /= growSpeed;
+            speed /= growSpeed;
+        }
     }
 
 
@@ -99,7 +129,6 @@ public class ShowPoints : MonoBehaviour
             pointanim.SetTrigger("Grow");
             textanim.SetTrigger("GrowText");
             yield return new WaitForSeconds(speed);
-            pointText.fontSize = 100;
             Debug.Log("Points added");
             Calc.addedPoints += amount;
             Timer = CurrentTime;
@@ -112,102 +141,40 @@ public class ShowPoints : MonoBehaviour
     public IEnumerator TotalCalc()
     {
         colorPoints = Calc.addedPoints;
-        while (textFinished)
-        {
-            if (!spawned)
-            {
-                pointText.text = string.Empty;
-                pointText.text += Calc.addedPoints.ToString();
-                pointText.color = Color.white;
-                pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
-                ColorCalc();
-                pointanim.SetTrigger("Grow");
-                textanim.SetTrigger("GrowText");
-                yield return new WaitForSeconds(speed);
-                spawned = true;
 
-            }
+        //pointText.text = string.Empty;
+        pointText.text = Calc.addedPoints.ToString();
+        pointText.color = Color.white;
+        pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
+        ColorCalc();
+        pointanim.SetTrigger("Grow");
+        textanim.SetTrigger("GrowText");
+        yield return new WaitForSeconds(speed);
+        Debug.Log("Points added");
+        Calc.points += Calc.addedPoints;
+        Timer = CurrentTime;
+        Calc.addedPoints = 0;
+        spawned = false;
+        textFinished = false;
 
-
-            if (Calc.addedPoints != 0)
-            {
-                Debug.Log("Points added");
-                Calc.points += Calc.addedPoints;
-                Timer = CurrentTime;
-                Calc.addedPoints = 0;
-            }
-
-
-            if (pointText.fontSize >= endSize && Calc.addedPoints == 0)
-            {
-                Timer -= Time.deltaTime;
-            }
-
-
-            else
-            {
-                Debug.Log("byebye");
-                if (pointText.fontSize <= startSize && Calc.addedPoints == 0)
-                {
-                    pointText.text = string.Empty;
-                    Timer = CurrentTime;
-                    spawned = false;
-                    textFinished = false;
-                }
-
-            }
-            yield return null;
-        }
     }
 
     public IEnumerator TotalZeroCalc()
     {
         colorPoints = 0;
-        while (textFinished)
-        {
-            if (!spawned)
-            {
-                pointText.text = string.Empty;
-                pointText.text += Calc.zeros.ToString();
-                pointText.color = Color.white;
-                pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
-                ColorCalc();
-                pointanim.SetTrigger("Grow");
-                textanim.SetTrigger("GrowText");
-                yield return new WaitForSeconds(speed);
-                spawned = true;
-
-            }
-
-            if (Calc.zeros != 0)
-            {
-                Debug.Log("Points added");
-                Timer = CurrentTime;
-                Calc.zeros = 0;
-            }
-
-
-            if (pointText.fontSize >= endSize && Calc.zeros == 0)
-            {
-                Timer -= Time.deltaTime;
-            }
-
-
-            else
-            {
-                Debug.Log("zero byes");
-                if (pointText.fontSize <= startSize && Calc.zeros == 0)
-                {
-                    pointText.text = string.Empty;
-                    Timer = CurrentTime;
-                    spawned = false;
-                    Calc.zeros = 0f;
-                    textFinished = false;
-                }
-
-            }
-            yield return null;
-        }
+                //pointText.text = string.Empty;
+        pointText.text = Calc.zeros.ToString();
+        pointText.color = Color.white;
+        pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
+        ColorCalc();
+        pointanim.SetTrigger("Grow");
+        textanim.SetTrigger("GrowText");
+        yield return new WaitForSeconds(speed);
+        Debug.Log("Points added");
+        Timer = CurrentTime;
+        Calc.zeros = 0;
+        spawned = false;
+        textFinished = false;
     }
 }
 

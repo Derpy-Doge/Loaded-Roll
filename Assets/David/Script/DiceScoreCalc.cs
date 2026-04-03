@@ -140,7 +140,12 @@ public class DiceScoreCalc : MonoBehaviour
             show.textFinished = true;
             StartCoroutine(show.TotalZeroCalc());
             yield return new WaitForSeconds(show.speed + show.CurrentTime); 
-
+            Oness.Clear();
+            Twoss.Clear();
+            Threess.Clear();
+            Fourss.Clear();
+            Fivess.Clear();
+            Sixess.Clear();
         }
     }
 

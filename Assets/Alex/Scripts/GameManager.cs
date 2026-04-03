@@ -104,6 +104,11 @@ public class GameManager : MonoBehaviour
         anim.SetTrigger(triggerType);
     }
 
+    public void AnimateEmpty()
+    {
+        recycleAnimOne.SetTrigger("Empty");
+    }
+
     public void SwapStateButton()
     {   
         Image stateImage = stateButton.gameObject.GetComponent<Image>();
