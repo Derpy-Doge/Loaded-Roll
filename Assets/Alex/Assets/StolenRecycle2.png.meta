@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 815a98ee7ca45574e86cc657159011bf
+guid: de3c59b536763af4cb693168208fff2e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2887903660446137359
-    second: RecyclingBin_0
-  - first:
-      213: -320523777202812729
-    second: RecyclingBin_1
-  - first:
-      213: -7787166960052942110
-    second: RecyclingBin_2
-  - first:
-      213: -8989703219884371571
-    second: RecyclingBin_3
+      213: 1852130179021184594
+    second: StolenRecycle2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -55,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -81,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 8192
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -94,19 +85,6 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
     buildTarget: Standalone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -135,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RecyclingBin_0
+      name: StolenRecycle2_0
       rect:
         serializedVersion: 2
-        x: 51
-        y: 314
-        width: 11
-        height: 15
+        x: 56
+        y: 580
+        width: 391
+        height: 170
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,74 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1f3ce8debea1ce7d0800000000000000
-      internalID: -2887903660446137359
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RecyclingBin_1
-      rect:
-        serializedVersion: 2
-        x: 58
-        y: 321
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7c882c5a2554d8bf0800000000000000
-      internalID: -320523777202812729
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RecyclingBin_2
-      rect:
-        serializedVersion: 2
-        x: 61
-        y: 315
-        width: 6
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2eac26378ec6ee390800000000000000
-      internalID: -7787166960052942110
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: RecyclingBin_3
-      rect:
-        serializedVersion: 2
-        x: 292
-        y: 115
-        width: 446
-        height: 592
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d815b9e0d882e3380800000000000000
-      internalID: -8989703219884371571
+      spriteID: 25e9656b59614b910800000000000000
+      internalID: 1852130179021184594
       vertices: []
       indices: 
       edges: []
@@ -236,10 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RecyclingBin_0: -2887903660446137359
-      RecyclingBin_1: -320523777202812729
-      RecyclingBin_2: -7787166960052942110
-      RecyclingBin_3: -8989703219884371571
+      StolenRecycle2_0: 1852130179021184594
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

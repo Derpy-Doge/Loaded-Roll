@@ -25,11 +25,12 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField] StorageType storageType;
 
     private DiceHolder holder;
+    private Inventory inventory;
 
     void Start()
     {
         holder = DiceHolder.Instance;
-
+        inventory = Inventory.Instance;
         if (transform.childCount > 0)
         {
             if (storageType == StorageType.Hotbar)
@@ -95,6 +96,24 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
     }
 
+    public void EmptyDice()
+    {
+        if (storageType != StorageType.Recycle)
+        {
+            Debug.LogError($"A hotbar slot, {gameObject.name}, is trying to run the function EmptyDice() while not being a recycling slot.");
+            return;
+        }
+
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            if (transform.GetChild(i).TryGetComponent<DiceDragging>(out DiceDragging diceD))
+            {
+                inventory.PlaceDice(diceD, true);  
+            }
+            
+        }
+    }
+
     public void PlaceDice(DiceDragging dice)
     {
         if (currentDice == null)
@@ -102,7 +121,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
             if (storageType == StorageType.Inventory && dice.GetSlot().storageType == StorageType.Inventory) //Moving dice from inventory slot to empty inventory slot
             {
-                Inventory.Instance.PlaceDice(dice, true);  
+                inventory.PlaceDice(dice, true);  
                 dice.SetSlot(StorageType.Inventory); //I think this is pointless
                 return;
 
@@ -118,7 +137,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             }
             else if (storageType == StorageType.Inventory) //Moving dice from hotbar slot to empty inventory slot
             {
-                Inventory.Instance.PlaceDice(dice, false);  
+                inventory.PlaceDice(dice, false);  
                 RollDice.Instance.diceTextures[dice.GetSlot().boxIndex] = null;
                 //RollDice.Instance.AllDice[dice.GetSlot().boxIndex] = null;
                 RollDice.Instance.AllSlots[dice.GetSlot().boxIndex] = null;
@@ -129,7 +148,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             }
             else //Moving from inventory slot to empty hotbar slot
             {
-                Debug.Log($"Box Index: {boxIndex}");
+                //Debug.Log($"Box Index: {boxIndex}");
 
                 RollDice.Instance.diceTextures[boxIndex] = dice.visualFC.Dice;
                 RollDice.Instance.AllSlots[boxIndex] = dice;//currentDice;
@@ -157,11 +176,11 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
             if (oldSlot.storageType == StorageType.Inventory && storageType == StorageType.Inventory) //Moving dice from inventory slot to inventory slot
             {
-                Debug.Log("Moving dice from inventory slot to inventory slot");
+                //Debug.Log("Moving dice from inventory slot to inventory slot");
             }
             else if (oldSlot.storageType == StorageType.Hotbar && storageType == StorageType.Hotbar) //Moving dice from hotbar slot to hotbar slot
             {
-                Debug.Log("Moving dice from hotbar slot to hotbar slot");
+                //Debug.Log]("Moving dice from hotbar slot to hotbar slot");
                 RollDice.Instance.diceTextures.Swap(boxIndex, oldSlot.boxIndex);
                 //RollDice.Instance.AllDice.Swap(boxIndex, oldSlot.boxIndex); 
                 RollDice.Instance.AllSlots.Swap(boxIndex, oldSlot.boxIndex); 
@@ -171,19 +190,19 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             }
             else if (oldSlot.storageType == StorageType.Inventory) //Moved from inventory to hotbar
             {
-                Debug.Log("Moving dice from inventory to hotbar");
+                //Debug.Log]("Moving dice from inventory to hotbar");
                 RollDice.Instance.diceTextures[boxIndex] = currentDice.visualFC.Dice;
                 //RollDice.Instance.AllDice[boxIndex] = currentDice.diceTexture;
-                Debug.Log(currentDice.gameObject.name);
+                //Debug.Log](currentDice.gameObject.name);
                 RollDice.Instance.AllSlots[boxIndex] = currentDice;
 
 
-                Inventory.Instance.PlaceDice(other, true);  
+                inventory.PlaceDice(other, true);  
                 other.SetSlot(StorageType.Inventory); 
             }
             else //Moved from hotbar to inventory 
             {
-                Debug.Log("Moving dice from hotbar to inventory");
+                //Debug.Log]("Moving dice from hotbar to inventory");
                 RollDice.Instance.diceTextures[oldSlot.boxIndex] = other.visualFC.Dice;
                 //RollDice.Instance.AllDice[oldSlot.boxIndex] = other.diceTexture;
                 RollDice.Instance.AllSlots[oldSlot.boxIndex] = other;

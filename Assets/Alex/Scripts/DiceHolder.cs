@@ -26,9 +26,9 @@ public class DiceHolder : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        glow = Resources.Load<Material>("Materials/Glow");
+        glow = Resources.Load<Material>("Materials/NewGlow");
         purpleFullGlow = Resources.Load<Material>("Materials/FullGlow");
-        purpleGlow = Resources.Load<Material>("Materials/PurpleGlow");
+        purpleGlow = Resources.Load<Material>("Materials/NewPurple");
         diceTexturePrefab = Resources.Load<GameObject>("Prefabs/diceTexture");
 
     }
@@ -142,6 +142,11 @@ public class DiceHolder : MonoBehaviour
         recycleSlot.recyclingDice.Add(diceDragging);
         diceDragging.transform.SetParent(recycleSlot.transform);
         diceDragging.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+    }
+
+    public void EmptyRecycle()
+    {
+        recycleSlot.EmptyDice();
     }
 
     public void CreateDice(GlobalDie die, GameObject visualReference, int index)

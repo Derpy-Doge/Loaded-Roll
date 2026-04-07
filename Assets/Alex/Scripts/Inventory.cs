@@ -33,14 +33,18 @@ public class Inventory : MonoBehaviour
     private float minZ;
     private float maxZ;
 
-
-    private void Start()
+    private void Awake()
     {
         if (Instance != null)
         {
             Debug.LogError("There is multiple inventory scripts in this scene.");
         }
         Instance = this;
+        
+    }
+
+    private void Start()
+    {
 
         dicePrefab = Resources.Load<GameObject>("Prefabs/DiceInventory");
         spawnPos = map.position + new Vector3(0f, 3f, 0f);
@@ -59,6 +63,11 @@ public class Inventory : MonoBehaviour
         {
             HandlePull();
         }
+    }
+
+    public int GetDiceCount()
+    {
+        return diceInv.Count;
     }
 
     public bool TryGetPosition(out Vector3 worldPos)

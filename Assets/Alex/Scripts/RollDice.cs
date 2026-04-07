@@ -144,14 +144,14 @@ public class RollDice : MonoBehaviour
 
             while (time < duration)
             {
-                Debug.Log("test");
+                //Debug.Log("test");
                 time += Time.deltaTime;
                 float t = time / duration;
                 for (int i = 0; i < count; i++)
                 {
                     Vector2 pos = Vector2.Lerp(startPositions[i], new Vector2 (endPosition.x - (2 - i) * 50, endPosition.y), t);
 
-                    float height = 330 * 4 * (t- t * t);
+                    float height = 350 * 4 * (t- t * t);
                     rTS[i].anchoredPosition = pos + Vector2.up * height;
                 }
                 yield return null;
@@ -169,7 +169,11 @@ public class RollDice : MonoBehaviour
                 //UnselectedSlot[i]
                 DiceHolder.Instance.RecycleDice(UnselectedSlot[i]);
             }
-            gameManager.SwapInventory();
+            gameManager.SwapInventory(0);
+            if (Inventory.Instance.GetDiceCount() < nextDiceRoll)
+            {
+                StartCoroutine(gameManager.RefillInventory());
+            }
         }
 
         yield break;
