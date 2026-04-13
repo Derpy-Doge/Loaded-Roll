@@ -116,7 +116,7 @@ public class Inventory : MonoBehaviour
 
     public void Click(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed) 
+        if (!ctx.performed || GameManager.Instance.CurrentState != GameManager.GameStates.Rolling) 
         {
             return;
         }

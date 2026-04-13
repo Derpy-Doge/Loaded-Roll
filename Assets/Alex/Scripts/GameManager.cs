@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         recycleAnimTwo.SetTrigger("Empty");
         yield return new WaitForSeconds(.75f);
         DiceHolder.Instance.EmptyRecycle();
-
+        CurrentState = GameStates.Rolling;
         // StartCoroutine(AnimateWithCooldown(recycleAnimOne, "Empty", 1.1f));
         // StartCoroutine(AnimateWithCooldown(recycleAnimTwo, "Empty", 1.1f));
     }

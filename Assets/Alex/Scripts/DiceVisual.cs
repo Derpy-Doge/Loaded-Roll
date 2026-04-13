@@ -72,7 +72,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             return;
         }
-
+        //holder.GlowSpeed = 0f;
         holder.hoveredSlot = null;
         if (currentDice != null && !currentDice.Dragging && !selected)
         {
@@ -92,6 +92,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             float rotX = eventData.delta.y; 
             float rotY = eventData.delta.x; 
             float rotZ = -eventData.delta.x; //change this later
+            holder.GlowSpeed += Mathf.Clamp(Mathf.Sqrt(eventData.delta.magnitude) * .005f, 0, 5);
             currentDice.diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
         }
     }

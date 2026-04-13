@@ -13,12 +13,13 @@ public class DiceHolder : MonoBehaviour
     private GameObject diceTexturePrefab;
     [SerializeField] private DiceVisual inventorySlot; //These could probably be static and set in the dicevisual start function
     [SerializeField] private DiceVisual recycleSlot; //These could probably be static and set in the dicevisual start function
-
+    [HideInInspector] public float GlowSpeed;
 
     //Materials
     [HideInInspector] public Material glow;
     private Material purpleGlow;
     private Material purpleFullGlow;
+    private float customTime;
 
 
 
@@ -31,6 +32,22 @@ public class DiceHolder : MonoBehaviour
         purpleGlow = Resources.Load<Material>("Materials/NewPurple");
         diceTexturePrefab = Resources.Load<GameObject>("Prefabs/diceTexture");
 
+    }
+    
+
+    void Update()
+    {
+        if (glow != null) 
+        {
+            GlowSpeed = Mathf.Max(0f, GlowSpeed - Time.deltaTime * 0.4f);
+            GlowSpeed = Mathf.Clamp(GlowSpeed, 0f, 4.7f);
+            Debug.Log($"GS: {GlowSpeed}");
+
+            customTime += Time.deltaTime * 0.2f * (1 + GlowSpeed);
+
+
+            glow.SetFloat("_AnimationSpeed", customTime);
+        }
     }
 
     public RectTransform GetDraggingObj()

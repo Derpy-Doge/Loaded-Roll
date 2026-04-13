@@ -16,10 +16,13 @@ public class DiceDragging : MonoBehaviour
     public bool returning; //pretty sure this can be hideininspector but ima not change for now
     [HideInInspector] public FaceChange visualFC;
     [HideInInspector] public bool Dragging;
-     public RawImage diceTexture;
+    public RawImage diceTexture;
+
+    private DiceHolder holder;
 
     void Start()
     {
+        holder = DiceHolder.Instance;
         diceTexture = GetComponent<RawImage>();
         rect = GetComponent<RectTransform>();
         visualFC = diceTF.GetComponent<FaceChange>();
@@ -71,6 +74,10 @@ public class DiceDragging : MonoBehaviour
         float rotX = mousePos.y * rotationSpeed; //could prob multiply these by time.deltatime
         float rotY = mousePos.x * rotationSpeed; 
         float rotZ = -mousePos.x * rotationSpeed; 
+        
+        holder.GlowSpeed += Mathf.Clamp(Mathf.Sqrt(mousePos.magnitude / 8.5f) * .005f, 0, 5);
+
+
         diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
 
     }
@@ -84,7 +91,8 @@ public class DiceDragging : MonoBehaviour
         }
         else
         {
-            rect.anchoredPosition = Vector2.zero; //change this later
+            rect.anchoredPosition = Vector2.zero; 
+            holder.GlowSpeed = 0f;
         }
     }
 
@@ -116,6 +124,7 @@ public class DiceDragging : MonoBehaviour
             diceTF.Rotate((-startPos.normalized) * 200f * Time.deltaTime);
             yield return null;
         }
+        holder.GlowSpeed = 0f;
         GetComponent<RawImage>().material = null;
         rect.anchoredPosition = Vector2.zero;
         returning = false;
