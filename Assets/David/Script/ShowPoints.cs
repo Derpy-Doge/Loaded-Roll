@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
+using TMPro;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ShowPoints : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class ShowPoints : MonoBehaviour
     public DiceScoreCalc Calc;
     public Animator pointanim;
     public Animator textanim;
-    [SerializeField]private Slider speedSlider;
+    //[SerializeField]private Slider speedSlider;
     [Space]
     [Header("How Long Should Text Pop-Up")]
     private float Timer;
@@ -25,6 +26,12 @@ public class ShowPoints : MonoBehaviour
     [Header("How large Should It Be")]
     private float startSize = 0f;
     public float endSize;
+    [Space]
+    [Header("SpeedUp")]
+    [SerializeField]private Vector3 mousePosition;
+    [SerializeField] private TMP_Text speedText;
+    [SerializeField] private RectTransform speedTextLocation;
+    [SerializeField]private RectTransform rect;
 
     private float colorPoints;
 
@@ -32,34 +39,65 @@ public class ShowPoints : MonoBehaviour
 
     public bool textFinished;
 
+    private bool speedUp;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        speedSlider.value = growSpeed;
-        speedSlider.onValueChanged.AddListener(delegate { UpdateSpeed(speedSlider.value); });
+        //speedSlider.value = growSpeed;
+        //speedSlider.onValueChanged.AddListener(delegate { UpdateSpeed(speedSlider.value); });
         //CurrentTime = (3 - (growSpeed / 100));
         speed = 0.5f;
         saveSpeed = speed;
         Timer = CurrentTime;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        speedText.text = growSpeed.ToString() + "x";
         pointanim.speed = growSpeed;
         textanim.speed = growSpeed;
         if (growSpeed < 1)
             growSpeed = 1;
 
-       
+        //mousePosition = Input.mousePosition;
+        //speedText.transform.position = mousePosition + new Vector3(0f, 50f, 0f);
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out pos);
+        pos = pos + new Vector2(0f, 50f);
+        speedTextLocation.anchoredPosition = pos;
 
-        
+
+    }
+    public void SpeedUp(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            speedUp = true;
+            speedText.gameObject.SetActive(true);
+        }
+        else if (ctx.canceled)
+        {
+            speedUp = false;
+            speedText.gameObject.SetActive(false);
+
+        }
+    }
+    public void Scroll(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed && speedUp)
+        {
+            growSpeed = Mathf.Clamp(growSpeed + ctx.ReadValue<Vector2>().y, 1f, 5f);
+            UpdateSpeed();
+        }
     }
 
-    private void UpdateSpeed(float newvalue)
+    private void UpdateSpeed()
     {
-        growSpeed = newvalue; 
+        //growSpeed = newvalue; 
         
         if (growSpeed == 1)
         {
