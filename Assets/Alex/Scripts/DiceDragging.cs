@@ -16,6 +16,7 @@ public class DiceDragging : MonoBehaviour
     public bool returning; //pretty sure this can be hideininspector but ima not change for now
     [HideInInspector] public FaceChange visualFC;
     [HideInInspector] public bool Dragging;
+    [HideInInspector] public bool selectable = true;
     public RawImage diceTexture;
 
     private DiceHolder holder;
@@ -44,6 +45,11 @@ public class DiceDragging : MonoBehaviour
         {
             rect.anchoredPosition = Vector3.zero;
         }
+    }
+
+    public void ToggleSelectable() //(I) make sure to call this at the end of the reroll
+    {
+        selectable = !selectable;
     }
 
     public void SetSlot(DiceVisual.StorageType type)
