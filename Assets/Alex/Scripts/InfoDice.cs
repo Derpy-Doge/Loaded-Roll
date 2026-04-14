@@ -10,9 +10,11 @@ public class InfoDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private bool _dragging;
     private bool _hovering;
     private RectTransform _infoImage;
+    private RectTransform rect;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        rect = transform.parent.GetComponent<RectTransform>();
         canvas = transform.parent.GetComponent<Canvas>();
         _infoImage = GetComponent<RectTransform>();
     }
@@ -46,10 +48,16 @@ public class InfoDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerMove(PointerEventData eventData) //use gsame movement in dice dragging
     {
-        Debug.Log("tes26723oj5sngknsgnt");
+    }
+
+    void Update()
+    {
         if (_dragging)
         {
-            _infoImage.anchoredPosition += eventData.delta / canvas.scaleFactor;
+            Vector2 pos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out pos);
+            _infoImage.anchoredPosition = pos - new Vector2(_infoImage.rect.width/2f, _infoImage.rect.height / 2f);
+            Debug.Log("sojgjkzxogjsok");
         }
     }
 }

@@ -503,7 +503,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -656.5, y: 150}
+  m_AnchoredPosition: {x: -29, y: 150}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &160386005
@@ -1573,6 +1573,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   AllDice:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Selected:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -3537,6 +3543,7 @@ MonoBehaviour:
   returning: 0
   visualFC: {fileID: 0}
   Dragging: 0
+  selectable: 1
   diceTexture: {fileID: 0}
 --- !u!114 &1121716304
 MonoBehaviour:
@@ -5478,6 +5485,7 @@ MonoBehaviour:
   returning: 0
   visualFC: {fileID: 0}
   Dragging: 0
+  selectable: 1
   diceTexture: {fileID: 0}
 --- !u!114 &1613629224
 MonoBehaviour:
@@ -5998,6 +6006,7 @@ MonoBehaviour:
   returning: 0
   visualFC: {fileID: 0}
   Dragging: 0
+  selectable: 1
   diceTexture: {fileID: 0}
 --- !u!1001 &1834258529
 PrefabInstance:
@@ -6287,6 +6296,7 @@ MonoBehaviour:
   returning: 0
   visualFC: {fileID: 0}
   Dragging: 0
+  selectable: 1
   diceTexture: {fileID: 0}
 --- !u!114 &2083889618
 MonoBehaviour:
@@ -6367,6 +6377,7 @@ MonoBehaviour:
   returning: 0
   visualFC: {fileID: 0}
   Dragging: 0
+  selectable: 1
   diceTexture: {fileID: 0}
 --- !u!4 &2305331012979615759
 Transform:

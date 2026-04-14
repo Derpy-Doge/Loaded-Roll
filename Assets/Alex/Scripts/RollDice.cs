@@ -34,8 +34,8 @@ public class RollDice : MonoBehaviour
     public List<DiceDragging> UnselectedSlot = new();
     public DiceDragging[] AllSlots = new DiceDragging[5]; 
     public RawImage[] AllDice = new RawImage[5]; //When i have more time remove this in place of using allslots
-
-
+    public DiceDragging[] Selected = new DiceDragging[5];    
+    
     void Start()
     {
 
@@ -121,6 +121,7 @@ public class RollDice : MonoBehaviour
         {
             nextDiceRoll = 5;
             
+            
         }
         else
         {
@@ -166,9 +167,17 @@ public class RollDice : MonoBehaviour
             //Transfer the dice to a recycle slot
             for (int i = 0; i < count; i++)
             {
-                //UnselectedSlot[i]
                 DiceHolder.Instance.RecycleDice(UnselectedSlot[i]);
             }
+
+            for (int i = 0; i < Selected.Length; i++)
+            {
+                if (Selected[i] != null)
+                {
+                    Selected[i].ToggleSelectable();
+                }
+            }
+
             gameManager.SwapInventory(0);
             if (Inventory.Instance.GetDiceCount() < nextDiceRoll)
             {
@@ -186,8 +195,13 @@ public class RollDice : MonoBehaviour
         Debug.Log(UnselectedSlot.Count);
         Debug.Log(UnselectedDice.Count);
         rolledFaces.Clear();
-        for (int i = 0; i < nextDiceRoll; i++)
+        for (int i = 0; i < 5; i++)
         {
+            if (Selected[i] != null)
+            {
+                continue;
+            }
+
             dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
             dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;

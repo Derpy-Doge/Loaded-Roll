@@ -105,7 +105,7 @@ public class DiceHolder : MonoBehaviour
             }
             else
             {
-                if (hoveredSlot != null && hoveredSlot.currentDice != null)
+                if (hoveredSlot != null && hoveredSlot.currentDice != null && hoveredSlot.currentDice.selectable)
                 {
                     heldDice = hoveredSlot.currentDice;
                     originalSlot = hoveredSlot;
@@ -130,7 +130,13 @@ public class DiceHolder : MonoBehaviour
 
                 if (hoveredSlot.selected)
                 {
+                    if (!hoveredSlot.currentDice.selectable) //Means the user has already selected the dice in a previous roll so it cant be unselected
+                    {
+                        return;
+                    }
+
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
+                    RollDice.Instance.Selected[hoveredSlot.boxIndex] = null;
                     RollDice.Instance.UnselectedDice.Add(rI);
                     RollDice.Instance.UnselectedSlot.Add(hoveredSlot.currentDice);
                     hoveredSlot.selected = false;
@@ -142,6 +148,7 @@ public class DiceHolder : MonoBehaviour
                 {
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
                     hoveredSlot.selected = true;
+                    RollDice.Instance.Selected[hoveredSlot.boxIndex] = hoveredSlot.currentDice;
                     RollDice.Instance.UnselectedDice.Remove(rI);
                     RollDice.Instance.UnselectedSlot.Remove(hoveredSlot.currentDice);
                     rI.material = purpleGlow;
