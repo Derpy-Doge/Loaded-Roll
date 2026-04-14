@@ -12,6 +12,12 @@ public class GameManager : MonoBehaviour
         Select = 2,
         Busy = 3,
     }
+
+    public enum AnimDir
+    {
+        Out = 0,
+        In = 1,
+    }
     public static GameManager Instance;
 
     [Tooltip("The text for the amount of interest")] [SerializeField] private TMPro.TMP_Text interestText;
@@ -91,17 +97,61 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    public void SwapInventory()
+    public IEnumerator RefillInventory()
     {
-        recycleAnimOne.SetTrigger("Out");
-        recycleAnimTwo.SetTrigger("Out");
-        StartCoroutine(AnimateWithCooldown(invAnim, "In", .25f));
+        yield return new WaitForSeconds(1.1f);
+        recycleAnimOne.SetTrigger("Empty");
+        recycleAnimTwo.SetTrigger("Empty");
+        yield return new WaitForSeconds(.75f);
+        DiceHolder.Instance.EmptyRecycle();
+        CurrentState = GameStates.Rolling;
+        // StartCoroutine(AnimateWithCooldown(recycleAnimOne, "Empty", 1.1f));
+        // StartCoroutine(AnimateWithCooldown(recycleAnimTwo, "Empty", 1.1f));
+    }
+
+    public void SwapInventory(int dir)
+    {
+        if (dir == (int)AnimDir.In)
+        {
+            invAnim.SetTrigger("Out");
+            StartCoroutine(AnimateWithCooldown(recycleAnimOne, "In", .25f));
+            StartCoroutine(AnimateWithCooldown(recycleAnimTwo, "In", .25f));
+        }
+        else
+        {
+            recycleAnimOne.SetTrigger("Out");
+            recycleAnimTwo.SetTrigger("Out");
+            StartCoroutine(AnimateWithCooldown(invAnim, "In", .25f));
+        }
+    }
+
+    public void SwapInventory(AnimDir dir)
+    {
+        if (dir == AnimDir.In)
+        {
+            invAnim.SetTrigger("Out");
+            StartCoroutine(AnimateWithCooldown(recycleAnimOne, "In", .25f));
+            StartCoroutine(AnimateWithCooldown(recycleAnimTwo, "In", .25f));
+        }
+        else
+        {
+            recycleAnimOne.SetTrigger("Out");
+            recycleAnimTwo.SetTrigger("Out");
+            StartCoroutine(AnimateWithCooldown(invAnim, "In", .25f));
+        }
     }
 
     IEnumerator AnimateWithCooldown(Animator anim, string triggerType, float cooldown)
     {
         yield return new WaitForSeconds(cooldown);
         anim.SetTrigger(triggerType);
+    }
+
+    public void AnimateEmpty()
+    {
+        recycleAnimOne.SetTrigger("Empty");
+        recycleAnimTwo.SetTrigger("Empty");
+
     }
 
     public void SwapStateButton()

@@ -13,12 +13,13 @@ public class DiceHolder : MonoBehaviour
     private GameObject diceTexturePrefab;
     [SerializeField] private DiceVisual inventorySlot; //These could probably be static and set in the dicevisual start function
     [SerializeField] private DiceVisual recycleSlot; //These could probably be static and set in the dicevisual start function
-
+    [HideInInspector] public float GlowSpeed;
 
     //Materials
     [HideInInspector] public Material glow;
     private Material purpleGlow;
     private Material purpleFullGlow;
+    private float customTime;
 
 
 
@@ -26,11 +27,28 @@ public class DiceHolder : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        glow = Resources.Load<Material>("Materials/Glow");
-        purpleFullGlow = Resources.Load<Material>("Materials/FullGlow");
-        purpleGlow = Resources.Load<Material>("Materials/PurpleGlow");
+        glow = Resources.Load<Material>("Materials/NewGlow");
+        purpleFullGlow = Resources.Load<Material>("Materials/NewFullGlow");
+        purpleGlow = Resources.Load<Material>("Materials/NewPurple");
         diceTexturePrefab = Resources.Load<GameObject>("Prefabs/diceTexture");
 
+    }
+    
+
+    void Update()
+    {
+        if (glow != null) 
+        {
+            GlowSpeed = Mathf.Max(0f, GlowSpeed - Time.deltaTime * 0.4f);
+            GlowSpeed = Mathf.Clamp(GlowSpeed, 0f, 4.7f);
+            Debug.Log($"GS: {GlowSpeed}");
+
+            customTime += Time.deltaTime * 0.2f * (1 + GlowSpeed);
+
+            glow.SetFloat("_AnimationSpeed", customTime);
+            purpleFullGlow.SetFloat("_AnimationSpeed", customTime);
+            purpleGlow.SetFloat("_AnimationSpeed", customTime);
+        }
     }
 
     public RectTransform GetDraggingObj()
@@ -87,7 +105,7 @@ public class DiceHolder : MonoBehaviour
             }
             else
             {
-                if (hoveredSlot != null && hoveredSlot.currentDice != null)
+                if (hoveredSlot != null && hoveredSlot.currentDice != null && hoveredSlot.currentDice.selectable)
                 {
                     heldDice = hoveredSlot.currentDice;
                     originalSlot = hoveredSlot;
@@ -112,7 +130,13 @@ public class DiceHolder : MonoBehaviour
 
                 if (hoveredSlot.selected)
                 {
+                    if (!hoveredSlot.currentDice.selectable) //Means the user has already selected the dice in a previous roll so it cant be unselected
+                    {
+                        return;
+                    }
+
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
+                    RollDice.Instance.Selected[hoveredSlot.boxIndex] = null;
                     RollDice.Instance.UnselectedDice.Add(rI);
                     RollDice.Instance.UnselectedSlot.Add(hoveredSlot.currentDice);
                     hoveredSlot.selected = false;
@@ -124,6 +148,7 @@ public class DiceHolder : MonoBehaviour
                 {
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
                     hoveredSlot.selected = true;
+                    RollDice.Instance.Selected[hoveredSlot.boxIndex] = hoveredSlot.currentDice;
                     RollDice.Instance.UnselectedDice.Remove(rI);
                     RollDice.Instance.UnselectedSlot.Remove(hoveredSlot.currentDice);
                     rI.material = purpleGlow;
@@ -142,6 +167,11 @@ public class DiceHolder : MonoBehaviour
         recycleSlot.recyclingDice.Add(diceDragging);
         diceDragging.transform.SetParent(recycleSlot.transform);
         diceDragging.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+    }
+
+    public void EmptyRecycle()
+    {
+        recycleSlot.EmptyDice();
     }
 
     public void CreateDice(GlobalDie die, GameObject visualReference, int index)

@@ -1354,6 +1354,8 @@ MonoBehaviour:
   hoveredSlot: {fileID: 0}
   draggingLayer: {fileID: 418005448}
   inventorySlot: {fileID: 1126293592}
+  recycleSlot: {fileID: 0}
+  GlowSpeed: 0
   glow: {fileID: 0}
 --- !u!1 &566573465
 GameObject:
@@ -1393,6 +1395,7 @@ MonoBehaviour:
   diceSpinCooldown: 0.1
   diceCamera: {fileID: 799395405}
   follow: 0
+  arcReference: {fileID: 0}
   dices:
   - {fileID: 1594711814}
   - {fileID: 1530881599}
@@ -1401,7 +1404,14 @@ MonoBehaviour:
   - {fileID: 860667440}
   resultFaces: []
   rolledFaces: []
-  SelectedDice: []
+  UnselectedDice: []
+  UnselectedSlot: []
+  AllSlots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   AllDice:
   - {fileID: 0}
   - {fileID: 0}
@@ -3337,6 +3347,7 @@ MonoBehaviour:
   boxIndex: 0
   currentDice: {fileID: 0}
   selected: 0
+  recyclingDice: []
   storageType: 0
 --- !u!95 &1126293593
 Animator:
@@ -4471,6 +4482,7 @@ MonoBehaviour:
   rollAnim: {fileID: 1042449936}
   rollSprite: {fileID: 21300000, guid: 621300a09f6dd754293945508a9195c6, type: 3}
   selectSprite: {fileID: 21300000, guid: 7a0eb93800e44d044abd49171debfe21, type: 3}
+  rollText: {fileID: 0}
   stateButton: {fileID: 1042449933}
   glowAmount: 2
   rolls: 0
@@ -6376,6 +6388,7 @@ MonoBehaviour:
   boxIndex: 0
   currentDice: {fileID: 0}
   selected: 0
+  recyclingDice: []
   storageType: 1
 --- !u!4 &6575636968718150168
 Transform:
@@ -6703,6 +6716,7 @@ MonoBehaviour:
   boxIndex: 4
   currentDice: {fileID: 0}
   selected: 0
+  recyclingDice: []
   storageType: 1
 --- !u!224 &9022303053187271230
 RectTransform:
@@ -6739,6 +6753,7 @@ MonoBehaviour:
   boxIndex: 1
   currentDice: {fileID: 0}
   selected: 0
+  recyclingDice: []
   storageType: 1
 --- !u!224 &9022303054511022227
 RectTransform:
@@ -6775,6 +6790,7 @@ MonoBehaviour:
   boxIndex: 2
   currentDice: {fileID: 0}
   selected: 0
+  recyclingDice: []
   storageType: 1
 --- !u!224 &9022303054777269109
 RectTransform:
@@ -6811,6 +6827,7 @@ MonoBehaviour:
   boxIndex: 3
   currentDice: {fileID: 0}
   selected: 0
+  recyclingDice: []
   storageType: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

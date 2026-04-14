@@ -34,8 +34,8 @@ public class RollDice : MonoBehaviour
     public List<DiceDragging> UnselectedSlot = new();
     public DiceDragging[] AllSlots = new DiceDragging[5]; 
     public RawImage[] AllDice = new RawImage[5]; //When i have more time remove this in place of using allslots
-
-
+    public DiceDragging[] Selected = new DiceDragging[5];    
+    
     void Start()
     {
 
@@ -117,9 +117,11 @@ public class RollDice : MonoBehaviour
     {
         gameManager.CurrentState = GameManager.GameStates.Busy;
         int count = UnselectedDice.Count;
-        if (count == 0) //Means all dice are selected
+        if (count == 0) //Means all dice are selected //Run calculation here.
         {
             nextDiceRoll = 5;
+            
+            
         }
         else
         {
@@ -143,14 +145,14 @@ public class RollDice : MonoBehaviour
 
             while (time < duration)
             {
-                Debug.Log("test");
+                //Debug.Log("test");
                 time += Time.deltaTime;
                 float t = time / duration;
                 for (int i = 0; i < count; i++)
                 {
                     Vector2 pos = Vector2.Lerp(startPositions[i], new Vector2 (endPosition.x - (2 - i) * 50, endPosition.y), t);
 
-                    float height = 330 * 4 * (t- t * t);
+                    float height = 350 * 4 * (t- t * t);
                     rTS[i].anchoredPosition = pos + Vector2.up * height;
                 }
                 yield return null;
@@ -165,22 +167,41 @@ public class RollDice : MonoBehaviour
             //Transfer the dice to a recycle slot
             for (int i = 0; i < count; i++)
             {
-                //UnselectedSlot[i]
                 DiceHolder.Instance.RecycleDice(UnselectedSlot[i]);
             }
-            gameManager.SwapInventory();
+
+            for (int i = 0; i < Selected.Length; i++)
+            {
+                if (Selected[i] != null)
+                {
+                    Selected[i].ToggleSelectable();
+                }
+            }
+
+            gameManager.SwapInventory(0);
+            if (Inventory.Instance.GetDiceCount() < nextDiceRoll)
+            {
+                StartCoroutine(gameManager.RefillInventory());
+            }
         }
 
         yield break;
     }
+
+    //private void 
 
     IEnumerator Roll() //Make this seeded
     {
         Debug.Log(UnselectedSlot.Count);
         Debug.Log(UnselectedDice.Count);
         rolledFaces.Clear();
-        for (int i = 0; i < nextDiceRoll; i++)
+        for (int i = 0; i < 5; i++)
         {
+            if (Selected[i] != null)
+            {
+                continue;
+            }
+
             dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
             dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;
