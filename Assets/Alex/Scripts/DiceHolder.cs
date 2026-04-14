@@ -28,7 +28,7 @@ public class DiceHolder : MonoBehaviour
     {
         Instance = this;
         glow = Resources.Load<Material>("Materials/NewGlow");
-        purpleFullGlow = Resources.Load<Material>("Materials/FullGlow");
+        purpleFullGlow = Resources.Load<Material>("Materials/NewFullGlow");
         purpleGlow = Resources.Load<Material>("Materials/NewPurple");
         diceTexturePrefab = Resources.Load<GameObject>("Prefabs/diceTexture");
 
@@ -45,8 +45,9 @@ public class DiceHolder : MonoBehaviour
 
             customTime += Time.deltaTime * 0.2f * (1 + GlowSpeed);
 
-
             glow.SetFloat("_AnimationSpeed", customTime);
+            purpleFullGlow.SetFloat("_AnimationSpeed", customTime);
+            purpleGlow.SetFloat("_AnimationSpeed", customTime);
         }
     }
 
