@@ -139,6 +139,7 @@ public class DiceHolder : MonoBehaviour
                     RollDice.Instance.Selected[hoveredSlot.boxIndex] = null;
                     RollDice.Instance.UnselectedDice.Add(rI);
                     RollDice.Instance.UnselectedSlot.Add(hoveredSlot.currentDice);
+                    RollDice.Instance.dices[hoveredSlot.boxIndex].gameObject.layer = LayerMask.NameToLayer("Default");
                     hoveredSlot.selected = false;
                     rI.material = glow;
                     RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = null;
@@ -148,6 +149,7 @@ public class DiceHolder : MonoBehaviour
                 {
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
                     hoveredSlot.selected = true;
+                    RollDice.Instance.dices[hoveredSlot.boxIndex].gameObject.layer = LayerMask.NameToLayer("Selected");
                     RollDice.Instance.Selected[hoveredSlot.boxIndex] = hoveredSlot.currentDice;
                     RollDice.Instance.UnselectedDice.Remove(rI);
                     RollDice.Instance.UnselectedSlot.Remove(hoveredSlot.currentDice);
