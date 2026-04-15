@@ -386,6 +386,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4de5408fc8be13d47b7b0608d45fe1ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  visuals: []
+  openVisuals: 
   inventoryImage: {fileID: 579335039}
   inventoryCamera: {fileID: 858144059}
   inventoryWorldCenter: {fileID: 770794929}

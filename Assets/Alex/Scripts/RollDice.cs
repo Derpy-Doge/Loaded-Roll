@@ -13,7 +13,7 @@ public class RollDice : MonoBehaviour
     [SerializeField] private bool follow;
     [SerializeField] private RectTransform arcReference;
 
-    [SerializeField] private List<Transform> dices = new();
+    public List<Transform> dices = new();
     private Dictionary<Transform, Rigidbody> diceRB = new();
     private bool calculated = true;
     private float timeSinceCalc;
@@ -34,7 +34,10 @@ public class RollDice : MonoBehaviour
     public List<DiceDragging> UnselectedSlot = new();
     public DiceDragging[] AllSlots = new DiceDragging[5]; 
     public RawImage[] AllDice = new RawImage[5]; //When i have more time remove this in place of using allslots
-    public DiceDragging[] Selected = new DiceDragging[5];    
+    public DiceDragging[] Selected = new DiceDragging[5];
+
+    [Header("Dice Calc")]
+    public DiceScoreCalc Calc; 
     
     void Start()
     {
@@ -120,8 +123,16 @@ public class RollDice : MonoBehaviour
         if (count == 0) //Means all dice are selected //Run calculation here.
         {
             nextDiceRoll = 5;
-            
-            
+            Debug.Log("tkspgtjpsjgpspgk");
+            //StartCoroutine(Calc.CalculateScore());
+            List<float> floats = new List<float>();
+            for (int i = 0; i < rolledFaces.Count; i++)
+            {
+                floats.Add(rolledFaces[i].pips);
+            }
+            Calc.OIJaojgojaogja(floats);
+
+
         }
         else
         {
@@ -222,10 +233,21 @@ public class RollDice : MonoBehaviour
         UnselectedSlot = AllSlots.ToList();
         for (int i = 0; i < AllSlots.Length; i++)
         {
+            
             AllDice[i] = AllSlots[i].diceTexture;
         }
         UnselectedDice = AllDice.ToList();
+        
+        for (int i = 0; i < AllSlots.Length; i++)
+        {
 
+            if (Selected[i] != null)
+            {
+                UnselectedSlot.Remove(Selected[i]);
+                UnselectedDice.Remove(Selected[i].diceTexture);
+
+            }
+        }
 
         for (int i = 0; i < dices.Count; i++)
         {

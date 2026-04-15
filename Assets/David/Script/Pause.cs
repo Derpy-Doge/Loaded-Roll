@@ -1,12 +1,18 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
-    private bool isPaused = false;
+    
 
-    [SerializeField]private Animator pauseMenu;
-    [SerializeField]private RectTransform pauseMenuMenu;
+    [Header("Pause Menu")]
+    [SerializeField] private Animator pauseMenu;
+    private bool isPaused;
+    [Space]
+    [Header("Settings Menu")]
+    [SerializeField] private Animator settingsMenu;
+    private bool isSettings;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -39,21 +45,26 @@ public class Pause : MonoBehaviour
         if (ctx.performed)
         {
             Debug.Log("gugyugugugugugug");
-            if (isPaused)
+            if (isSettings)
+            {
+                isSettings = false;
+                settingsMenu.SetTrigger("unpause");
+            }
+
+            else if (isPaused)
             {
                 Debug.Log("unpaused");
                 Time.timeScale = 1f;
                 isPaused = false;
-                pauseMenu.SetTrigger("unpaused");
-                pauseMenuMenu.anchoredPosition = new Vector2(0, -1500);
+                pauseMenu.SetTrigger("unpause");
             }
+            
             else
             {
                 Debug.Log("paused");
                 isPaused = true;
                 Debug.Log("affsdfsdsfsdf");
-                pauseMenu.SetTrigger("paused");
-                pauseMenuMenu.anchoredPosition = Vector2.zero;
+                pauseMenu.SetTrigger("pause");
 
 
             }
@@ -62,9 +73,31 @@ public class Pause : MonoBehaviour
 
     public void ResumeGame()
     {
-        Time.timeScale = 1f;
-        isPaused = false;
 
+            Debug.Log("resume");
+            Time.timeScale = 1f;
+            isPaused = false;
+            pauseMenu.SetTrigger("unpause");
     }
+
+    public void OpenSettings()
+    {
+        if (!isSettings)
+        {
+            settingsMenu.SetTrigger("pause");
+            isSettings = true;
+        }
+        else
+        {
+            settingsMenu.SetTrigger("unpause");
+            isSettings = false;
+        }
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
 
 }

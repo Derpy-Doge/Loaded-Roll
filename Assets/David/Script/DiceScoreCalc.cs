@@ -103,6 +103,14 @@ public class DiceScoreCalc : MonoBehaviour
         StartCoroutine(CalculateScore());
     }
 
+    public void OIJaojgojaogja(List<float> faces)
+    {
+        diceValues = faces;
+        StartCoroutine(CalculateScore());
+
+
+    }
+
     public IEnumerator CalculateScore()
     {
         yield return StartCoroutine(Standard());
