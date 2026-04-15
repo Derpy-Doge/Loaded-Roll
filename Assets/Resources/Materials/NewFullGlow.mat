@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AnimationSpeed: 94.18282
+    - _AnimationSpeed: 313.37704
     - _EnableExternalAlpha: 0
     - _GlowIntensity: 0.2
     - _Outline: 0
