@@ -222,10 +222,21 @@ public class RollDice : MonoBehaviour
         UnselectedSlot = AllSlots.ToList();
         for (int i = 0; i < AllSlots.Length; i++)
         {
+            
             AllDice[i] = AllSlots[i].diceTexture;
         }
         UnselectedDice = AllDice.ToList();
+        
+        for (int i = 0; i < AllSlots.Length; i++)
+        {
 
+            if (Selected[i] != null)
+            {
+                UnselectedSlot.Remove(Selected[i]);
+                UnselectedDice.Remove(Selected[i].diceTexture);
+
+            }
+        }
 
         for (int i = 0; i < dices.Count; i++)
         {
