@@ -34,7 +34,10 @@ public class RollDice : MonoBehaviour
     public List<DiceDragging> UnselectedSlot = new();
     public DiceDragging[] AllSlots = new DiceDragging[5]; 
     public RawImage[] AllDice = new RawImage[5]; //When i have more time remove this in place of using allslots
-    public DiceDragging[] Selected = new DiceDragging[5];    
+    public DiceDragging[] Selected = new DiceDragging[5];
+
+    [Header("Dice Calc")]
+    public DiceScoreCalc Calc; 
     
     void Start()
     {
@@ -120,7 +123,7 @@ public class RollDice : MonoBehaviour
         if (count == 0) //Means all dice are selected //Run calculation here.
         {
             nextDiceRoll = 5;
-            
+            StartCoroutine(Calc.CalculateScore());
             
         }
         else
