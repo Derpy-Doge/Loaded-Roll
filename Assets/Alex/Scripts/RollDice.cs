@@ -13,7 +13,7 @@ public class RollDice : MonoBehaviour
     [SerializeField] private bool follow;
     [SerializeField] private RectTransform arcReference;
 
-    [SerializeField] private List<Transform> dices = new();
+    public List<Transform> dices = new();
     private Dictionary<Transform, Rigidbody> diceRB = new();
     private bool calculated = true;
     private float timeSinceCalc;
@@ -123,8 +123,16 @@ public class RollDice : MonoBehaviour
         if (count == 0) //Means all dice are selected //Run calculation here.
         {
             nextDiceRoll = 5;
-            StartCoroutine(Calc.CalculateScore());
-            
+            Debug.Log("tkspgtjpsjgpspgk");
+            //StartCoroutine(Calc.CalculateScore());
+            List<float> floats = new List<float>();
+            for (int i = 0; i < rolledFaces.Count; i++)
+            {
+                floats.Add(rolledFaces[i].pips);
+            }
+            Calc.OIJaojgojaogja(floats);
+
+
         }
         else
         {
