@@ -40,6 +40,7 @@ public class ShowPoints : MonoBehaviour
     public bool textFinished;
 
     private bool speedUp;
+    [HideInInspector] public bool calcdone;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -213,6 +214,7 @@ public class ShowPoints : MonoBehaviour
         Calc.zeros = 0;
         spawned = false;
         textFinished = false;
+        calcdone = true;
     }
 }
 

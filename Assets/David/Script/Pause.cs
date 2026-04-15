@@ -82,8 +82,16 @@ public class Pause : MonoBehaviour
 
     public void OpenSettings()
     {
+        if (!isSettings)
+        {
             settingsMenu.SetTrigger("pause");
             isSettings = true;
+        }
+        else
+        {
+            settingsMenu.SetTrigger("unpause");
+            isSettings = false;
+        }
     }
 
     public void MainMenu()
