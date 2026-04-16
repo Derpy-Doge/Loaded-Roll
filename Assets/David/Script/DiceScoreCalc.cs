@@ -14,8 +14,8 @@ public class DiceScoreCalc : MonoBehaviour
 
 
     public float points;
-    [HideInInspector]public float addedPoints;
-    [HideInInspector]public float showpoint = 0f;
+    public float addedPoints;
+    public float showpoint = 0f;
 
     public ShowPoints show;
 

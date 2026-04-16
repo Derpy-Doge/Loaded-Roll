@@ -4,7 +4,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "Face", menuName = "Scriptable Objects/Face")]
 public class Face : ScriptableObject
 {
-    private DiceScoreCalc diceScoreCalc;
+    //private DiceScoreCalc diceScoreCalc;
 
     public Texture2D Texture;
 
@@ -22,7 +22,7 @@ public class Face : ScriptableObject
 
     public void Cash(int profit)
     {
-        diceScoreCalc.points += profit;
+        //diceScoreCalc.points += profit;
     }
     public void Choice()
     {

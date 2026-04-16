@@ -190,7 +190,7 @@ public class ShowPoints : MonoBehaviour
         textanim.SetTrigger("GrowText");
         yield return new WaitForSeconds(speed);
         Debug.Log("Points added");
-        Calc.points += Calc.addedPoints;
+        //SaveDataController.Instance.current.Run.Points += Mathf.RoundToInt(Calc.addedPoints);
         Timer = CurrentTime;
         Calc.addedPoints = 0;
         spawned = false;
