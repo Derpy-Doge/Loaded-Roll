@@ -13,6 +13,7 @@ public class DiceHolder : MonoBehaviour
     private GameObject diceTexturePrefab;
     [SerializeField] private DiceVisual inventorySlot; //These could probably be static and set in the dicevisual start function
     [SerializeField] private DiceVisual recycleSlot; //These could probably be static and set in the dicevisual start function
+    [SerializeField] private DiceVisual[] hotbar = new DiceVisual[5];
     [HideInInspector] public float GlowSpeed;
 
     //Materials
@@ -139,6 +140,7 @@ public class DiceHolder : MonoBehaviour
                     RollDice.Instance.Selected[hoveredSlot.boxIndex] = null;
                     RollDice.Instance.UnselectedDice.Add(rI);
                     RollDice.Instance.UnselectedSlot.Add(hoveredSlot.currentDice);
+                    RollDice.Instance.dices[hoveredSlot.boxIndex].gameObject.layer = LayerMask.NameToLayer("Default");
                     hoveredSlot.selected = false;
                     rI.material = glow;
                     RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = null;
@@ -148,6 +150,7 @@ public class DiceHolder : MonoBehaviour
                 {
                     RawImage rI = hoveredSlot.currentDice.GetComponent<RawImage>();
                     hoveredSlot.selected = true;
+                    RollDice.Instance.dices[hoveredSlot.boxIndex].gameObject.layer = LayerMask.NameToLayer("Selected");
                     RollDice.Instance.Selected[hoveredSlot.boxIndex] = hoveredSlot.currentDice;
                     RollDice.Instance.UnselectedDice.Remove(rI);
                     RollDice.Instance.UnselectedSlot.Remove(hoveredSlot.currentDice);
@@ -190,6 +193,25 @@ public class DiceHolder : MonoBehaviour
 
         heldDice.Dragging = true;
         //heldDice.transform.SetParent(draggingLayer.transform);
+    }
+
+    public void Fill(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            QuickFill();
+        }
+    }
+
+    public void QuickFill()
+    {
+        for (int i = 0; i < hotbar.Length; i++)
+        {
+            if (hotbar[i].currentDice == null && hotbar[i] != originalSlot)
+            {
+                
+            }
+        }
     }
 
 }

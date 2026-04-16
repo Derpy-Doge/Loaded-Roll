@@ -4,13 +4,13 @@ using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 
-public class InfoDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerMoveHandler
+public class InfoDice : MonoBehaviour
 {
     private Canvas canvas;
     private bool _dragging;
-    private bool _hovering;
     private RectTransform _infoImage;
     private RectTransform rect;
+    [SerializeField] private RawImage[] faces = new RawImage[6];
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,45 +19,49 @@ public class InfoDice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         _infoImage = GetComponent<RectTransform>();
     }
 
- 
-
-    public void Click(InputAction.CallbackContext ctx)
+    public void RightClick(InputAction.CallbackContext ctx)
     {
         if (ctx.performed)
         {
-            if (_hovering)
+            
+            if (DiceHolder.Instance.hoveredSlot != null && DiceHolder.Instance.hoveredSlot.currentDice != null)
             {
+                GlobalDie die = DiceHolder.Instance.hoveredSlot.currentDice.visualFC.Dice;
+                gameObject.SetActive(true);
                 _dragging = true;
+                int i = 0;
+                foreach (var face in die.Faces.Values)
+                {
+                    faces[i].texture = face.Texture;
+                    i++;
+                }
+                _infoImage.anchoredPosition = DiceHolder.Instance.hoveredSlot.GetComponent<RectTransform>().anchoredPosition + new Vector2(0f, 100f);
             }
         }
         else if (ctx.canceled)
         {
-            _dragging = false;
-
+            if (_dragging)
+            {
+                gameObject.SetActive(false);
+                _dragging = false;
+                _dragging = false;
+            }
+            
         }
-    }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        _hovering = true;
+
+        
+
     }
 
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        _hovering = false;
-    }
-
-    public void OnPointerMove(PointerEventData eventData) //use gsame movement in dice dragging
-    {
-    }
 
     void Update()
     {
-        if (_dragging)
-        {
-            Vector2 pos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out pos);
-            _infoImage.anchoredPosition = pos - new Vector2(_infoImage.rect.width/2f, _infoImage.rect.height / 2f);
-            Debug.Log("sojgjkzxogjsok");
-        }
+        // if (_dragging)
+        // {
+        //     Vector2 pos;
+        //     RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, Input.mousePosition, Camera.main, out pos);
+        //     _infoImage.anchoredPosition = pos - new Vector2(_infoImage.rect.width/2f, _infoImage.rect.height / 2f);
+        //     Debug.Log("sojgjkzxogjsok");
+        // }
     }
 }
