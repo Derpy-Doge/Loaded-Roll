@@ -495,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &160386004
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1045,6 +1045,7 @@ MonoBehaviour:
   speedTextLocation: {fileID: 457452413}
   rect: {fileID: 369824799}
   textFinished: 0
+  calcdone: 0
 --- !u!1 &403087519
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ public class DiceHolder : MonoBehaviour
     private GameObject diceTexturePrefab;
     [SerializeField] private DiceVisual inventorySlot; //These could probably be static and set in the dicevisual start function
     [SerializeField] private DiceVisual recycleSlot; //These could probably be static and set in the dicevisual start function
+    [SerializeField] private DiceVisual[] hotbar = new DiceVisual[5];
     [HideInInspector] public float GlowSpeed;
 
     //Materials
@@ -192,6 +193,25 @@ public class DiceHolder : MonoBehaviour
 
         heldDice.Dragging = true;
         //heldDice.transform.SetParent(draggingLayer.transform);
+    }
+
+    public void Fill(InputAction.CallbackContext ctx)
+    {
+        if (ctx.performed)
+        {
+            QuickFill();
+        }
+    }
+
+    public void QuickFill()
+    {
+        for (int i = 0; i < hotbar.Length; i++)
+        {
+            if (hotbar[i].currentDice == null && hotbar[i] != originalSlot)
+            {
+                
+            }
+        }
     }
 
 }

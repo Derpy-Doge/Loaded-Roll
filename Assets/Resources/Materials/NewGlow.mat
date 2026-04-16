@@ -42,11 +42,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-<<<<<<< HEAD
-    - _AnimationSpeed: 313.37704
-=======
-    - _AnimationSpeed: 20.282682
->>>>>>> aa9cbefcb4f660f9f712d06af8750038f76d908d
+    - _AnimationSpeed: 8.608573
     - _EnableExternalAlpha: 0
     - _GlowIntensity: 1.5
     - _Outline: 1
