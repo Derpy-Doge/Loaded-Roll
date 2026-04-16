@@ -36,6 +36,7 @@ public class Die_Selection : MonoBehaviour
     {
         // Change all refereces to Global die to the new die
         FaceChange faceChange = this.gameObject.GetComponent<FaceChange>();
+        Debug.Log(faceChange.gameObject.name);
         faceChange.Dice = newDie;
     }
 }
