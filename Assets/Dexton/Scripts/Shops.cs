@@ -21,7 +21,8 @@ public class Shops : MonoBehaviour
         {
             GameObject instance = Instantiate(buyButton, shopArea.transform);
             
-            instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(face.name);
+            instance.GetComponent<Image>().sprite = Sprite.Create(face.Texture, new Rect(0, 0, face.Texture.width, face.Texture.height), new Vector2(0.5f, 0.5f));
+            instance.GetComponentInChildren<TMPro.TMP_Text>().enabled = false;
             instance.GetComponent<Button>().onClick.AddListener(() => shopChangeFace.ChangeFace(face));
         }
     }
