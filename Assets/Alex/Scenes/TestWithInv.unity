@@ -517,9 +517,9 @@ RectTransform:
   - {fileID: 1610445399}
   m_Father: {fileID: 369824799}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -29, y: 150}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 300, y: -185}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &160386005
@@ -572,6 +572,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587421ceca7f24a4798458f5c18d4a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faces:
+  - {fileID: 1040922136}
+  - {fileID: 1437944242}
+  - {fileID: 1643046939}
+  - {fileID: 1162009119}
+  - {fileID: 1314168882}
+  - {fileID: 1610445400}
 --- !u!1 &183338449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1612,6 +1619,12 @@ MonoBehaviour:
   draggingLayer: {fileID: 418005448}
   inventorySlot: {fileID: 1126293592}
   recycleSlot: {fileID: 716433541}
+  hotbar:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   GlowSpeed: 0
   glow: {fileID: 0}
 --- !u!1 &513445663
@@ -2162,6 +2175,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 160386007}
+        m_TargetAssemblyTypeName: InfoDice, Alex
+        m_MethodName: RightClick
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 834a191a-c4de-45dd-a9c4-4e8e6cd90101
     m_ActionName: 'Player/RightClick[/Mouse/rightButton]'
   - m_PersistentCalls:
@@ -2200,6 +2225,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8822db07-597e-4e3c-813a-d64f6dde4dee
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e6a06e8a-c1e4-4c8d-95ea-e489ba6bb1ef
+    m_ActionName: 'Player/Fill[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
