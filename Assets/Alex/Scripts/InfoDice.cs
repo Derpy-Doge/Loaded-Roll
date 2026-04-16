@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class InfoDice : MonoBehaviour
 {
@@ -26,6 +28,8 @@ public class InfoDice : MonoBehaviour
             
             if (DiceHolder.Instance.hoveredSlot != null && DiceHolder.Instance.hoveredSlot.currentDice != null)
             {
+                var asset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+                asset.supportsHDR = true;
                 GlobalDie die = DiceHolder.Instance.hoveredSlot.currentDice.visualFC.Dice;
                 gameObject.SetActive(true);
                 _dragging = true;
@@ -35,13 +39,15 @@ public class InfoDice : MonoBehaviour
                     faces[i].texture = face.Texture;
                     i++;
                 }
-                _infoImage.anchoredPosition = DiceHolder.Instance.hoveredSlot.GetComponent<RectTransform>().anchoredPosition + new Vector2(0f, 100f);
+                //_infoImage.anchoredPosition = DiceHolder.Instance.hoveredSlot.GetComponent<RectTransform>().anchoredPosition + new Vector2(0f, 100f);
             }
         }
         else if (ctx.canceled)
         {
             if (_dragging)
             {
+                var asset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+                asset.supportsHDR = false;
                 gameObject.SetActive(false);
                 _dragging = false;
                 _dragging = false;
