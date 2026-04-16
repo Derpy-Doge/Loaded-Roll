@@ -4,14 +4,16 @@ using UnityEngine.UI;
 public class Die_Selection : MonoBehaviour
 {
     private int _flib = 0;
+
     public GameObject buyButton, selectionArea;
-    FaceChange[] faceChange;
-    GlobalDie[] dice;
+    public FaceChange[] faceChange;
+    public GlobalDie[] dice;
 
     public void Awake()
     {
-        buyButton = Resources.Load<GameObject>("Prefabs/BuyButton");
         selectionArea = this.gameObject;
+        buyButton = Resources.Load<GameObject>("Prefabs/BuyButton");
+
         faceChange = FindObjectsByType<FaceChange>(FindObjectsSortMode.None);
         dice = FindObjectsByType<GlobalDie>(FindObjectsSortMode.None);
     }
@@ -25,6 +27,7 @@ public class Die_Selection : MonoBehaviour
             instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
             instance.GetComponent<Button>().onClick.AddListener(() => ChangeDie(die));
             instance.GetComponent<Button>().onClick.AddListener(() => faceChange[_flib].UpdateDiceFaces());
+
             _flib++;
         }
     }

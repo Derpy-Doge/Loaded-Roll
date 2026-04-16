@@ -58,7 +58,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -138,57 +138,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Price Tag_0
-      rect:
-        serializedVersion: 2
-        x: 725
-        y: 604
-        width: 47
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b91e9597d14af400800000000000000
-      internalID: 358671514513316278
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Price Tag_1
-      rect:
-        serializedVersion: 2
-        x: 811
-        y: 605
-        width: 38
-        height: 21
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79d6f1092d36ef250800000000000000
-      internalID: 5980327111206858135
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: Price Tag_2
       rect:
         serializedVersion: 2
-        x: 910
-        y: 556
-        width: 100
-        height: 154
+        x: 911
+        y: 557
+        width: 98
+        height: 152
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -199,50 +155,6 @@ TextureImporter:
       bones: []
       spriteID: 6e4e6cdd841eeffb0800000000000000
       internalID: -4612001265306114842
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Price Tag_3
-      rect:
-        serializedVersion: 2
-        x: 1091
-        y: 609
-        width: 28
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a32f0010498c54a50800000000000000
-      internalID: 6504825774804103738
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Price Tag_4
-      rect:
-        serializedVersion: 2
-        x: 1148
-        y: 604
-        width: 67
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 82be8cf652315ab00800000000000000
-      internalID: 839097957084621608
       vertices: []
       indices: 
       edges: []
@@ -266,6 +178,7 @@ TextureImporter:
       Price Tag_2: -4612001265306114842
       Price Tag_3: 6504825774804103738
       Price Tag_4: 839097957084621608
+      Price Tag_5: 1005436507
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
