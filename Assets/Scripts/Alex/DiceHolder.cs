@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 
-public class DiceHolder : MonoBehaviour
+public class DiceHolder : MonoBehaviour //test
 {
     public static DiceHolder Instance;
     [HideInInspector] public DiceVisual hoveredSlot;

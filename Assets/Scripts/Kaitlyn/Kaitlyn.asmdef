@@ -1,10 +1,9 @@
 {
-    "name": "Dexton",
+    "name": "Kaitlyn",
     "rootNamespace": "",
     "references": [
-        "GUID:d525ad6bd40672747bde77962f1c401e",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:8334f08def2162242acb2d275382b3ea"
+        "GUID:21b0c8d1703a94250bfac916590cea4f",
+        "GUID:97426ba7d7a7ff246bc949f12fd7c983"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

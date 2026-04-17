@@ -82,10 +82,10 @@ public class GameManager : MonoBehaviour
         {
             return false;
         }
-        else if (RollDice.Instance.diceTextures.CheckNulls()) 
-        {
-            return false;
-        }
+        //else if (RollDice.Instance.diceTextures.CheckNulls()) //check this later
+        //{
+        //    return false;
+        //}
 
         invAnim.SetTrigger("Out");
         StartCoroutine(AnimateWithCooldown(recycleAnimOne, "In", .25f));
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
         recycleAnimOne.SetTrigger("Empty");
         recycleAnimTwo.SetTrigger("Empty");
         yield return new WaitForSeconds(.75f);
-        DiceHolder.Instance.EmptyRecycle();
+        //DiceHolder.Instance.EmptyRecycle();
         CurrentState = GameStates.Rolling;
         // StartCoroutine(AnimateWithCooldown(recycleAnimOne, "Empty", 1.1f));
         // StartCoroutine(AnimateWithCooldown(recycleAnimTwo, "Empty", 1.1f));
