@@ -41,9 +41,9 @@ public class Settings : MonoBehaviour
         UnityEngine.Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
-public void Changed()
+public void Changed(bool value)
     {
-        Screen.fullScreen = !Screen.fullScreen;
+        Screen.fullScreen = value;
         Debug.Log("FullScreen Changed");
     }
 

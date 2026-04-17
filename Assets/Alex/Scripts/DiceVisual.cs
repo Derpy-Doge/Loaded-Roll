@@ -93,7 +93,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
             float rotY = eventData.delta.x; 
             float rotZ = -eventData.delta.x; //change this later
             holder.GlowSpeed += Mathf.Clamp(Mathf.Sqrt(eventData.delta.magnitude) * .005f, 0, 5);
-            currentDice.diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
+            //currentDice.diceTF.Rotate(rotX, rotY, rotZ, Space.World); 
         }
     }
 

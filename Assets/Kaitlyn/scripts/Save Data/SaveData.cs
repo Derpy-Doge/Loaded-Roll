@@ -18,6 +18,6 @@ public struct SaveData
 [Serializable]
 public class Run // data saved in that run :skull:
 {
-    
+    public int Points;
     public List<AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>> Deese;
 }
