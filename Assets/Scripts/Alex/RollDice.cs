@@ -95,9 +95,14 @@ public class RollDice : MonoBehaviour
             return;
         }
 
+        if (diceTextures.CheckNulls())
+        {
+            return;
+        }
 
         if (gameManager.Roll())
         {
+            
             StartCoroutine(Roll());
         }
 
@@ -178,7 +183,7 @@ public class RollDice : MonoBehaviour
             //Transfer the dice to a recycle slot
             for (int i = 0; i < count; i++)
             {
-                DiceHolder.Instance.RecycleDice(UnselectedSlot[i]);
+                DiceHolder.Instance.RecycleDice(UnselectedSlot[i]); 
             }
 
             for (int i = 0; i < Selected.Length; i++)
@@ -193,6 +198,8 @@ public class RollDice : MonoBehaviour
             if (Inventory.Instance.GetDiceCount() < nextDiceRoll)
             {
                 StartCoroutine(gameManager.RefillInventory());
+                StartCoroutine(RecycleHelper());
+
             }
         }
 
@@ -201,7 +208,14 @@ public class RollDice : MonoBehaviour
 
     //private void 
 
-    IEnumerator Roll() //Make this seeded
+
+    IEnumerator RecycleHelper()
+    {
+        yield return new WaitForSeconds(GameManager.Instance.recycleCDOne + GameManager.Instance.recycleCDTwo);
+        DiceHolder.Instance.EmptyRecycle();
+    }
+
+        IEnumerator Roll() //Make this seeded
     {
         Debug.Log(UnselectedSlot.Count);
         Debug.Log(UnselectedDice.Count);

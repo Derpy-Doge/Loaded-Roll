@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
     public int rolls; //the amount of rolls the player has taken this round
     public float currentRound; //The current round number for this debt installment /
 
+    [HideInInspector] public float recycleCDOne = 1.1f;
+    [HideInInspector] public float recycleCDTwo = .75f;
+
     [HideInInspector] public GameStates CurrentState = GameStates.Rolling;
 
     void Awake()
@@ -99,11 +102,10 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator RefillInventory()
     {
-        yield return new WaitForSeconds(1.1f);
+        yield return new WaitForSeconds(recycleCDOne);
         recycleAnimOne.SetTrigger("Empty");
         recycleAnimTwo.SetTrigger("Empty");
-        yield return new WaitForSeconds(.75f);
-        //DiceHolder.Instance.EmptyRecycle();
+        yield return new WaitForSeconds(recycleCDTwo);
         CurrentState = GameStates.Rolling;
         // StartCoroutine(AnimateWithCooldown(recycleAnimOne, "Empty", 1.1f));
         // StartCoroutine(AnimateWithCooldown(recycleAnimTwo, "Empty", 1.1f));
