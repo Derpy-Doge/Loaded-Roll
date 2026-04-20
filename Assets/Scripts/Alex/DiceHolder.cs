@@ -42,7 +42,7 @@ public class DiceHolder : MonoBehaviour //test
         {
             GlowSpeed = Mathf.Max(0f, GlowSpeed - Time.deltaTime * 0.4f);
             GlowSpeed = Mathf.Clamp(GlowSpeed, 0f, 4.7f);
-            Debug.Log($"GS: {GlowSpeed}");
+            //Debug.Log($"GS: {GlowSpeed}");
 
             customTime += Time.deltaTime * 0.2f * (1 + GlowSpeed);
 
@@ -158,7 +158,7 @@ public class DiceHolder : MonoBehaviour //test
                     RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleFullGlow;
                     
                 }
-                Debug.Log("test");
+                //Debug.Log("test");
             }
             
         }

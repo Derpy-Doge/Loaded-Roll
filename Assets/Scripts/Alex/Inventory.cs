@@ -148,7 +148,7 @@ public class Inventory : MonoBehaviour
             {
                 if (!placing) 
                 {
-                    Debug.Log("Dont Swap Places");
+                    //Debug.Log("Dont Swap Places");
                     if (openVisuals.Count <= 0)
                     {
                         Debug.LogError("Trying to display more dice than available cameras");

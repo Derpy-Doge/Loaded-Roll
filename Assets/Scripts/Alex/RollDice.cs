@@ -121,10 +121,17 @@ public class RollDice : MonoBehaviour
         return speed;
     }
 
+    private void EndRoll()
+    {
+        gameManager.CurrentState = GameManager.GameStates.Busy;
+        
+    }
+
     IEnumerator Select()
     {
         gameManager.CurrentState = GameManager.GameStates.Busy;
         int count = UnselectedDice.Count;
+
         if (count == 0) //Means all dice are selected //Run calculation here.
         {
             nextDiceRoll = 5;
@@ -217,8 +224,8 @@ public class RollDice : MonoBehaviour
 
         IEnumerator Roll() //Make this seeded
     {
-        Debug.Log(UnselectedSlot.Count);
-        Debug.Log(UnselectedDice.Count);
+        //Debug.Log(UnselectedSlot.Count);
+        //Debug.Log(UnselectedDice.Count);
         rolledFaces.Clear();
         for (int i = 0; i < 5; i++)
         {
@@ -281,9 +288,17 @@ public class RollDice : MonoBehaviour
             int num = rolledFaces[i].pips;
             sides[ordered.FirstOrDefault()].Effect.Invoke();
             resultFaces[i].texture = rolledFaces[i].Texture;
-            Debug.Log(num);
-            gameManager.CurrentState = GameManager.GameStates.Select;
-            gameManager.SwapStateButton();
+            //Debug.Log(num);
         }
+
+        if (gameManager.rolls + 1 == gameManager.rollsPerRound)
+        {
+            EndRoll();
+            return;
+        }
+
+        gameManager.CurrentState = GameManager.GameStates.Select;
+        gameManager.SwapStateButton();
+        
     }
 }

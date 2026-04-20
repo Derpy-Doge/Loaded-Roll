@@ -4314,7 +4314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1034, y: 246}
+  m_AnchoredPosition: {x: 834, y: 246}
   m_SizeDelta: {x: 500, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1126293588
@@ -4551,7 +4551,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1647, y: 276}
+  m_AnchoredPosition: {x: 1447, y: 276}
   m_SizeDelta: {x: 500, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1186178327
@@ -4992,7 +4992,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1647, y: 276}
+  m_AnchoredPosition: {x: 1447, y: 276}
   m_SizeDelta: {x: 500, y: 750}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1338580827
@@ -5615,6 +5615,8 @@ MonoBehaviour:
   glowAmount: 2
   rolls: 0
   currentRound: 0
+  recycleCDOne: 1.1
+  recycleCDTwo: 0.75
   CurrentState: 0
 --- !u!4 &1516604058
 Transform:
@@ -5646,6 +5648,7 @@ MonoBehaviour:
   _saveDataAsset: {fileID: 11400000, guid: 0374a673b09b1914aa4b1b430897c669, type: 2}
   current:
     run:
+      Points: 0
       Deese: []
   _directory: SaveData
   _fileName: SaveData.json

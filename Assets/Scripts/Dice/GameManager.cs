@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("The percent of increase to interest per installment")] [SerializeField] private float interestIncrease = .02f;
 
     [Tooltip("The amount of rounds per debt installment")] [SerializeField] private int roundsPerDebt = 5;
-    [Tooltip("The amount of rools per round")] [SerializeField] private int rollsPerRound = 3;
+    [Tooltip("The amount of rools per round")] public int rollsPerRound = 3;
     [Tooltip("The Animator Component for the inventory.")] [SerializeField] private Animator invAnim; 
     [Tooltip("The Animator Component for the back recycling bin.")] [SerializeField] private Animator recycleAnimOne; 
     [Tooltip("The Animator Component for the front recycling bin.")] [SerializeField] private Animator recycleAnimTwo; 
@@ -78,6 +78,7 @@ public class GameManager : MonoBehaviour
     {
         if (rolls + 1 > rollsPerRound) //New Round 
         {
+            Debug.Log("TRUE");
             return false; 
         }
 

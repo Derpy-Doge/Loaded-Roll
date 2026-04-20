@@ -17,8 +17,8 @@ public class SaveDataController : MonoBehaviour
     {
         _instance = this;
         Load();
-        Debug.Log("beep");
-        Debug.Log($"deese count: {current.run.Deese.Count}");
+        //Debug.Log("beep");
+        //Debug.Log($"deese count: {current.run.Deese.Count}");
         if (current.run.Deese.Count < 1)
         {
             Debug.Log("gurt: yo");
