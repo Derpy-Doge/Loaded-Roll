@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Pause : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //if (Input.GetKeyDown(KeyCode.Escape))
         //{
         //    if (isPaused)

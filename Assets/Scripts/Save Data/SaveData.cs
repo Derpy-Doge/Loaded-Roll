@@ -49,6 +49,7 @@ public class UserSettings
     {
         width = Screen.width,
         height = Screen.height,
-    }; //SaveDataController.Instance.current.Settings.IsFullscreen = Resolution;
+    }; 
+    //SaveDataController.Instance.current.Settings.IsFullscreen = Resolution;
 
 }
