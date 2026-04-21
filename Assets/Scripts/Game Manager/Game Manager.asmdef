@@ -1,15 +1,11 @@
 {
-    "name": "Alex",
+    "name": "GameManager",
     "rootNamespace": "",
     "references": [
-        "GUID:d525ad6bd40672747bde77962f1c401e",
-        "GUID:75469ad4d38634e559750d17036d5f7c",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:15fc0a57446b3144c949da3e2b9737a9",
-        "GUID:516a5277b8c3b4f4c8cc86b77b1591ff",
         "GUID:97426ba7d7a7ff246bc949f12fd7c983",
         "GUID:d2690d5bb02ca5744919b6257772c9dc",
-        "GUID:6385743ecea2379488e7c5996d3b9497"
+        "GUID:d525ad6bd40672747bde77962f1c401e",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

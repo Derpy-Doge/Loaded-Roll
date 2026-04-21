@@ -291,11 +291,11 @@ public class RollDice : MonoBehaviour
             //Debug.Log(num);
         }
 
-        if (gameManager.rolls + 1 == gameManager.rollsPerRound)
-        {
-            EndRoll();
-            return;
-        }
+        //if (gameManager.rolls + 1 == gameManager.rollsPerRound)
+        //{
+        //    EndRoll();
+        //    return;
+        //}
 
         gameManager.CurrentState = GameManager.GameStates.Select;
         gameManager.SwapStateButton();
