@@ -1,10 +1,9 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Die_Selection : MonoBehaviour
 {
-    private int _flib = 0;
-
     public GameObject buyButton, selectionArea;
     public FaceChange[] faceChange;
     public GlobalDie[] dice;
@@ -14,29 +13,35 @@ public class Die_Selection : MonoBehaviour
         selectionArea = this.gameObject;
         buyButton = Resources.Load<GameObject>("Prefabs/BuyButton");
 
-        faceChange = FindObjectsByType<FaceChange>(FindObjectsSortMode.None);
-        dice = FindObjectsByType<GlobalDie>(FindObjectsSortMode.None);
+        faceChange = FindObjectsByType<FaceChange>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
+        dice = FindObjectsByType<GlobalDie>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
     }
 
     void Start()
     {
-        foreach (GlobalDie die in dice)
+        for (int i = 0; i < dice.Length; i++)
         {
             GameObject instance = Instantiate(buyButton, selectionArea.transform);
+            GlobalDie die = dice[i];
+            FaceChange face = faceChange[i];
 
             instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
-            instance.GetComponent<Button>().onClick.AddListener(() => ChangeDie(die));
-            instance.GetComponent<Button>().onClick.AddListener(() => faceChange[_flib].UpdateDiceFaces());
 
-            _flib++;
+            instance.GetComponent<Button>().onClick.AddListener(() => ChangeDie(die, face, GameObject.Find("ShopDie"), die.gameObject));
+
+            instance.GetComponent<Button>().onClick.AddListener(() => die.gameObject.GetComponent<FaceChange>().UpdateDiceFaces());
         }
     }
 
-    public void ChangeDie(GlobalDie newDie)
+    public void ChangeDie(GlobalDie newDie, FaceChange faceChange, GameObject shopdie, GameObject dieToUpdate)
     {
         // Change all refereces to Global die to the new die
-        FaceChange faceChange = this.gameObject.GetComponent<FaceChange>();
         Debug.Log(faceChange.gameObject.name);
-        faceChange.Dice = newDie;
+
+        shopdie.GetComponent<FaceChange>().Dice = newDie;
+        shopdie.GetComponent<FaceChange>().UpdateDiceFaces();
+        shopdie.GetComponent<GlobalDie>().Faces = newDie.Faces;
+        //dieToUpdate.GetComponent<FaceChange>().UpdateDiceFaces();
+
     }
 }
