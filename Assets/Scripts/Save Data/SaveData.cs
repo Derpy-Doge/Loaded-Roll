@@ -11,9 +11,32 @@ public static class SaveSystem
 [Serializable]
 public struct SaveData
 {
-    
-   public Run run; //SaveDataController.Instance.current.Run
+
+    public Run run; //SaveDataController.Instance.current.Run
     public UserSettings Settings;
+
+    public object this[string index]
+    {
+        readonly get => index switch
+        {
+            "run" => run,
+            "Settings" => Settings,
+            _ => null
+        };
+        set
+        {
+            switch (index)
+            {
+                case "run":
+                    run = value as Run;
+                    break;
+
+                case "Settings":
+                    Settings = value as UserSettings;
+                    break;
+            }
+        }
+    }
 }
 
 
@@ -22,6 +45,7 @@ public class Run // data saved in that run :skull:
 {
     public int Points;
     public List<AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>> Deese;
+    //public float InterestRate
 }
 
 [Serializable]

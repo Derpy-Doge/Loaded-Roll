@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.IO;
 using Unity.VisualScripting.FullSerializer;
+using UnityEditor.VersionControl;
 using UnityEngine;
 
 public class SaveDataController : MonoBehaviour
@@ -33,16 +35,33 @@ public class SaveDataController : MonoBehaviour
             current.run.Deese.Add(test);
             Debug.Log("meep");
         }
+
+        //Application.wantsToQuit += () => //Do this for a warning when quiting that you would have unsave data
+        //{
+
+
+
+        //    return false;
+        //};
     }
     //
     private void OnDestroy()
     {
-        //Save();
+        Save();
     }
 
     public void Save()
     {
         Serializer.Save(current, Path.Combine(Application.persistentDataPath, _directory), _fileName);
+        Debug.Log("turtles");
+    }
+
+    public void Set(Dictionary<string, object> changes)
+    {
+        foreach (var kvp in changes)
+        {
+            current[kvp.Key] = kvp.Value;
+        }
     }
 
     public void Load()
