@@ -13,7 +13,8 @@ public class Pause : MonoBehaviour
     [Space]
     [Header("Settings Menu")]
     [SerializeField] private Animator settingsMenu;
-    private bool isSettings;
+    [SerializeField] private GameObject settingsMenuObject;
+    [SerializeField]private bool isSettings;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,14 +51,15 @@ public class Pause : MonoBehaviour
             if (isSettings)
             {
                 isSettings = false;
-                settingsMenu.SetTrigger("unpause");
+                //settingsMenu.SetTrigger("unpause");
             }
 
             else if (isPaused)
             {
                 Debug.Log("unpaused");
                 Time.timeScale = 1f;
-                isPaused = false;
+                isPaused = false;  
+                //settingsMenu.SetTrigger("unpause");
                 pauseMenu.SetTrigger("unpause");
             }
             
@@ -66,6 +68,7 @@ public class Pause : MonoBehaviour
                 Debug.Log("paused");
                 isPaused = true;
                 Debug.Log("affsdfsdsfsdf");
+                //settingsMenu.SetTrigger("pause");
                 pauseMenu.SetTrigger("pause");
 
 
@@ -86,13 +89,17 @@ public class Pause : MonoBehaviour
     {
         if (!isSettings)
         {
-            settingsMenu.SetTrigger("pause");
             isSettings = true;
+            pauseMenu.SetTrigger("erase");
+            settingsMenuObject.SetActive(true);
+            settingsMenu.SetTrigger("unerase");
         }
         else
         {
-            settingsMenu.SetTrigger("unpause");
             isSettings = false;
+            settingsMenu.SetTrigger("erase");
+            settingsMenuObject.SetActive(false);
+            pauseMenu.SetTrigger("unerase");
         }
     }
 
