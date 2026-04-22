@@ -237,7 +237,7 @@ public class RollDice : MonoBehaviour
             dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
             dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;
-            dices[i].position = new Vector3(i - 2f, -2f, i - 2f);
+            dices[i].position = new Vector3(i * 2.5f - 2f, -2f, i * 2.5f - 2f );
             dices[i].Rotate(new Vector3(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f)));
             diceRB[dices[i]].linearVelocity = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
             diceRB[dices[i]].angularVelocity = new Vector3(Random.Range(-8f, 8f), Random.Range(-8f, 8f), Random.Range(-8f, 8f));
@@ -291,14 +291,19 @@ public class RollDice : MonoBehaviour
             //Debug.Log(num);
         }
 
-        //if (gameManager.rolls + 1 == gameManager.rollsPerRound)
-        //{
-        //    EndRoll();
-        //    return;
-        //}
+        if (gameManager.rolls  == gameManager.rollsPerRound)
+        {
+            EndRoll();
+            return;
+        }
 
         gameManager.CurrentState = GameManager.GameStates.Select;
         gameManager.SwapStateButton();
         
+    }
+
+    private void ResetValues()
+    {
+
     }
 }

@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("The Text for the roll/select button.")] [SerializeField] private TMPro.TMP_Text rollText; 
 
     [Tooltip("The Button for roll & select.")] [SerializeField] private Button stateButton;
+    [Tooltip("The dice manager.")][SerializeField] private GameObject DiceManager;
 
 
 
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour
 
     public int rolls; //the amount of rolls the player has taken this round
     public float currentRound; //The current round number for this debt installment /
+
 
 
     [HideInInspector] public float recycleCDOne = 1.1f;
@@ -182,6 +184,7 @@ public class GameManager : MonoBehaviour
 
     public void NewDebtInstallment()
     {
+        DiceManager.SendMessage("ResetValues");
         //SaveDataController.Instance.current.run.Points += 10;
         //SendMessage("Save");
         //SaveDataController.Instance.Save();
