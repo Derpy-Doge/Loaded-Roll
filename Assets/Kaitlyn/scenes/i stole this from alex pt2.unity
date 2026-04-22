@@ -5600,25 +5600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813a592e9d7c39e479f8c1e962478655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interestText: {fileID: 68169338}
-  interest: 0.1
-  interestIncrease: 0.02
-  roundsPerDebt: 5
-  rollsPerRound: 3
-  invAnim: {fileID: 1126293593}
-  recycleAnimOne: {fileID: 1338580829}
-  recycleAnimTwo: {fileID: 1186178329}
-  rollAnim: {fileID: 1042449936}
-  rollSprite: {fileID: 4530779194883528264, guid: 4e3d117af7cfddd4ca651c30d6562f55, type: 3}
-  selectSprite: {fileID: 21300000, guid: 7a0eb93800e44d044abd49171debfe21, type: 3}
-  rollText: {fileID: 513445665}
-  stateButton: {fileID: 1042449933}
-  glowAmount: 2
-  rolls: 0
-  currentRound: 0
-  recycleCDOne: 1.1
-  recycleCDTwo: 0.75
-  CurrentState: 0
 --- !u!4 &1516604058
 Transform:
   m_ObjectHideFlags: 0
@@ -6601,13 +6582,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704463694}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: 0.0072812648, y: 0.0072812648, z: 0.70706934, w: 0.70706934}
   m_LocalPosition: {x: 3.333, y: 23.4, z: 0}
   m_LocalScale: {x: 5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 845122550}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 1.18, z: 90}
 --- !u!114 &1704463696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7159,7 +7140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dba18b78ff5d5e742b8274e3e93fbc27, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2c1def8762879e040962e71255541118, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
