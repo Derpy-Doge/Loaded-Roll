@@ -7,8 +7,15 @@ using UnityEngine.UI;
 public class Settings : MonoBehaviour
 {
     [Header("Graphics")]
+    [Header("FullScreen")]
+    [SerializeField] private Toggle fullscreenToggle;
+    [Header("Quality")]
+    [SerializeField] private TMP_Dropdown qualityDropdown;
+    [Header("Resolution")]
     public TMP_Dropdown resolutionDropdown;
+    [Header("HDR")]
     [HideInInspector] public bool distractingVisuals = true;
+    [SerializeField] private Toggle distractingVisualsToggle;
     [Space]
     [Header("Audio")]
     [Header("MainMenu")]
@@ -29,6 +36,20 @@ public class Settings : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        //Fullscreen Calculation For Save Data
+        Screen.fullScreen = SaveDataController.Instance.current.Settings.IsFullscreen;
+        fullscreenToggle.isOn = SaveDataController.Instance.current.Settings.IsFullscreen;
+
+        //HDR Calculation For Save Data
+        distractingVisuals = SaveDataController.Instance.current.Settings.IsDistracting;
+        distractingVisualsToggle.isOn = SaveDataController.Instance.current.Settings.IsDistracting;
+
+        //Quality Calculation For Save Data
+        QualitySettings.SetQualityLevel((int)SaveDataController.Instance.current.Settings.Quality);
+        qualityDropdown.value = (int)SaveDataController.Instance.current.Settings.Quality;
+        qualityDropdown.RefreshShownValue();
+
+        //Resolution Calculation
         resolutions = Screen.resolutions;
 
         resolutionDropdown.ClearOptions();
@@ -52,6 +73,7 @@ public class Settings : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
+        //Audio Calculation For Save Data
         mainMenuMusic = GameObject.Find("MainMenuMusic").GetComponent<AudioSource>();
         gameMusic = GameObject.Find("GameMusic").GetComponent<AudioSource>();
         sfx = GameObject.Find("SFX").GetComponent<AudioSource>();
@@ -92,16 +114,19 @@ public class Settings : MonoBehaviour
 public void Changed(bool value)
     {
         Screen.fullScreen = value;
+        SaveDataController.Instance.current.Settings.IsFullscreen = value;
         Debug.Log("FullScreen Changed");
     }
 
     public void SetQuality(int qualityIndex)
     {
         QualitySettings.SetQualityLevel(qualityIndex);
+        SaveDataController.Instance.current.Settings.Quality = (UserSettings.QualityTypes)qualityIndex;
     }
 
     public void SetDistractingVisuals(bool value)
     {
         distractingVisuals = value;
+        SaveDataController.Instance.current.Settings.IsDistracting = value;
     }
 }
