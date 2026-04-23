@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d67e59d4e1e1b4393f5ec76b762e5a, type: 3}
+  m_Name: Inventory
+  m_EditorClassIdentifier: 
+  Title: Inventory!?!?!?!??!
+  Description: "This 1.25ft^3 cardboard box is the perfect home for your new shiny
+    dice. \nYou can place them in here simply by dragging them in from your precious
+    egg carton (hotbar) and left clicking, then you can take them out by left clicking
+    them and dragging it into your egg carton. \nYou can also pull dice around in
+    your inventory by holding right click and if you scroll while pulling you can
+    increase the range."

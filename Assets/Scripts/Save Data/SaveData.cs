@@ -76,4 +76,7 @@ public class UserSettings
     }; 
     //SaveDataController.Instance.current.Settings.IsFullscreen = Resolution;
 
+    public bool IgnoreSelectWarning = false; //This doesnt need to go into settings menu
+    public bool ShowTutorial = true; //This should go into settings menu
+
 }

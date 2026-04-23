@@ -356,4 +356,14 @@ public class RollDice : MonoBehaviour
     {
 
     }
+
+    public void CloseActiveTutorial() //Attach this to the button
+    {
+        Tutorial tutorial = Tutorial.TutorialPlayed;
+        if (tutorial != null)
+        {
+            tutorial.DeleteTutorial(); //Im the goat of naming schemes
+            
+        }
+    }
 }

@@ -40,7 +40,9 @@ public class GameManager : MonoBehaviour
     [Tooltip("The Button for roll & select.")] [SerializeField] private Button stateButton;
     [Tooltip("The dice manager.")][SerializeField] private GameObject DiceManager;
 
-
+    public TMPro.TMP_Text tutorialTitle; 
+    public TMPro.TMP_Text tutorialDescription; 
+    public GameObject tutorialMessage; //The GO with the tutorialStuff 
 
 
     [Range(1f, 10f)] [SerializeField] private float glowAmount;
