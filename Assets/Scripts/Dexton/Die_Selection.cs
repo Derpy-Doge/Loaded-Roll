@@ -11,7 +11,7 @@ public class Die_Selection : MonoBehaviour
     public void Awake()
     {
         selectionArea = this.gameObject;
-        buyButton = Resources.Load<GameObject>("Prefabs/BuyButton");
+        buyButton = Resources.Load<GameObject>("Prefabs/DieSelectButton");
 
         faceChange = FindObjectsByType<FaceChange>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
         dice = FindObjectsByType<GlobalDie>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
