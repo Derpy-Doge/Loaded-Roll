@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d490a6efc1153414c9dd450599214281, type: 3}
   m_Name: Purple 1
   m_EditorClassIdentifier: 
-  Texture: {fileID: 2800000, guid: c9c62b55ca969fc4ba9d18cdda2b1a52, type: 3}
+  Texture: {fileID: 2800000, guid: b9bbbfee0ba2799429a3b397ff723b8a, type: 3}
   pips: 1
   price: 0
   Description: 
