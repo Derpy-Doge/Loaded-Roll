@@ -1,6 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System.Linq;
 
 
 public class DiceHolder : MonoBehaviour //test
@@ -50,6 +52,11 @@ public class DiceHolder : MonoBehaviour //test
             purpleFullGlow.SetFloat("_AnimationSpeed", customTime);
             purpleGlow.SetFloat("_AnimationSpeed", customTime);
         }
+    }
+
+    public List<DiceDragging> GetHotbarDice()
+    {
+        return hotbar.Where(v => v != null && v.currentDice != null).Select(v => v.currentDice).ToList();
     }
 
     public RectTransform GetDraggingObj()
@@ -143,7 +150,7 @@ public class DiceHolder : MonoBehaviour //test
                     RollDice.Instance.dices[hoveredSlot.boxIndex].gameObject.layer = LayerMask.NameToLayer("Default");
                     hoveredSlot.selected = false;
                     rI.material = glow;
-                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = null;
+                    //RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = null;
 
                 }
                 else
@@ -155,7 +162,7 @@ public class DiceHolder : MonoBehaviour //test
                     RollDice.Instance.UnselectedDice.Remove(rI);
                     RollDice.Instance.UnselectedSlot.Remove(hoveredSlot.currentDice);
                     rI.material = purpleGlow;
-                    RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleFullGlow;
+                    //RollDice.Instance.resultFaces[hoveredSlot.boxIndex].material = purpleFullGlow;
                     
                 }
                 //Debug.Log("test");
@@ -163,6 +170,23 @@ public class DiceHolder : MonoBehaviour //test
             
         }
 
+    }
+
+    public void SelectAllDice()
+    {
+       for (int i = 0; i < hotbar.Length; i++)
+        {
+            if (!hotbar[i].selected)
+            {
+                RawImage rI = hotbar[i].currentDice.GetComponent<RawImage>();
+                hotbar[i].selected = true;
+                RollDice.Instance.dices[hotbar[i].boxIndex].gameObject.layer = LayerMask.NameToLayer("Selected");
+                RollDice.Instance.Selected[hotbar[i].boxIndex] = hotbar[i].currentDice;
+                RollDice.Instance.UnselectedDice.Remove(rI);
+                RollDice.Instance.UnselectedSlot.Remove(hotbar[i].currentDice);
+                rI.material = purpleGlow;
+            }
+        } 
     }
 
     public void RecycleDice(DiceDragging diceDragging)

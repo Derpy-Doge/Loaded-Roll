@@ -28,7 +28,7 @@ public class RollDice : MonoBehaviour
 
     public static RollDice Instance;
 
-    public List<RawImage> resultFaces = new ();
+    //public List<RawImage> resultFaces = new ();
     [HideInInspector] public List<Face> rolledFaces = new ();
     public List<RawImage> UnselectedDice = new();
     public List<DiceDragging> UnselectedSlot = new();
@@ -54,10 +54,10 @@ public class RollDice : MonoBehaviour
             diceRB.Add(dices[i], dices[i].GetComponent<Rigidbody>());
         }
         rb = gameObject.GetComponent<Rigidbody>();
-        foreach (GameObject gO in GameObject.FindGameObjectsWithTag("FaceResults"))
-        {
-            resultFaces.Add(gO.GetComponent<RawImage>());
-        } 
+        // foreach (GameObject gO in GameObject.FindGameObjectsWithTag("FaceResults"))
+        // {
+        //     resultFaces.Add(gO.GetComponent<RawImage>());
+        // } 
         gameManager = GameManager.Instance;
     }
 
@@ -123,7 +123,8 @@ public class RollDice : MonoBehaviour
 
     private void EndRoll()
     {
-        gameManager.CurrentState = GameManager.GameStates.Busy;
+        DiceHolder.Instance.SelectAllDice();
+        StartCoroutine(Select());
         
     }
 
@@ -140,10 +141,59 @@ public class RollDice : MonoBehaviour
             List<float> floats = new List<float>();
             for (int i = 0; i < rolledFaces.Count; i++)
             {
-                floats.Add(rolledFaces[i].pips);
+                if (rolledFaces[i])
+                {
+                    floats.Add(rolledFaces[i].pips);
+                }
             }
             Calc.OIJaojgojaogja(floats);
 
+            //Recycle Anim Pt 2.
+
+            float time = 0f;
+            float duration = .8f;
+            List<Vector2> startPositions = new();
+            Vector2 endPosition;
+            List<RectTransform> rTS = new();
+            List<Transform> orgParents = new();
+            RectTransform dragging = DiceHolder.Instance.GetDraggingObj();
+            List<DiceDragging> deese = DiceHolder.Instance.GetHotbarDice();
+            count = deese.Count;
+            for (int i = 0; i < count; i++) 
+            {
+                rTS.Add(deese[i].gameObject.GetComponent<RectTransform>());
+                deese[i].transform.SetParent(dragging);
+                startPositions.Add(rTS[i].anchoredPosition);  
+            }
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(rTS[0].parent as RectTransform, RectTransformUtility.WorldToScreenPoint(null, arcReference.position), null, out endPosition);
+            while (time < duration)
+            {
+                time += Time.deltaTime;
+                float t = time / duration;
+                for (int i = 0; i < count; i++)
+                {
+                    Vector2 pos = Vector2.Lerp(startPositions[i], new Vector2 (endPosition.x - (2 - i) * 50, endPosition.y), t);
+
+                    float height = 350 * 4 * (t- t * t);
+                    rTS[i].anchoredPosition = pos + Vector2.up * height;
+                }
+                yield return null;
+            }
+
+
+            for (int i = 0; i < count; i++)
+            {
+                rTS[i].anchoredPosition = new Vector2 (endPosition.x - (2 - i) * 50, endPosition.y);
+                DiceHolder.Instance.RecycleDice(deese[i]); 
+                deese[i].ToggleSelectable();
+            }
+            gameManager.SwapInventory(0);
+            if (Inventory.Instance.GetDiceCount() < nextDiceRoll)
+            {
+                StartCoroutine(gameManager.RefillInventory());
+                StartCoroutine(RecycleHelper());
+
+            }
 
         }
         else
@@ -237,7 +287,7 @@ public class RollDice : MonoBehaviour
             dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
             dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;
-            dices[i].position = new Vector3(i - 2f, -2f, i - 2f);
+            dices[i].position = new Vector3(i * 2.5f - 2f, -2f, i * 2.5f - 2f );
             dices[i].Rotate(new Vector3(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f)));
             diceRB[dices[i]].linearVelocity = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
             diceRB[dices[i]].angularVelocity = new Vector3(Random.Range(-8f, 8f), Random.Range(-8f, 8f), Random.Range(-8f, 8f));
@@ -287,11 +337,11 @@ public class RollDice : MonoBehaviour
             rolledFaces.Add(sides[ordered.FirstOrDefault()]);
             int num = rolledFaces[i].pips;
             sides[ordered.FirstOrDefault()].Effect.Invoke();
-            resultFaces[i].texture = rolledFaces[i].Texture;
+            //resultFaces[i].texture = rolledFaces[i].Texture;
             //Debug.Log(num);
         }
 
-        if (gameManager.rolls + 1 == gameManager.rollsPerRound)
+        if (gameManager.rolls  == gameManager.rollsPerRound)
         {
             EndRoll();
             return;
@@ -300,5 +350,20 @@ public class RollDice : MonoBehaviour
         gameManager.CurrentState = GameManager.GameStates.Select;
         gameManager.SwapStateButton();
         
+    }
+
+    private void ResetValues()
+    {
+
+    }
+
+    public void CloseActiveTutorial() //Attach this to the button
+    {
+        Tutorial tutorial = Tutorial.TutorialPlayed;
+        if (tutorial != null)
+        {
+            tutorial.DeleteTutorial(); //Im the goat of naming schemes
+            
+        }
     }
 }

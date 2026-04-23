@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour
@@ -37,14 +38,19 @@ public class GameManager : MonoBehaviour
     [Tooltip("The Text for the roll/select button.")] [SerializeField] private TMPro.TMP_Text rollText; 
 
     [Tooltip("The Button for roll & select.")] [SerializeField] private Button stateButton;
+    [Tooltip("The dice manager.")][SerializeField] private GameObject DiceManager;
 
-
+    public TMPro.TMP_Text tutorialTitle; 
+    public TMPro.TMP_Text tutorialDescription; 
+    public GameObject tutorialMessage; //The GO with the tutorialStuff 
 
 
     [Range(1f, 10f)] [SerializeField] private float glowAmount;
 
     public int rolls; //the amount of rolls the player has taken this round
     public float currentRound; //The current round number for this debt installment /
+
+
 
     [HideInInspector] public float recycleCDOne = 1.1f;
     [HideInInspector] public float recycleCDTwo = .75f;
@@ -53,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
+        //Points = SaveDataController.Instance.current.run.points;
         if (Instance == null)
         {
             Instance = this;
@@ -174,6 +181,17 @@ public class GameManager : MonoBehaviour
             
         }
     }
+
+    [ContextMenu("hhhoojafaf")]
+
+    public void NewDebtInstallment()
+    {
+        DiceManager.SendMessage("ResetValues");
+        //SaveDataController.Instance.current.run.Points += 10;
+        //SendMessage("Save");
+        //SaveDataController.Instance.Save();
+    }
+
 
     [ContextMenu("Add Interest")]
     private void UpdateInterest()

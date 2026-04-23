@@ -1003,6 +1003,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9f5d644c9d24bab4f9fbd9637e72d824, type: 2}
   shopArea: {fileID: 942609894}
   buyButton: {fileID: 6244587515954976370, guid: 7085d05246692424ba211a50e975b02e, type: 3}
+  shopDie: {fileID: 0}
 --- !u!114 &942609898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1720,7 +1721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1836083062115014012, guid: cb476f0b651ac02468daf6f542a87ba3, type: 3}
+  m_Sprite: {fileID: 1506045509585607839, guid: a4032f52ad63abf4c8fd409a0f12f61a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2680,7 +2681,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1151905075149521417, guid: 5e6ddbf28db3de343bf53ef854001ec7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 09ebfd388e339ef42a7b9a0046d8811e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

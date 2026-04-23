@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d490a6efc1153414c9dd450599214281, type: 3}
   m_Name: 2 Pips
   m_EditorClassIdentifier: 
-  Texture: {fileID: 2800000, guid: da87efd42e2961c46b32f38639cfae61, type: 3}
+  Texture: {fileID: 2800000, guid: 060137b65880a7b46ac5762a8ae3113b, type: 3}
   pips: 2
   price: 2000
   Description: 
