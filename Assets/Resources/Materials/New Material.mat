@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NewFullGlow
-  m_Shader: {fileID: 4800000, guid: 820d9594ab412b14abcda8f05794fee8, type: 3}
+  m_Name: New Material
+  m_Shader: {fileID: 4800000, guid: e42a30bac802e7344b7d7a9b123caa3e, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 86c6b764e55c2d44ba82014504c4d1f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -41,16 +41,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _AnimationSpeed: 5.4897237
+    - _AnimationSpeed: 1
     - _EnableExternalAlpha: 0
-    - _GlowIntensity: 0.2
+    - _GlowIntensity: 1.5
     - _Outline: 0
-    - _OutlineSize: -0.05
+    - _OutlineSize: 0.01
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorA: {r: 3.2362397, g: 0, b: 0.032346163, a: 1}
-    - _ColorB: {r: 1.9999998, g: 0.19520052, b: 0, a: 1}
+    - _ColorA: {r: 2.8855658, g: 2.253031, b: 0, a: 0}
+    - _ColorB: {r: 3.1469963, g: 2.7658746, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _ReplaceColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
