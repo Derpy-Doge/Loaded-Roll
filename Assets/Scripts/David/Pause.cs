@@ -98,7 +98,6 @@ public class Pause : MonoBehaviour
         {
             isSettings = false;
             settingsMenu.SetTrigger("erase");
-            settingsMenuObject.SetActive(false);
             pauseMenu.SetTrigger("unerase");
         }
     }
