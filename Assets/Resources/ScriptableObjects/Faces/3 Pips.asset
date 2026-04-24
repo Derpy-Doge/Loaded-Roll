@@ -15,7 +15,7 @@ MonoBehaviour:
   Texture: {fileID: 2800000, guid: d41547dde53c74d4bbbe271a287a033f, type: 3}
   pips: 3
   price: 3000
-  Description: 
+  Description: 3
   Effect:
     m_PersistentCalls:
       m_Calls: []

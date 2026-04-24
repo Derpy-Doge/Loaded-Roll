@@ -7,12 +7,13 @@ public class Shops : MonoBehaviour
     public ShopChangeFace shopChangeFace;
     public Face[] allFaces;
     private Face[] randomFaces;
-    private bool _hasBeenRan = false;
 
 
-    public GameObject shopArea, buyButton, shopDie;
-    public int restockPrice;
+    public GameObject shopArea,/* this is a comment*/ buyButton, shopDie, restockButton;
+    public int restockCount;
     public Texture2D soldOut;
+
+    public AnimationCurve restockPriceCurve;
 
     public void Awake()
     {
@@ -30,11 +31,6 @@ public class Shops : MonoBehaviour
 
     public void Restock()
     {
-        if (FindAnyObjectByType<DiceScoreCalc>().points < restockPrice || _hasBeenRan == false)
-            return;
-        if (_hasBeenRan)
-            FindAnyObjectByType<DiceScoreCalc>().points -= restockPrice;
-
         randomFaces = allFaces.OrderBy(x => Random.Range(-1f,1f)).Take(6).ToArray();
 
         for (int i = 0; i < shopArea.transform.childCount; i++)
@@ -61,8 +57,18 @@ public class Shops : MonoBehaviour
             instance.GetComponent<Button>().onClick.AddListener(() => instance.GetComponentInChildren<TMPro.TMP_Text>().SetText("Sold Out"));
         }
 
-        if(_hasBeenRan)
-            restockPrice *= 2; //  change
-        _hasBeenRan = true;
     }
+    
+    public void PurchaseRestock()
+    {
+        //if (FindAnyObjectByType<DiceScoreCalc>().points < restockPrice)
+            return;
+
+        //FindAnyObjectByType<DiceScoreCalc>().points -= restockPrice;// Ask derek he has all the time in the world to explain this line to you, he loves doing that
+
+        Restock();
+        ++restockCount;
+    } 
+
+
 }
