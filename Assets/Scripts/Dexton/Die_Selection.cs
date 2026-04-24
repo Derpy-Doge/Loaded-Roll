@@ -6,7 +6,9 @@ public class Die_Selection : MonoBehaviour
 {
     public GameObject buyButton, selectionArea;
     public FaceChange[] faceChange;
-    public GlobalDie[] dice;
+    public GlobalDie[] allDice; // cahnge to the pablo inventory
+    private GlobalDie[] randomDice;
+
 
     public void Awake()
     {
@@ -14,15 +16,28 @@ public class Die_Selection : MonoBehaviour
         buyButton = Resources.Load<GameObject>("Prefabs/DieSelectButton");
 
         faceChange = FindObjectsByType<FaceChange>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
-        dice = FindObjectsByType<GlobalDie>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
+        allDice = FindObjectsByType<GlobalDie>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
     }
 
     void Start()
     {
-        for (int i = 0; i < dice.Length; i++)
+        loadDice();
+    }
+
+    public void loadDice()
+    {
+        for (int i = 0; i < selectionArea.transform.childCount; i++)
+        {
+            Destroy(selectionArea.transform.GetChild(i).gameObject);
+        }
+
+        randomDice = allDice.OrderBy(x => Random.Range(-1f, 1f)).Take(6).ToArray();
+
+
+        for (int i = 0; i < randomDice.Length; i++)
         {
             GameObject instance = Instantiate(buyButton, selectionArea.transform);
-            GlobalDie die = dice[i];
+            GlobalDie die = randomDice[i];
             FaceChange face = faceChange[i];
 
             instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
@@ -31,6 +46,7 @@ public class Die_Selection : MonoBehaviour
 
             instance.GetComponent<Button>().onClick.AddListener(() => die.gameObject.GetComponent<FaceChange>().UpdateDiceFaces());
         }
+        
     }
 
     public void ChangeDie(GlobalDie newDie, FaceChange faceChange, GameObject shopdie, GameObject dieToUpdate)

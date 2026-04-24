@@ -15,7 +15,7 @@ MonoBehaviour:
   Texture: {fileID: 2800000, guid: b9bbbfee0ba2799429a3b397ff723b8a, type: 3}
   pips: 1
   price: 1000
-  Description: When this side is hit respin a die (this or other to be decided)
+  Description: 1
   Effect:
     m_PersistentCalls:
       m_Calls: []
