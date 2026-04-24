@@ -22,8 +22,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Tooltip("The text for the amount of interest")] [SerializeField] private TMPro.TMP_Text interestText;
-    [Tooltip("The percent of interest added to the player's debt per installment")] [SerializeField] private float interest = .1f;
-    [Tooltip("The percent of increase to interest per installment")] [SerializeField] private float interestIncrease = .02f;
+    [Tooltip("The percent of interest added to the player's debt per installment")] [SerializeField] private float interest = .1f; //Make these use save data later
+    [Tooltip("The percent of increase to interest per installment")] [SerializeField] private float interestIncrease = .02f; //Make these use save data later
 
     [Tooltip("The amount of rounds per debt installment")] [SerializeField] private int roundsPerDebt = 5;
     [Tooltip("The amount of rools per round")] public int rollsPerRound = 3;
@@ -44,11 +44,22 @@ public class GameManager : MonoBehaviour
     public TMPro.TMP_Text tutorialDescription; 
     public GameObject tutorialMessage; //The GO with the tutorialStuff 
 
-
     [Range(1f, 10f)] [SerializeField] private float glowAmount;
 
     public int rolls; //the amount of rolls the player has taken this round
-    public float currentRound; //The current round number for this debt installment /
+    private float currentRound; //The current round number for this debt installment /
+    public float CurrentRound
+    {
+        get {return currentRound;}
+        set 
+        {
+            currentRound = value;
+            if (currentRound % roundsPerDebt == 0) //May need to be currentRound - 1 idk
+            {
+                NewDebtInstallment();
+            }
+        }
+    }
 
 
 
@@ -186,7 +197,7 @@ public class GameManager : MonoBehaviour
 
     public void NewDebtInstallment()
     {
-        DiceManager.SendMessage("ResetValues");
+        UpdateInterest();
         //SaveDataController.Instance.current.run.Points += 10;
         //SendMessage("Save");
         //SaveDataController.Instance.Save();
@@ -196,8 +207,34 @@ public class GameManager : MonoBehaviour
     [ContextMenu("Add Interest")]
     private void UpdateInterest()
     {
+        Run run = SaveDataController.Instance.current.run; //Just realized I should cache this but to lazy rn
+        run.TotalDebtPayment += run.CurrentDebt;
+
+        if ((run.Points -= run.CurrentDebt) < 0f)
+        {
+            EndGame();
+        }
+
         interest *= 1 + interestIncrease; 
+        float r = ((float)run.TotalEarnedPoints + 100f) / ((float) run.TotalDebtPayment + 100f);
+        float i = Mathf.Log(r+1f);
+        interestIncrease += .1f * i;
+        
+        run.CurrentDebt = Mathf.FloorToInt((float)run.CurrentDebt * (1 + interest));
         interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
+    }
+
+    private void EndGame()
+    {
+        
+    }
+
+    public void AddPoints(int amount)
+    {
+        SaveDataController.Instance.current.run.Points += amount;
+        SaveDataController.Instance.current.run.TotalEarnedPoints += amount;
+        DiceManager.SendMessage("ResetValues"); 
+
     }
 
 

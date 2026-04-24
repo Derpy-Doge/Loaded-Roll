@@ -54,6 +54,11 @@ public class DiceHolder : MonoBehaviour //test
         }
     }
 
+    public List<DiceVisual> GetHotbar()
+    {
+        return hotbar.ToList();
+    }
+
     public List<DiceDragging> GetHotbarDice()
     {
         return hotbar.Where(v => v != null && v.currentDice != null).Select(v => v.currentDice).ToList();

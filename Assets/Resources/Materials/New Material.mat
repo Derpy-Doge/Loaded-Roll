@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: bbadfb96be99277498ba7b6e83c369c1, type: 3}
+        m_Texture: {fileID: 2800000, guid: 86c6b764e55c2d44ba82014504c4d1f9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -43,15 +43,15 @@ Material:
     m_Floats:
     - _AnimationSpeed: 1
     - _EnableExternalAlpha: 0
-    - _GlowIntensity: 2
+    - _GlowIntensity: 1.5
     - _Outline: 0
     - _OutlineSize: 0.01
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorA: {r: 0.1890176, g: 0.6430788, b: 2.357161, a: 0}
-    - _ColorB: {r: 0.1890176, g: 0.6430788, b: 2.357161, a: 0}
+    - _ColorA: {r: 2.8855658, g: 2.253031, b: 0, a: 0}
+    - _ColorB: {r: 3.1469963, g: 2.7658746, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ReplaceColor: {r: 0.9725491, g: 0.9960785, b: 0.9960785, a: 1}
+    - _ReplaceColor: {r: 0.9960785, g: 0.9960785, b: 0.9960785, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

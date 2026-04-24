@@ -21,6 +21,11 @@ public class Tutorial : MonoBehaviour, IPointerEnterHandler
     [SerializeField] private TutorialType tutorialType; //The type this tutorial is
     [SerializeField] private TutorialInfo info;
 
+    private bool checkedSaveData = false;
+    
+    private bool openTutorial = false;
+
+
 
     public TutorialType GetTutorialType()
     {
@@ -32,19 +37,44 @@ public class Tutorial : MonoBehaviour, IPointerEnterHandler
         if (tutorialTypes == null)
         {
             tutorialTypes = System.Enum.GetValues(typeof(TutorialType)).Cast<TutorialType>().ToList();
+            this.LateStart(() => {foreach(var tType in SaveDataController.Instance.current.Settings.ClosedTutorials){tutorialTypes.Remove((TutorialType) tType);}}); //
             title = GameManager.Instance.tutorialTitle;
             description = GameManager.Instance.tutorialDescription;
             message = GameManager.Instance.tutorialMessage;
 
         }
 
-        if (SaveDataController.Instance.current.Settings.ShowTutorial)
-        {
-            this.enabled = false;
-        }
+
+        this.LateStart(() => {
+            if (!SaveDataController.Instance.current.Settings.ShowTutorial || SaveDataController.Instance.current.Settings.ClosedTutorials.Contains((int) tutorialType))
+            {
+                this.enabled = false;
+            }  
+            else if (openTutorial)
+            {
+                gameObject.SendMessage(nameof(HandleInteration));
+            }}); //Checks if tutorial is turned off in save data 
+            checkedSaveData = true; 
+
+    }
+
+    private void CheckSaveData()
+    {
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (checkedSaveData = false)
+        {
+            openTutorial = true;
+            return;
+        }
+
+        HandleInteration();
+    }
+
+    public void HandleInteration()
     {
         if (tutorialTypes.Contains(tutorialType) && (TutorialPlayed == null || TutorialPlayed.GetTutorialType() != tutorialType)) //Checks that the tutorial message hasnt already been gone through by the player, and its not already spawned
         {
@@ -57,6 +87,7 @@ public class Tutorial : MonoBehaviour, IPointerEnterHandler
 
     public void DeleteTutorial()
     {
+        SaveDataController.Instance.current.Settings.ClosedTutorials.Add((int) tutorialType);
         message.SetActive(false);
         tutorialTypes.Remove(tutorialType);
         TutorialPlayed = null;

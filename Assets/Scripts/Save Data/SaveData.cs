@@ -44,6 +44,11 @@ public struct SaveData
 public class Run // data saved in that run :skull:
 {
     public int Points;
+    public int TotalEarnedPoints;
+    public int TotalDebtPayment;
+    public int CurrentDebt = 8000;
+    public float CurrentInterestRate;
+    public float CurrentInterestIncrease;
     public List<AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>> Deese;
     //public float InterestRate
 }
@@ -78,5 +83,7 @@ public class UserSettings
 
     public bool IgnoreSelectWarning = false; //This doesnt need to go into settings menu
     public bool ShowTutorial = true; //This should go into settings menu
+
+    public List<int> ClosedTutorials = new ();
 
 }

@@ -77,27 +77,25 @@ Shader "Unlit/Replace"
                 return saturate(maxNeighbor - a);
             }
 
-            // void ReplaceColor(float3 In, float3 From, float3 To, float Range, float Fuzziness, out float3 Out)
-            // {
-            //     float Distance = distance(From, In);
-            //     Out = lerp(To, In, saturate((Distance - Range));
-            // }
-
             fixed4 frag (Interpolators i) : SV_Target
             {
                 float4 baseTexture = tex2D(_MainTex, i.uv);
-                // float3 test = float3(1, 1, 1)
-                // ReplaceColor(baseTexture.rgb, _ReplaceColor.rgb, float3(1, 0, 0), .1, .1, test);
-
-
-                //return float4(test, 1);
-                //baseTexture.rgb *= baseTexture.a;
-                if (distance(baseTexture.rgb, _ReplaceColor.rgb) < .5){
+                if (distance(baseTexture.rgb, _ReplaceColor.rgb) < .3){
                     
                     if (_Outline < 0.5){
+                    
+                        float2 centered = i.uv - 0.5;
+                        float r = length(centered);
+                        float theta = atan2(centered.y, centered.x) + _Time.x;
+                        //float spiralPattern = cos((theta * 8.0 + log(r * 50  + 1e-5) * 2.0 - _Time.y) * TAU);
+                        
+                        float spiralPattern = cos((theta * 2.0 + log(r * 0.4 + 1e-5) * 2.0) * TAU); //2 is the amount of arms
+                        spiralPattern = spiralPattern * 0.5 + 0.5;
+                        float4 combined = baseTexture + (baseTexture * spiralPattern * _GlowIntensity) * lerp(_ColorA, _ColorB, distance(i.uv.x, 0.5) + distance(i.uv.y, 0.5));
+                        return combined;
 
-                    float4 combined = (baseTexture + ( baseTexture  * (cos((i.uv.y + (cos(i.uv.x * TAU * 8) * 0.01) - _Time.y) * TAU * 5) * 0.5 + 0.5) * _GlowIntensity)) * lerp(_ColorA, _ColorB, i.uv.y);
-                    return combined;
+                    // float4 combined = (baseTexture + ( baseTexture  * (cos((i.uv.y + (cos(i.uv.x * TAU * 8) * 0.01) - _Time.y) * TAU * 5) * 0.5 + 0.5) * _GlowIntensity)) * lerp(_ColorA, _ColorB, i.uv.y);
+                    // return combined;
 
                     }
                     float4 combined = baseTexture + (getOutline(i.uv) * lerp(_ColorA, _ColorB, i.uv.y) * (cos((i.uv.y + (cos(i.uv.x * TAU * 8) * 0.01) - _AnimationSpeed) * TAU * 5) * 0.5 + 0.5) * _GlowIntensity);

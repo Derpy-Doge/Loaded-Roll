@@ -32,6 +32,7 @@ public class ShowPoints : MonoBehaviour
     [SerializeField] private TMP_Text speedText;
     [SerializeField] private RectTransform speedTextLocation;
     [SerializeField]private RectTransform rect;
+    [SerializeField] private GameObject GameManagerGO;
 
     private float colorPoints;
 
@@ -190,7 +191,8 @@ public class ShowPoints : MonoBehaviour
         textanim.SetTrigger("GrowText");
         yield return new WaitForSeconds(speed);
         Debug.Log("Points added");
-        //SaveDataController.Instance.current.Run.Points += Mathf.RoundToInt(Calc.addedPoints);
+        GameManagerGO.SendMessage("AddPoints", Mathf.RoundToInt(Calc.addedPoints));
+
         Timer = CurrentTime;
         Calc.addedPoints = 0;
         spawned = false;

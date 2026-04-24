@@ -125,7 +125,6 @@ public class RollDice : MonoBehaviour
     {
         DiceHolder.Instance.SelectAllDice();
         StartCoroutine(Select());
-        
     }
 
     IEnumerator Select()
@@ -141,6 +140,7 @@ public class RollDice : MonoBehaviour
             List<float> floats = new List<float>();
             for (int i = 0; i < rolledFaces.Count; i++)
             {
+                AllSlots[i].selectable = true;
                 if (rolledFaces[i])
                 {
                     floats.Add(rolledFaces[i].pips);
@@ -354,7 +354,15 @@ public class RollDice : MonoBehaviour
 
     private void ResetValues()
     {
-
+        List<DiceVisual> hotbar = DiceHolder.Instance.GetHotbar();
+        for (int i = 0; i < dices.Count; i++)
+        {
+            dices[i].gameObject.layer = LayerMask.NameToLayer("Default");
+            hotbar[i].selected = false;
+        }
+        gameManager.rolls = 0;
+        gameManager.CurrentRound++;
+        Debug.LogError("AAAAAAAAAAAAA");
     }
 
     public void CloseActiveTutorial() //Attach this to the button
