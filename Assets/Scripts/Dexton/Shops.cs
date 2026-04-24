@@ -61,10 +61,10 @@ public class Shops : MonoBehaviour
     
     public void PurchaseRestock()
     {
-        if (FindAnyObjectByType<DiceScoreCalc>().points < restockPrice)
+        //if (FindAnyObjectByType<DiceScoreCalc>().points < restockPrice)
             return;
 
-        FindAnyObjectByType<DiceScoreCalc>().points -= restockPrice;// Ask derek he has all the time in the world to explain this line to you, he loves doing that
+        //FindAnyObjectByType<DiceScoreCalc>().points -= restockPrice;// Ask derek he has all the time in the world to explain this line to you, he loves doing that
 
         Restock();
         ++restockCount;
