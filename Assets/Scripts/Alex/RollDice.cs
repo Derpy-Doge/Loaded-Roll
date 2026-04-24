@@ -141,7 +141,7 @@ public class RollDice : MonoBehaviour
             for (int i = 0; i < rolledFaces.Count; i++)
             {
                 AllSlots[i].selectable = true;
-                if (rolledFaces[i])
+                if (rolledFaces[i].pips != 0)
                 {
                     floats.Add(rolledFaces[i].pips);
                 }

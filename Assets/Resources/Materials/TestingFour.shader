@@ -86,10 +86,10 @@ Shader "Unlit/Replace"
                     
                         float2 centered = i.uv - 0.5;
                         float r = length(centered);
-                        float theta = atan2(centered.y, centered.x) + _Time.x;
+                        float theta = atan2(centered.y, centered.x) + _Time.y;
                         //float spiralPattern = cos((theta * 8.0 + log(r * 50  + 1e-5) * 2.0 - _Time.y) * TAU);
                         
-                        float spiralPattern = cos((theta * 2.0 + log(r * 0.4 + 1e-5) * 2.0) * TAU); //2 is the amount of arms
+                        float spiralPattern = cos((theta * 4.0 + log(r * 0.4 + 1e-5) * 2.0) * TAU); //2 is the amount of arms
                         spiralPattern = spiralPattern * 0.5 + 0.5;
                         float4 combined = baseTexture + (baseTexture * spiralPattern * _GlowIntensity) * lerp(_ColorA, _ColorB, distance(i.uv.x, 0.5) + distance(i.uv.y, 0.5));
                         return combined;

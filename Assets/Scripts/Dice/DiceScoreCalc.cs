@@ -50,10 +50,7 @@ public class DiceScoreCalc : MonoBehaviour
             numlist.Add(Sixess);
     }
 
-    private void Update()
-    {
-        SortDice();
-    }
+
 
     private void SortDice()
     {
@@ -106,8 +103,9 @@ public class DiceScoreCalc : MonoBehaviour
     public void OIJaojgojaogja(List<float> faces)
     {
         diceValues = faces;
-        StartCoroutine(CalculateScore());
+        SortDice();
 
+        StartCoroutine(CalculateScore());
 
     }
 
