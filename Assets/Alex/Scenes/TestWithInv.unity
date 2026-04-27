@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419489983197587102, guid: 7c8d97b6dc8c6a8429fc9031e088df88, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: Dice
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -231,7 +231,6 @@ GameObject:
   - component: {fileID: 63557539}
   - component: {fileID: 63557538}
   - component: {fileID: 63557537}
-  - component: {fileID: 63557540}
   m_Layer: 0
   m_Name: Plane (1)
   m_TagString: Wall
@@ -329,18 +328,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63557535}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &63557540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 63557535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &68169336
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,7 +929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419489983197587102, guid: 7c8d97b6dc8c6a8429fc9031e088df88, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: Dice
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1270,7 +1257,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 403087519}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
   m_Name: 
@@ -2390,8 +2377,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 160386007}
-        m_TargetAssemblyTypeName: InfoDice, Alex
+      - m_Target: {fileID: 1358080131}
+        m_TargetAssemblyTypeName: SelectDice, Alex
         m_MethodName: Click
         m_Mode: 0
         m_Arguments:
@@ -2930,7 +2917,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 735445981}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
   m_Name: 
@@ -3706,7 +3693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419489983197587102, guid: 7c8d97b6dc8c6a8429fc9031e088df88, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: Dice
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4115,7 +4102,6 @@ GameObject:
   - component: {fileID: 962749767}
   - component: {fileID: 962749766}
   - component: {fileID: 962749765}
-  - component: {fileID: 962749768}
   m_Layer: 0
   m_Name: Plane (2)
   m_TagString: Wall
@@ -4213,18 +4199,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962749763}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &962749768
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 962749763}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1036478430
 GameObject:
   m_ObjectHideFlags: 0
@@ -5286,7 +5260,6 @@ GameObject:
   - component: {fileID: 1260564027}
   - component: {fileID: 1260564026}
   - component: {fileID: 1260564025}
-  - component: {fileID: 1260564028}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Wall
@@ -5384,18 +5357,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260564023}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1260564028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1260564023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1314168880
 GameObject:
   m_ObjectHideFlags: 0
@@ -5598,6 +5559,7 @@ GameObject:
   - component: {fileID: 1358080128}
   - component: {fileID: 1358080130}
   - component: {fileID: 1358080129}
+  - component: {fileID: 1358080131}
   m_Layer: 5
   m_Name: DiceImage
   m_TagString: Untagged
@@ -5659,6 +5621,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1358080127}
   m_CullTransparentMesh: 1
+--- !u!114 &1358080131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1358080127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce3c6c6ead17d16448b200372b492899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RollCamera: {fileID: 799395404}
+  rollCenter: {fileID: 1458817543}
+  diceLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  clickRadius: 2.5
 --- !u!1 &1382132758
 GameObject:
   m_ObjectHideFlags: 0
@@ -6188,7 +6168,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419489983197587102, guid: 7c8d97b6dc8c6a8429fc9031e088df88, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: Dice
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6247,7 +6227,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1550419849}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
   m_Name: 
@@ -7065,7 +7045,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1704463694}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
   m_Name: 
@@ -7157,7 +7137,6 @@ GameObject:
   - component: {fileID: 1736537971}
   - component: {fileID: 1736537970}
   - component: {fileID: 1736537969}
-  - component: {fileID: 1736537972}
   m_Layer: 0
   m_Name: Plane (3)
   m_TagString: Wall
@@ -7255,18 +7234,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736537967}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1736537972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1736537967}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 38e228def13408d42a3f4a67c11d74c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1757084269
 GameObject:
   m_ObjectHideFlags: 0
@@ -8319,7 +8286,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6419489983197587102, guid: 7c8d97b6dc8c6a8429fc9031e088df88, type: 3}
       propertyPath: m_TagString
-      value: Wall
+      value: Dice
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -213,12 +213,13 @@ public class GameManager : MonoBehaviour
         if ((run.Points -= run.CurrentDebt) < 0f)
         {
             EndGame();
+            return;
         }
 
         interest *= 1 + interestIncrease; 
         float r = ((float)run.TotalEarnedPoints + 100f) / ((float) run.TotalDebtPayment + 100f);
         float i = Mathf.Log(r+1f);
-        interestIncrease += .1f * i;
+        interestIncrease += .3f * i;
         
         run.CurrentDebt = Mathf.FloorToInt((float)run.CurrentDebt * (1 + interest));
         interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
