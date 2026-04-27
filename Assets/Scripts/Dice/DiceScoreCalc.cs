@@ -95,9 +95,17 @@ public class DiceScoreCalc : MonoBehaviour
         diceValues.Clear();
     }
 
-    public void Button()
+    public void RollButton()
     {
+        SortDice();
+        CalculateTotal();
         StartCoroutine(CalculateScore());
+    }
+
+    public void Skip()
+    { 
+        StartCoroutine(TotalPoints());
+        //StartCoroutine(TotalZeros());
     }
 
     public void OIJaojgojaogja(List<float> faces)
@@ -121,7 +129,7 @@ public class DiceScoreCalc : MonoBehaviour
         yield return StartCoroutine(Yippee());
         yield return StartCoroutine(MegaYippee());
         yield return StartCoroutine(TotalPoints());
-        yield return StartCoroutine(TotalZeros());
+        //yield return StartCoroutine(TotalZeros());
         yield break;
     }
     //This IEnumerator is used at the end and shows total points for this round
@@ -156,14 +164,13 @@ public class DiceScoreCalc : MonoBehaviour
     }
 
     //This IEnumerator is used to calculation the Standard dice rolls
-    IEnumerator Standard()
+    private IEnumerator Standard()
     {
         Debug.Log("Standard Starts");
         if (Oness.Count == 0)
         {
             points += 0;
             Debug.Log(points);
-            zeros += 1;
 
         }
         else if (!show.textFinished)
@@ -180,12 +187,12 @@ public class DiceScoreCalc : MonoBehaviour
             StartCoroutine(show.TextCalc(showpoint));
             Debug.Log($"Delay: {show.speed}  {show.CurrentTime}");
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
+            showpoint = 0f;
         }
         Debug.Log("ones finished");
 
         if (Twoss.Count == 0)
         {
-            zeros += 1;
             Debug.Log("2?");
         }
         else if (!show.textFinished)
@@ -201,6 +208,8 @@ public class DiceScoreCalc : MonoBehaviour
             }
             StartCoroutine(show.TextCalc(showpoint));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
+            showpoint = 0f;
+
         }
 
 
@@ -208,7 +217,6 @@ public class DiceScoreCalc : MonoBehaviour
         {
             points += 0;
             Debug.Log(points);
-            zeros += 1;
 
         }
 
@@ -224,6 +232,8 @@ public class DiceScoreCalc : MonoBehaviour
             }
             StartCoroutine(show.TextCalc(showpoint));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
+            showpoint = 0f;
+
         }
 
 
@@ -231,7 +241,6 @@ public class DiceScoreCalc : MonoBehaviour
         {
             addedPoints += 0;
             Debug.Log(addedPoints);
-            zeros += 1;
 
         }
 
@@ -247,6 +256,8 @@ public class DiceScoreCalc : MonoBehaviour
             }
             StartCoroutine(show.TextCalc(showpoint));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
+            showpoint = 0f;
+
         }
 
 
@@ -254,7 +265,6 @@ public class DiceScoreCalc : MonoBehaviour
         {
             addedPoints += 0;
             Debug.Log(addedPoints);
-            zeros += 1;
 
         }
         else if (!show.textFinished)
@@ -269,6 +279,8 @@ public class DiceScoreCalc : MonoBehaviour
             }
             StartCoroutine(show.TextCalc(showpoint));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
+            showpoint = 0f;
+
         }
 
 
@@ -276,7 +288,6 @@ public class DiceScoreCalc : MonoBehaviour
         {
             addedPoints += 0;
             Debug.Log(addedPoints);
-            zeros += 1;
 
         }
 
@@ -292,6 +303,8 @@ public class DiceScoreCalc : MonoBehaviour
             }
             StartCoroutine(show.TextCalc(showpoint));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
+            showpoint = 0f;
+
         }
     }
 
@@ -301,7 +314,6 @@ public class DiceScoreCalc : MonoBehaviour
 
         if (!show.textFinished)
         {
-            float temp = addedPoints;
             Debug.Log("Three of a kind starts");
             for (int i = 0; i < numlist.Count; i++)
             {
@@ -316,12 +328,6 @@ public class DiceScoreCalc : MonoBehaviour
 
             }
 
-            if (addedPoints == temp)
-            {
-                zeros += 1;
-                Debug.Log("zeros" + zeros);
-            }
-
         }
     }
 
@@ -330,7 +336,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            float temp = addedPoints;
             show.CalcTexts.text = "Four Of A Kind";
             Debug.Log("Four of a kind starts");
             for (int i = 0; i < numlist.Count; i++)
@@ -345,12 +350,6 @@ public class DiceScoreCalc : MonoBehaviour
                 }
             }
 
-
-            if (addedPoints == temp)
-            {
-                zeros += 1;
-                Debug.Log("zeros" + zeros);
-            }
         }
     }
 
@@ -359,7 +358,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            float temp = addedPoints;
             show.CalcTexts.text = "Full House";
             Debug.Log("Full house starts");
             for (int i = 0; i < numlist.Count; i++)
@@ -393,12 +391,6 @@ public class DiceScoreCalc : MonoBehaviour
                     }
                 }
             }
-
-
-            if (addedPoints == temp)
-            {
-                zeros += 1;
-            }
         }
     }
 
@@ -407,9 +399,6 @@ public class DiceScoreCalc : MonoBehaviour
        
         if (!show.textFinished)
         {
-            float temp1 = addedPoints;
-            float temp2 = addedPoints;
-            float temp3 = addedPoints;
             Debug.Log("is smal straight running");
             Debug.Log("Small straight starts");
             if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1)
@@ -422,11 +411,6 @@ public class DiceScoreCalc : MonoBehaviour
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
 
-            else if (addedPoints == temp1)
-            {
-                zeros += 1;
-            }
-
             if ((Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1))
             {
                 show.CalcTexts.text = "Small Straight\n2,3,4,5";
@@ -434,11 +418,6 @@ public class DiceScoreCalc : MonoBehaviour
                 show.textFinished = true;
                 StartCoroutine(show.TextCalc(showpoint));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
-            }
-
-            else if (addedPoints == temp2)
-            {
-                zeros += 1;
             }
 
             if ((Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 && Sixess.Count >= 1))
@@ -450,10 +429,6 @@ public class DiceScoreCalc : MonoBehaviour
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
 
-            else if (addedPoints == temp3)
-             {
-                 zeros += 1;
-            }
         }
     }
 
@@ -462,8 +437,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            float temp1 = addedPoints;
-            float temp2 = addedPoints;
             Debug.Log("Large straight");
             if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1)
             {
@@ -475,10 +448,6 @@ public class DiceScoreCalc : MonoBehaviour
 
 
             }
-            else if (addedPoints == temp1)
-            {
-                zeros += 1;
-            }
 
             if (Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
             {
@@ -489,13 +458,6 @@ public class DiceScoreCalc : MonoBehaviour
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
 
-               else if (addedPoints == temp2)
-                {
-                    zeros += 1;
-            }
-
-
-
         }
         
     }
@@ -505,7 +467,6 @@ public class DiceScoreCalc : MonoBehaviour
 
         if (!show.textFinished)
         {
-            float temp = addedPoints;
             show.CalcTexts.text = "Extra Large Straight";
             Debug.Log("Extra Large straight");
             if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
@@ -514,11 +475,6 @@ public class DiceScoreCalc : MonoBehaviour
                 show.textFinished = true;
                 StartCoroutine(show.TextCalc(showpoint));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
-            }
-
-            else if (addedPoints == temp)
-            {
-                zeros += 1;
             }
         }
         
@@ -529,7 +485,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            float temp = addedPoints;
             show.CalcTexts.text = "YIPPEE!!!";
             Debug.Log("yippee");
             for (int i = 0; i < numlist.Count; i++)
@@ -542,12 +497,6 @@ public class DiceScoreCalc : MonoBehaviour
                     yield return new WaitForSeconds(show.speed + show.CurrentTime);
                 }
             }
-
-
-            if (addedPoints == temp)
-            {
-                zeros += 1;
-            }
         }
     }
 
@@ -556,7 +505,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            float temp = addedPoints;
             show.CalcTexts.text = "MEGA YIPPEE!!!!!!";
             Debug.Log("Mega yippee");
             for (int i = 0; i < numlist.Count; i++)
@@ -569,8 +517,255 @@ public class DiceScoreCalc : MonoBehaviour
                     yield return new WaitForSeconds(show.speed + show.CurrentTime);
                 }
             }
+        }
 
-            if (addedPoints == temp)
+    }
+
+
+    public void CalculateTotal()
+    {
+
+
+            if (Oness.Count == 0)
+            {
+                zeros += 1;
+            }
+            else
+            {
+                for (int i = 0; i < Oness.Count; i++)
+                {
+                    addedPoints += onePoints;
+
+                }
+            }
+
+
+            if (Twoss.Count == 0)
+            {
+                zeros += 1;
+            }
+            else
+            {
+                for (int i = 0; i < Twoss.Count; i++)
+                {
+                    addedPoints += twoPoints;
+                }
+            }
+
+
+            if (Threess.Count == 0)
+            {
+                zeros += 1;
+
+            }
+
+            else
+            {
+                for (int i = 0; i < Threess.Count; i++)
+                {
+                    addedPoints += threePoints;
+                }
+            }
+
+
+            if (Fourss.Count == 0)
+            {
+                zeros += 1;
+            }
+
+            else
+            {
+                for (int i = 0; i < Fourss.Count; i++)
+                {
+                    addedPoints += fourPoints;
+                }
+            }
+
+
+            if (Fivess.Count == 0)
+            {
+                zeros += 1;
+            }
+            else 
+            {
+                for (int i = 0; i < Fivess.Count; i++)
+                {
+                    addedPoints += fivePoints;
+                }
+            }
+
+
+            if (Sixess.Count == 0)
+            {
+                zeros += 1;
+            }
+
+            else
+            {
+                for (int i = 0; i < Sixess.Count; i++)
+                {
+                    addedPoints += sixPoints;
+                }
+            }
+        
+
+
+            float tempThree = addedPoints;
+            for (int i = 0; i < numlist.Count; i++)
+            {
+                if (numlist[i].Count >= 3)
+                {
+                    addedPoints += ((numlist[i][0] * 100) * 3) * 4;
+                }
+
+            }
+
+            if (addedPoints == tempThree)
+            {
+                zeros += 1;
+            }
+
+        
+
+            float tempFour = addedPoints;
+            for (int i = 0; i < numlist.Count; i++)
+            {
+                if (numlist[i].Count >= 4)
+                {
+                    addedPoints += ((numlist[i][0] * 100) * 4) * 5;
+                }
+            }
+
+
+            if (addedPoints == tempFour)
+            {
+                zeros += 1;
+            }
+
+            float tempFull = addedPoints;
+            for (int i = 0; i < numlist.Count; i++)
+            {
+                if (numlist[i].Count < 3)
+                {
+                    continue;
+                }
+
+
+                for (int j = 0; j < numlist.Count; j++)
+                {
+
+                    if (numlist[j].Count >= 5 && i == j)
+                    {
+
+                        addedPoints += (((numlist[i][0] * 100) * 3) + ((numlist[j][0] * 100) * 2)) * 6;
+                    }
+
+                    if (numlist[j].Count >= 2 && i != j)
+                    {
+                        addedPoints += (((numlist[i][0] * 100) * 3) + ((numlist[j][0] * 100) * 2)) * 6;
+                    }
+                }
+            }
+
+
+            if (addedPoints == tempFull)
+            {
+                zeros += 1;
+            }
+
+
+            float tempSmall1 = addedPoints;
+            float tempSmall2 = addedPoints;
+            float tempSmall3 = addedPoints;
+            if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1)
+            {
+                addedPoints += (onePoints + twoPoints + threePoints + fourPoints) * 7;
+            }
+
+            else if (addedPoints == tempSmall1)
+            {
+                zeros += 1;
+            }
+
+            if ((Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1))
+            {
+                addedPoints += (twoPoints + threePoints + fourPoints + fivePoints) * 7;
+            }
+
+            else if (addedPoints == tempSmall2)
+            {
+                zeros += 1;
+            }
+
+            if ((Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 && Sixess.Count >= 1))
+            {
+                addedPoints += (threePoints + fourPoints + fivePoints + sixPoints) * 7;
+
+            }
+
+            else if (addedPoints == tempSmall3)
+            {
+                zeros += 1;
+            }
+
+            float tempBig1 = addedPoints;
+            float tempBig2 = addedPoints;
+            if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1)
+            {
+                addedPoints += (onePoints + twoPoints + threePoints + fourPoints + fivePoints) * 8;
+            }
+            else if (addedPoints == tempBig1)
+            {
+                zeros += 1;
+            }
+
+            if (Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
+            {
+                addedPoints += (twoPoints + threePoints + fourPoints + fivePoints + sixPoints) * 8;
+            }
+
+            else if (addedPoints == tempBig2)
+            {
+                zeros += 1;
+            }
+
+
+            float tempHuge = addedPoints;
+            if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
+            {
+                addedPoints += (onePoints + twoPoints + threePoints + fourPoints + fivePoints + sixPoints) * 8;
+            }
+
+            else if (addedPoints == tempHuge)
+            {
+                zeros += 1;
+            }
+
+            float tempYippee = addedPoints;
+            for (int i = 0; i < numlist.Count; i++)
+            {
+                if (numlist[i].Count >= 5)
+                {
+                    addedPoints += ((numlist[i][0] * 100) * 5) * 10;
+                }
+            }
+
+
+            if (addedPoints == tempYippee)
+            {
+                zeros += 1;
+            }
+
+            float tempMegaYippee = addedPoints;
+            for (int i = 0; i < numlist.Count; i++)
+            {
+                if (numlist[i].Count == 6)
+                {
+                    addedPoints += ((numlist[i][0] * 100) * 6) * 10;
+                }
+            }
+
+            if (addedPoints == tempMegaYippee)
             {
                 zeros += 1;
             }
@@ -579,5 +774,3 @@ public class DiceScoreCalc : MonoBehaviour
     }
 
 
-
-}
