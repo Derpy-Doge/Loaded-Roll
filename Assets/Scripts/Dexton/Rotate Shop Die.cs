@@ -29,6 +29,8 @@ public class RotateShopDie : MonoBehaviour
     {
         if (rotateFrames > 0) { return; }
 
+        Debug.Log("Rotating ");
+
         rotateAmount = rotationDictionary[Enum.Parse<RotationDirection>(direction)];
         rotateFrames = 18;
     }

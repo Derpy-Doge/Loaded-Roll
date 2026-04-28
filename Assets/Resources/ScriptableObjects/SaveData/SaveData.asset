@@ -14,6 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _saveData:
     run:
-      Deese:
-      - _serializedList: []
-      - _serializedList: []
+      Points: 0
+      TotalEarnedPoints: 0
+      TotalDebtPayment: 0
+      CurrentDebt: 8000
+      CurrentInterestRate: 0
+      CurrentInterestIncrease: 0
+      Deese: []
+    Settings:
+      MusicVolume: 1
+      MenuMusicVolume: 1
+      SFXVolume: 1
+      IsFullscreen: 1
+      Quality: 3
+      IsDistracting: 1
+      IgnoreSelectWarning: 0
+      ShowTutorial: 1
+      ClosedTutorials: 
