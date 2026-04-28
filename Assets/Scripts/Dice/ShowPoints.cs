@@ -11,7 +11,6 @@ public class ShowPoints : MonoBehaviour
     public TMP_Text CalcTexts;
     public DiceScoreCalc Calc;
     public Animator pointanim;
-    public Animator textanim;
     //[SerializeField]private Slider speedSlider;
     [Space]
     [Header("How Long Should Text Pop-Up")]
@@ -61,7 +60,6 @@ public class ShowPoints : MonoBehaviour
     {
         speedText.text = growSpeed.ToString() + "x";
         pointanim.speed = growSpeed;
-        textanim.speed = growSpeed;
         if (growSpeed < 1)
             growSpeed = 1;
 
@@ -162,33 +160,30 @@ public class ShowPoints : MonoBehaviour
     {
         colorPoints = amount;
             //pointText.text = string.Empty;
+            pointanim.SetTrigger("Write");
             pointText.text = amount.ToString();
             pointText.color = Color.white;
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
             ColorCalc();
-            pointanim.SetTrigger("Grow");
-            textanim.SetTrigger("GrowText");
             yield return new WaitForSeconds(speed);
             Debug.Log("Points added");
-            Calc.addedPoints += amount;
             Timer = CurrentTime;
             amount = 0;
              spawned = false;
-             Calc.showpoint = 0f;
              textFinished = false;
+            Calc.showpoint = 0;
     }
 
     public IEnumerator TotalCalc()
     {
         colorPoints = Calc.addedPoints;
 
-        //pointText.text = string.Empty;
+        pointText.text = string.Empty;
+        pointanim.SetTrigger("Write");
         pointText.text = Calc.addedPoints.ToString();
         pointText.color = Color.white;
         pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
         ColorCalc();
-        pointanim.SetTrigger("Grow");
-        textanim.SetTrigger("GrowText");
         yield return new WaitForSeconds(speed);
         Debug.Log("Points added");
         GameManagerGO.SendMessage("AddPoints", Mathf.RoundToInt(Calc.addedPoints));
@@ -208,8 +203,7 @@ public class ShowPoints : MonoBehaviour
         pointText.color = Color.white;
         pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
         ColorCalc();
-        pointanim.SetTrigger("Grow");
-        textanim.SetTrigger("GrowText");
+        //pointanim.SetTrigger("Write");
         yield return new WaitForSeconds(speed);
         Debug.Log("Points added");
         Timer = CurrentTime;
@@ -217,6 +211,7 @@ public class ShowPoints : MonoBehaviour
         spawned = false;
         textFinished = false;
         calcdone = true;
+        //pointanim.SetTrigger("Unwrite");
     }
 }
 
