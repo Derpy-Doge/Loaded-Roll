@@ -112,7 +112,7 @@ public class DiceScoreCalc : MonoBehaviour
     {
         diceValues = faces;
         SortDice();
-
+        CalculateTotal();
         StartCoroutine(CalculateScore());
 
     }
@@ -137,9 +137,8 @@ public class DiceScoreCalc : MonoBehaviour
     {
         if (!show.textFinished)
         {
-            show.CalcTexts.text = "Total";
             show.textFinished = true;
-            StartCoroutine(show.TotalCalc());
+            StartCoroutine(show.TotalCalc("Total"));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             Debug.Log("total points should be leaving");
         }
@@ -175,7 +174,6 @@ public class DiceScoreCalc : MonoBehaviour
         }
         else if (!show.textFinished)
         {
-            show.CalcTexts.text = "Standard\n1";
             Debug.Log("calculating Ones");
             for (int i = 0; i < Oness.Count; i++)
             {
@@ -184,7 +182,7 @@ public class DiceScoreCalc : MonoBehaviour
                 show.textFinished = true;
                 
             }
-            StartCoroutine(show.TextCalc(showpoint));
+            StartCoroutine(show.TextCalc(showpoint,"Standard\n1"));
             Debug.Log($"Delay: {show.speed}  {show.CurrentTime}");
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             showpoint = 0f;
@@ -197,7 +195,6 @@ public class DiceScoreCalc : MonoBehaviour
         }
         else if (!show.textFinished)
         {
-            show.CalcTexts.text = "Standard\n2";
             Debug.Log("calculating twos");
             for (int i = 0; i < Twoss.Count; i++)
             {
@@ -206,7 +203,7 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(points);
                 show.textFinished = true;
             }
-            StartCoroutine(show.TextCalc(showpoint));
+            StartCoroutine(show.TextCalc(showpoint,"Standard\n2"));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             showpoint = 0f;
 
@@ -222,7 +219,6 @@ public class DiceScoreCalc : MonoBehaviour
 
         else if (!show.textFinished)
         {
-            show.CalcTexts.text = "Standard\n3";
             Debug.Log("calculating Threes");
             for (int i = 0; i < Threess.Count; i++)
             {
@@ -230,7 +226,7 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(addedPoints);
                 show.textFinished = true;
             }
-            StartCoroutine(show.TextCalc(showpoint));
+            StartCoroutine(show.TextCalc(showpoint, "Standard\n3"));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             showpoint = 0f;
 
@@ -246,7 +242,6 @@ public class DiceScoreCalc : MonoBehaviour
 
         else if (!show.textFinished)
         {
-            show.CalcTexts.text = "Standard\n4";
             Debug.Log("calculating Fours");
             for (int i = 0; i < Fourss.Count; i++)
             {
@@ -254,7 +249,7 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(addedPoints);
                 show.textFinished = true;
             }
-            StartCoroutine(show.TextCalc(showpoint));
+            StartCoroutine(show.TextCalc(showpoint, "Standard\n4"));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             showpoint = 0f;
 
@@ -269,7 +264,6 @@ public class DiceScoreCalc : MonoBehaviour
         }
         else if (!show.textFinished)
         {
-            show.CalcTexts.text = "Standard\n5";
             Debug.Log("calculating Fives");
             for (int i = 0; i < Fivess.Count; i++)
             {
@@ -277,7 +271,7 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(addedPoints);
                 show.textFinished = true;
             }
-            StartCoroutine(show.TextCalc(showpoint));
+            StartCoroutine(show.TextCalc(showpoint, "Standard\n5"));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             showpoint = 0f;
 
@@ -293,7 +287,6 @@ public class DiceScoreCalc : MonoBehaviour
 
         else if (!show.textFinished)
         {
-            show.CalcTexts.text = "Standard\n6";
             Debug.Log("calculating Sixes");
             for (int i = 0; i < Sixess.Count; i++)
             {
@@ -301,7 +294,7 @@ public class DiceScoreCalc : MonoBehaviour
                 Debug.Log(addedPoints);
                 show.textFinished = true;
             }
-            StartCoroutine(show.TextCalc(showpoint));
+            StartCoroutine(show.TextCalc(showpoint, "Standard\n6"));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             showpoint = 0f;
 
@@ -319,10 +312,9 @@ public class DiceScoreCalc : MonoBehaviour
             {
                 if (numlist[i].Count >= 3)
                 {
-                    show.CalcTexts.text = "Three Of A Kind\n" + numlist[i][0];
                     showpoint += ((numlist[i][0] * 100) * 3) * 4;
                     show.textFinished = true;
-                    StartCoroutine(show.TextCalc(showpoint));
+                    StartCoroutine(show.TextCalc(showpoint, "Three Of A Kind\n" + numlist[i][0]));
                     yield return new WaitForSeconds(show.speed + show.CurrentTime);
                 }
 
@@ -336,7 +328,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            show.CalcTexts.text = "Four Of A Kind";
             Debug.Log("Four of a kind starts");
             for (int i = 0; i < numlist.Count; i++)
             {
@@ -345,7 +336,7 @@ public class DiceScoreCalc : MonoBehaviour
                     Debug.Log(numlist[i]);
                     showpoint += ((numlist[i][0] * 100) * 4) * 5;
                     show.textFinished = true;
-                    StartCoroutine(show.TextCalc(showpoint));
+                    StartCoroutine(show.TextCalc(showpoint, "Four Of A Kind\n" + numlist[i][0]));
                     yield return new WaitForSeconds(show.speed + show.CurrentTime);
                 }
             }
@@ -358,7 +349,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            show.CalcTexts.text = "Full House";
             Debug.Log("Full house starts");
             for (int i = 0; i < numlist.Count; i++)
             {
@@ -378,7 +368,7 @@ public class DiceScoreCalc : MonoBehaviour
 
                         showpoint += (((numlist[i][0] * 100) * 3) + ((numlist[j][0] * 100) * 2)) * 6;
                         show.textFinished = true;
-                        StartCoroutine(show.TextCalc(showpoint));
+                        StartCoroutine(show.TextCalc(showpoint, "Full House\n" + numlist[i][0] + " & " + numlist[j][0]));
                         yield return new WaitForSeconds(show.speed + show.CurrentTime);
                     }
 
@@ -386,7 +376,7 @@ public class DiceScoreCalc : MonoBehaviour
                     {
                         showpoint += (((numlist[i][0] * 100) * 3) + ((numlist[j][0] * 100) * 2)) * 6;
                         show.textFinished = true;
-                        StartCoroutine(show.TextCalc(showpoint));
+                        StartCoroutine(show.TextCalc(showpoint, "Full House\n" + numlist[i][0] + " & " + numlist[j][0]));
                         yield return new WaitForSeconds(show.speed + show.CurrentTime);
                     }
                 }
@@ -403,29 +393,26 @@ public class DiceScoreCalc : MonoBehaviour
             Debug.Log("Small straight starts");
             if (Oness.Count >= 1 && Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1)
             {
-                show.CalcTexts.text = "Small Straight\n1,2,3,4";
                 showpoint += (onePoints + twoPoints + threePoints + fourPoints) * 7;
                 Debug.Log(showpoint);
                 show.textFinished = true;
-                StartCoroutine(show.TextCalc(showpoint));
+                StartCoroutine(show.TextCalc(showpoint, "Small Straight\n1,2,3,4"));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
 
             if ((Twoss.Count >= 1 && Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1))
             {
-                show.CalcTexts.text = "Small Straight\n2,3,4,5";
                 showpoint += (twoPoints + threePoints + fourPoints + fivePoints) * 7;
                 show.textFinished = true;
-                StartCoroutine(show.TextCalc(showpoint));
+                StartCoroutine(show.TextCalc(showpoint, "Small Straight\n2,3,4,5"));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
 
             if ((Threess.Count >= 1 && Fourss.Count >= 1 && Fivess.Count >= 1 && Sixess.Count >= 1))
             {
-                show.CalcTexts.text = "Small Straight\n3,4,5,6";
                 showpoint += (threePoints + fourPoints + fivePoints + sixPoints) * 7;
                 show.textFinished = true;
-                StartCoroutine(show.TextCalc(showpoint));
+                StartCoroutine(show.TextCalc(showpoint, "Small Straight\n3,4,5,6"));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
 
@@ -440,10 +427,9 @@ public class DiceScoreCalc : MonoBehaviour
             Debug.Log("Large straight");
             if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1)
             {
-                show.CalcTexts.text = "Large Straight\n1,2,3,4,5";
                 showpoint += (onePoints + twoPoints + threePoints + fourPoints + fivePoints) * 8;
                 show.textFinished = true;
-                StartCoroutine(show.TextCalc(showpoint));
+                StartCoroutine(show.TextCalc(showpoint, "Large Straight\n1,2,3,4,5"));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
 
 
@@ -451,10 +437,9 @@ public class DiceScoreCalc : MonoBehaviour
 
             if (Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
             {
-                show.CalcTexts.text = "Large Straight\n2,3,4,5,6";
                 showpoint += (twoPoints + threePoints + fourPoints + fivePoints + sixPoints) * 8;
                 show.textFinished = true;
-                StartCoroutine(show.TextCalc(showpoint));
+                StartCoroutine(show.TextCalc(showpoint, "Large Straight\n2,3,4,5,6"));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
 
@@ -467,13 +452,12 @@ public class DiceScoreCalc : MonoBehaviour
 
         if (!show.textFinished)
         {
-            show.CalcTexts.text = "Extra Large Straight";
             Debug.Log("Extra Large straight");
             if (Oness.Count == 1 && Twoss.Count == 1 && Threess.Count == 1 && Fourss.Count == 1 && Fivess.Count == 1 && Sixess.Count == 1)
             {
                 showpoint += (onePoints + twoPoints + threePoints + fourPoints + fivePoints + sixPoints) * 8;
                 show.textFinished = true;
-                StartCoroutine(show.TextCalc(showpoint));
+                StartCoroutine(show.TextCalc(showpoint, "Extra Large Straight"));
                 yield return new WaitForSeconds(show.speed + show.CurrentTime);
             }
         }
@@ -485,7 +469,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            show.CalcTexts.text = "YIPPEE!!!";
             Debug.Log("yippee");
             for (int i = 0; i < numlist.Count; i++)
             {
@@ -493,7 +476,7 @@ public class DiceScoreCalc : MonoBehaviour
                 {
                     showpoint += ((numlist[i][0] * 100) * 5) * 10;
                     show.textFinished = true;
-                    StartCoroutine(show.TextCalc(showpoint));
+                    StartCoroutine(show.TextCalc(showpoint, "YIPPEE!!!"));
                     yield return new WaitForSeconds(show.speed + show.CurrentTime);
                 }
             }
@@ -505,7 +488,6 @@ public class DiceScoreCalc : MonoBehaviour
         
         if (!show.textFinished)
         {
-            show.CalcTexts.text = "MEGA YIPPEE!!!!!!";
             Debug.Log("Mega yippee");
             for (int i = 0; i < numlist.Count; i++)
             {
@@ -513,7 +495,7 @@ public class DiceScoreCalc : MonoBehaviour
                 {
                     showpoint += ((numlist[i][0] * 100) * 6) * 10;
                     show.textFinished = true;
-                    StartCoroutine(show.TextCalc(showpoint));
+                    StartCoroutine(show.TextCalc(showpoint, "MEGA YIPPEE!!!!!!"));
                     yield return new WaitForSeconds(show.speed + show.CurrentTime);
                 }
             }

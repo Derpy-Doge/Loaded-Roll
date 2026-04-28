@@ -156,11 +156,13 @@ public class ShowPoints : MonoBehaviour
     }
 
 
-    public IEnumerator TextCalc(float amount)
+    public IEnumerator TextCalc(float amount, string CalcText)
     {
         colorPoints = amount;
             //pointText.text = string.Empty;
             pointanim.SetTrigger("Write");
+            yield return new WaitForSeconds(1f);
+            CalcTexts.text = CalcText;
             pointText.text = amount.ToString();
             pointText.color = Color.white;
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
@@ -174,12 +176,14 @@ public class ShowPoints : MonoBehaviour
             Calc.showpoint = 0;
     }
 
-    public IEnumerator TotalCalc()
+    public IEnumerator TotalCalc(string CalcText)
     {
         colorPoints = Calc.addedPoints;
 
         pointText.text = string.Empty;
         pointanim.SetTrigger("Write");
+        yield return new WaitForSeconds(1f);
+        CalcTexts.text = CalcText;
         pointText.text = Calc.addedPoints.ToString();
         pointText.color = Color.white;
         pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
