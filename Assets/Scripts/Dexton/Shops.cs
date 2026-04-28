@@ -8,10 +8,13 @@ public class Shops : MonoBehaviour
     public Face[] allFaces;
     private Face[] randomFaces;
 
+    public string format;
 
     public GameObject shopArea,/* this is a comment*/ buyButton, shopDie, restockButton;
     public int restockCount;
     public Texture2D soldOut;
+
+    private int RestockPrice => (int)restockPriceCurve.Evaluate(restockCount);
 
     public AnimationCurve restockPriceCurve;
 
@@ -44,7 +47,7 @@ public class Shops : MonoBehaviour
             GameObject instance = Instantiate(buyButton, shopArea.transform);
 
             instance.GetComponent<Image>().sprite = Sprite.Create(face.Texture, new Rect(0, 0, face.Texture.width, face.Texture.height), new Vector2(0.5f, 0.5f));
-            instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(face.price.ToString() + "$");
+            instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(string.Format(format, face.price));
 
 
             // What the button does when clicked
@@ -61,10 +64,10 @@ public class Shops : MonoBehaviour
     
     public void PurchaseRestock()
     {
-        //if (FindAnyObjectByType<DiceScoreCalc>().points < restockPrice)
+        if (FindAnyObjectByType<DiceScoreCalc>().points < RestockPrice)
             return;
 
-        //FindAnyObjectByType<DiceScoreCalc>().points -= restockPrice;// Ask derek he has all the time in the world to explain this line to you, he loves doing that
+        FindAnyObjectByType<DiceScoreCalc>().points -= RestockPrice;// Ask derek he has all the time in the world to explain this line to you, he loves doing that
 
         Restock();
         ++restockCount;

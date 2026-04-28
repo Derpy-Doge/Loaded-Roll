@@ -6,8 +6,10 @@ public class Die_Selection : MonoBehaviour
 {
     public GameObject buyButton, selectionArea;
     public FaceChange[] faceChange;
-    public GlobalDie[] allDice; // cahnge to the pablo inventory
-    private GlobalDie[] randomDice;
+    //public AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> allDice = new(); // cahnge to the pablo inventory
+    //private GlobalDie[] randomDice;
+    private Run currentRun;
+
 
 
     public void Awake()
@@ -16,11 +18,12 @@ public class Die_Selection : MonoBehaviour
         buyButton = Resources.Load<GameObject>("Prefabs/DieSelectButton");
 
         faceChange = FindObjectsByType<FaceChange>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
-        allDice = FindObjectsByType<GlobalDie>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
+        //allDice = SaveDataController.Instance.current.run.De();
     }
 
     void Start()
     {
+        currentRun = SaveDataController.Instance.current.run;
         loadDice();
     }
 
@@ -31,20 +34,21 @@ public class Die_Selection : MonoBehaviour
             Destroy(selectionArea.transform.GetChild(i).gameObject);
         }
 
-        randomDice = allDice.OrderBy(x => Random.Range(-1f, 1f)).Take(6).ToArray();
 
 
-        for (int i = 0; i < randomDice.Length; i++)
+        for (int i = 0; i < currentRun.Deese.Count; i++)
         {
             GameObject instance = Instantiate(buyButton, selectionArea.transform);
-            GlobalDie die = randomDice[i];
+            instance.AddComponent<GlobalDie>();
+            GlobalDie die = instance.GetComponent<GlobalDie>();
+            die.Faces = currentRun.Deese[i];//randomDice[i];
             FaceChange face = faceChange[i];
 
             instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
 
             instance.GetComponent<Button>().onClick.AddListener(() => ChangeDie(die, face, GameObject.Find("ShopDie"), die.gameObject));
 
-            instance.GetComponent<Button>().onClick.AddListener(() => die.gameObject.GetComponent<FaceChange>().UpdateDiceFaces());
+            //instance.GetComponent<Button>().onClick.AddListener(() => die.gameObject.GetComponent<FaceChange>().UpdateDiceFaces());
         }
         
     }
