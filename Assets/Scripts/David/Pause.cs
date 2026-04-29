@@ -15,10 +15,15 @@ public class Pause : MonoBehaviour
     [SerializeField] private Animator settingsMenu;
     [SerializeField] private GameObject settingsMenuObject;
     [SerializeField]private bool isSettings;
+    [Space]
+    [Header("Audio Clips")]
+    [SerializeField]private Settings settings;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
     }
 
     // Update is called once per frame
@@ -102,10 +107,22 @@ public class Pause : MonoBehaviour
         }
     }
 
+   
     public void MainMenu()
     {
         SceneManager.LoadScene("MainMenu");
     }
 
-
+    public void Erase()
+    {
+        Debug.Log("Erase");
+        settings.sfx.clip = settings.Eraser;
+        settings.sfx.Play();
+    }
+    public void Unerase()
+    { 
+        Debug.Log("unerase");
+        settings.sfx.clip = settings.Marker;
+        settings.sfx.Play();
+    }
 }
