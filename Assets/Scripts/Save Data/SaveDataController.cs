@@ -21,7 +21,7 @@ public class SaveDataController : MonoBehaviour
         Load();
         //Debug.Log("beep");
         //Debug.Log($"deese count: {current.run.Deese.Count}");
-        if (current.run.Deese.Count < 1)
+        for (int i = current.run.Deese.Count; i < 6; i++)
         {
             Debug.Log("gurt: yo");
             var test = new AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>();

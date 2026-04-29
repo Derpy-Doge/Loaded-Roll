@@ -52,7 +52,7 @@ public class Shops : MonoBehaviour
 
             // What the button does when clicked
             instance.GetComponent<Button>().onClick.AddListener(() => shopChangeFace.ChangeFace(face));
-            instance.GetComponent<Button>().onClick.AddListener(() => shopDie.GetComponent<FaceChange>().Dice.gameObject.GetComponent<FaceChange>().UpdateDiceFaces());
+            instance.GetComponent<Button>().onClick.AddListener(() => shopDie.GetComponent<FaceChange>().UpdateDiceFaces());
 
             instance.GetComponent<Button>().onClick.AddListener(() => instance.GetComponent<Button>().interactable = false);
             Debug.Log("Added listeners to button for face: " + face.name);

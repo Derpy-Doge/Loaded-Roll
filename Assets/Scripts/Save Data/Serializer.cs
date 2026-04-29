@@ -9,7 +9,7 @@ public static class Serializer
         if (!Directory.Exists(directory))
             Directory.CreateDirectory(directory);
 
-        string json = JsonUtility.ToJson(value);
+        string json = JsonUtility.ToJson(value, true);
 
         using StreamWriter sw = new(Path.Combine(directory, fileName));
         sw.Write(json);

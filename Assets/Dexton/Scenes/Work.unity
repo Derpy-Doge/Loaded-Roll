@@ -135,12 +135,12 @@ GameObject:
   - component: {fileID: 25650163}
   - component: {fileID: 25650162}
   m_Layer: 0
-  m_Name: ShopDie (5)
+  m_Name: die 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &25650162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -816,12 +816,12 @@ GameObject:
   - component: {fileID: 607455312}
   - component: {fileID: 607455311}
   m_Layer: 0
-  m_Name: ShopDie (3)
+  m_Name: die 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &607455311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1419,12 +1419,12 @@ GameObject:
   - component: {fileID: 1247538387}
   - component: {fileID: 1247538386}
   m_Layer: 0
-  m_Name: ShopDie (4)
+  m_Name: die 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1247538386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2029,12 +2029,12 @@ GameObject:
   - component: {fileID: 1969786108}
   - component: {fileID: 1969786107}
   m_Layer: 0
-  m_Name: ShopDie (2)
+  m_Name: die 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1969786107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2488,6 +2488,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8191124234579171917, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: m_Name
+      value: button to do screen transitions
+      objectReference: {fileID: 0}
     - target: {fileID: 8680981616391630181, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -2663,7 +2667,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4478163980284813803, guid: 589aa6b85f057fc43a5ae8749bfd86f0, type: 3}
       propertyPath: m_Name
-      value: ShopDie (1)
+      value: die 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4478163980284813803, guid: 589aa6b85f057fc43a5ae8749bfd86f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7229855189650403300, guid: 589aa6b85f057fc43a5ae8749bfd86f0, type: 3}
       propertyPath: m_LocalPosition.x

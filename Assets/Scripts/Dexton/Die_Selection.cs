@@ -45,7 +45,7 @@ public class Die_Selection : MonoBehaviour
         for (int i = 0; i < currentRun.Deese.Count; i++)
         {
             GameObject instance = Instantiate(buyButton, selectionArea.transform);
-            instance.name = "Die" + (i + 1);
+            instance.name = "Die " + (i + 1);
             instance.AddComponent<GlobalDie>();
             //instance.AddComponent<FaceChange>();
             GlobalDie die = instance.GetComponent<GlobalDie>();
@@ -55,6 +55,8 @@ public class Die_Selection : MonoBehaviour
             instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
 
             instance.GetComponent<Button>().onClick.AddListener(() => ChangeDie(die, /*face,*/ GameObject.Find("ShopDie"), die.gameObject));
+
+            instance.GetComponent<Button>().onClick.AddListener(() => Debug.Log("clicky clicky"));
 
             //instance.GetComponent<Button>().onClick.AddListener(() => die.gameObject.GetComponent<FaceChange>().UpdateDiceFaces());
         }
