@@ -15,7 +15,7 @@ public class SaveDataController : MonoBehaviour
     [SerializeField] private string _directory;
     [SerializeField] private string _fileName;
 
-    private void Start()
+    private void Awake()
     {
         _instance = this;
         Load();
