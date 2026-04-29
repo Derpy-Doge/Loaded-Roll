@@ -27,7 +27,9 @@ public class Settings : MonoBehaviour
     [SerializeField] private Slider gameMusicSlider;
     [Space]
     [Header("SFX")]
-    [SerializeField] private AudioSource sfx;
+    public AudioSource sfx;
+    public AudioClip Eraser;
+    public AudioClip Marker;
     [SerializeField] private Slider sfxSlider;
 
 
@@ -128,5 +130,19 @@ public void Changed(bool value)
     {
         distractingVisuals = value;
         SaveDataController.Instance.current.Settings.IsDistracting = value;
+    }
+
+    public void Erase()
+    {
+        Debug.Log("Erase");
+        sfx.clip = Eraser;
+        sfx.Play();
+    }
+
+    public void Unerase()
+    {
+        Debug.Log("unerase");
+        sfx.clip = Marker;
+        sfx.Play();
     }
 }
