@@ -46,8 +46,8 @@ public class InfoDice : MonoBehaviour
         {
             if (_dragging)
             {
-                var asset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
-                asset.supportsHDR = false;
+                //var asset = GraphicsSettings.currentRenderPipeline as UniversalRenderPipelineAsset;
+                //asset.supportsHDR = false;
                 gameObject.SetActive(false);
                 _dragging = false;
                 _dragging = false;

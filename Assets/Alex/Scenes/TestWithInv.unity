@@ -5005,6 +5005,9 @@ MonoBehaviour:
   - {fileID: 12951019}
   - {fileID: 309069429}
   - {fileID: 860667440}
+  invalidBounds:
+    m_Center: {x: 0, y: 0.4, z: 0}
+    m_Extent: {x: 10, y: 5, z: 10}
   rolledFaces: []
   UnselectedDice: []
   UnselectedSlot: []

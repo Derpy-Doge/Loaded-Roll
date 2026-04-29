@@ -194,6 +194,37 @@ public class DiceHolder : MonoBehaviour //test
         } 
     }
 
+    public void SelectDice(DiceVisual SelectedDice)
+    {
+        if (SelectedDice.selected)
+        {
+            if (!SelectedDice.currentDice.selectable) //Means the user has already selected the dice in a previous roll so it cant be unselected
+            {
+                return;
+            }
+
+            RawImage rI = SelectedDice.currentDice.GetComponent<RawImage>();
+            RollDice.Instance.Selected[SelectedDice.boxIndex] = null;
+            RollDice.Instance.UnselectedDice.Add(rI);
+            RollDice.Instance.UnselectedSlot.Add(SelectedDice.currentDice);
+            RollDice.Instance.dices[SelectedDice.boxIndex].gameObject.layer = LayerMask.NameToLayer("Default");
+            SelectedDice.selected = false;
+            rI.material = null;
+
+        }
+        else
+        {
+            RawImage rI = SelectedDice.currentDice.GetComponent<RawImage>();
+            SelectedDice.selected = true;
+            RollDice.Instance.dices[SelectedDice.boxIndex].gameObject.layer = LayerMask.NameToLayer("Selected");
+            RollDice.Instance.Selected[SelectedDice.boxIndex] = SelectedDice.currentDice;
+            RollDice.Instance.UnselectedDice.Remove(rI);
+            RollDice.Instance.UnselectedSlot.Remove(SelectedDice.currentDice);
+            rI.material = purpleGlow;
+
+        }
+    }
+
     public void RecycleDice(DiceDragging diceDragging)
     {
         recycleSlot.recyclingDice.Add(diceDragging);

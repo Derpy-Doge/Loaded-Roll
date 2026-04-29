@@ -11,7 +11,12 @@ public class SelectDice : MonoBehaviour
     [SerializeField] private LayerMask diceLayer;
     [SerializeField] private float clickRadius = 2.5f;
     private Vector3 positiondgkdsjgosdj;
+    public static SelectDice Instance;
 
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
@@ -65,29 +70,28 @@ public class SelectDice : MonoBehaviour
 
     public void Click(InputAction.CallbackContext ctx)
     {
-
         if (!ctx.performed || GameManager.Instance.CurrentState != GameManager.GameStates.Select)
         {
             return;
         }
 
-        //Debug.Log("test686686");
-
         if (TryGetPosition(out Vector3 pos))
         {
-            Debug.Log("test686686");
             Debug.Log(pos);
             Collider[] hits = Physics.OverlapSphere(pos, clickRadius);
             float minDist = hits.Min(hit => Vector3.Distance(pos, hit.transform.position));
             Collider closest = hits.First(hit => Vector3.Distance(pos, hit.transform.position) == minDist);
             
-            if (closest != null) //if you clicked on an object in the inventory
+            if (closest != null) 
             {
-                closest.gameObject.SetActive(false);
+
+                DiceHolder.Instance.SelectDice(RollDice.Instance.AllSlots[RollDice.Instance.dices.IndexOf(closest.gameObject.transform)].GetSlot());
+                //closest.gameObject.SetActive(false);
                 Debug.Log("test");
             }
         }
-
-
     }
+
+
+
 }
