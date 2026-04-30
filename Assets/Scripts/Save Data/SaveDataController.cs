@@ -10,6 +10,7 @@ public class SaveDataController : MonoBehaviour
     public static SaveDataController Instance => _instance;
 
     [SerializeField] private SaveDataAsset _saveDataAsset;
+    [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> defaultDie;
     [HideInInspector] public SaveData current;
 
     [SerializeField] private string _directory;
@@ -24,15 +25,7 @@ public class SaveDataController : MonoBehaviour
         for (int i = current.run.Deese.Count; i < 6; i++)
         {
             Debug.Log("gurt: yo");
-            var test = new AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>();
-            test[Vector3.up] = Resources.Load<Face>("ScriptableObjects/Faces/2 Pips");
-            test[Vector3.down] = Resources.Load<Face>("ScriptableObjects/Faces/1 Pip");
-            test[Vector3.left] = Resources.Load<Face>("ScriptableObjects/Faces/3 Pips");
-            test[Vector3.right] = Resources.Load<Face>("ScriptableObjects/Faces/4 Pips");
-            test[Vector3.forward] = Resources.Load<Face>("ScriptableObjects/Faces/1 Pip");
-            test[Vector3.back] = Resources.Load<Face>("ScriptableObjects/Faces/3 Pips");
-
-            current.run.Deese.Add(test);
+            current.run.Deese.Add(defaultDie);
             Debug.Log("meep");
         }
 

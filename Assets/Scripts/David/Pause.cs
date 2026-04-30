@@ -56,7 +56,8 @@ public class Pause : MonoBehaviour
             if (isSettings)
             {
                 isSettings = false;
-                //settingsMenu.SetTrigger("unpause");
+                settingsMenu.SetTrigger("erase");
+                pauseMenu.SetTrigger("unerase");
             }
 
             else if (isPaused)
