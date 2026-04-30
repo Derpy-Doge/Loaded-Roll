@@ -35,7 +35,7 @@ public class RollWarnings : MonoBehaviour
 
     void Update()
     {
-        if (gm.rolls + 1 > 3) //New Round || ROLLS PER ROUND IS PRIVATE WHY IS IT PRIVATE
+        if (gm.rolls + 1 > 3) //New Round
         {
             selectedWarning = warnings[0];
         }
@@ -44,7 +44,7 @@ public class RollWarnings : MonoBehaviour
         {
             selectedWarning = warnings[1];
         }
-        else if (RollDice.Instance.diceTextures.CheckNulls())
+        else if (RollDice.Instance.diceTextures.CheckNulls()) // not enough dice
         {
             selectedWarning = warnings[2];
         }
