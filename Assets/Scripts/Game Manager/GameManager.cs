@@ -227,6 +227,8 @@ public class GameManager : MonoBehaviour
 
     private void EndGame()
     {
+        SaveDataController.Instance.current.run = new();
+        //Go to start scene
         
     }
 
