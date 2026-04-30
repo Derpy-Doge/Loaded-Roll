@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _saveData:
     run:
-      Points: 0
+      IsGameOver: 0
+      Points: 1000
       TotalEarnedPoints: 0
       TotalDebtPayment: 0
-      CurrentDebt: 8000
+      CurrentDebt: 20000
       CurrentInterestRate: 0
       CurrentInterestIncrease: 0
       Deese: []

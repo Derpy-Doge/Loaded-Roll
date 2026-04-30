@@ -43,6 +43,7 @@ public struct SaveData
 [Serializable]
 public class Run // data saved in that run :skull:
 {
+    public bool IsGamePlayed = false;
     public int Points;
     public int TotalEarnedPoints;
     public int TotalDebtPayment;
