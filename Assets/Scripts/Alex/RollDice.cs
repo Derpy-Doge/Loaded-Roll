@@ -24,7 +24,7 @@ public class RollDice : MonoBehaviour
     private bool ignoreSelectWarning; //should likely have this in save data
     private bool selectWarningSpawned;
 
-
+    [SerializeField] private Bounds invalidBounds;
 
     public static RollDice Instance;
 
@@ -64,8 +64,23 @@ public class RollDice : MonoBehaviour
     void Update()
     {
         timeSinceCalc -= Time.deltaTime;
-        if (!calculated && timeSinceCalc <= 0f && CalculateSpeed() < .2f)
+        if (!calculated && timeSinceCalc <= 0f && (CalculateSpeed() < .2f)) //Add check here 
         {
+            Collider[] hits = Physics.OverlapBox(invalidBounds.center, invalidBounds.size / 2);
+
+            foreach (var hit in hits)
+            {
+                Vector3 randomDir = new Vector3(Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)));
+                randomDir *= 4f;
+                diceRB[hit.gameObject.transform].angularVelocity += randomDir;
+                diceRB[hit.gameObject.transform].linearVelocity += new Vector3(randomDir.x, 3f, randomDir.z) * Random.Range(.8f, 1.5f);
+            }
+            if (hits == null)
+            {
+                timeSinceCalc = calcCooldown;
+                return;
+            }
+
             calculated = true;
             ReadFaces();
         }
@@ -116,9 +131,17 @@ public class RollDice : MonoBehaviour
         foreach (var dice in dices)
         {
             speed += diceRB[dice].linearVelocity.magnitude;
+            
         }
 
+        
+
         return speed;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(invalidBounds.center, invalidBounds.size);
     }
 
     private void EndRoll()
@@ -289,7 +312,7 @@ public class RollDice : MonoBehaviour
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;
             dices[i].position = new Vector3(i * 2.5f - 2f, -2f, i * 2.5f - 2f );
             dices[i].Rotate(new Vector3(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f)));
-            diceRB[dices[i]].linearVelocity = new Vector3(Random.Range(-8f, 8f), 0f, Random.Range(-8f, 8f));
+            diceRB[dices[i]].linearVelocity = new Vector3(Random.Range(-16f, 16f), 0f, Random.Range(-16f, 16f));
             diceRB[dices[i]].angularVelocity = new Vector3(Random.Range(-8f, 8f), Random.Range(-8f, 8f), Random.Range(-8f, 8f));
             calculated = false;
             yield return new WaitForSeconds(diceSpinCooldown);
@@ -301,6 +324,7 @@ public class RollDice : MonoBehaviour
     [ContextMenu("Read Faces")]
     private void ReadFaces()
     {
+       
         UnselectedSlot = AllSlots.ToList();
         for (int i = 0; i < AllSlots.Length; i++)
         {

@@ -80,7 +80,7 @@ Shader "Unlit/Replace"
             fixed4 frag (Interpolators i) : SV_Target
             {
                 float4 baseTexture = tex2D(_MainTex, i.uv);
-                if (distance(baseTexture.rgb, _ReplaceColor.rgb) < .3){
+                if (distance(baseTexture.rgb, _ReplaceColor.rgb) < .2){
                     
                     if (_Outline < 0.5){
                     
@@ -89,16 +89,18 @@ Shader "Unlit/Replace"
                         float theta = atan2(centered.y, centered.x) + _Time.y;
                         //float spiralPattern = cos((theta * 8.0 + log(r * 50  + 1e-5) * 2.0 - _Time.y) * TAU);
                         
-                        float spiralPattern = cos((theta * 4.0 + log(r * 0.4 + 1e-5) * 2.0) * TAU); //2 is the amount of arms
-                        spiralPattern = spiralPattern * 0.5 + 0.5;
-                        float4 combined = baseTexture + (baseTexture * spiralPattern * _GlowIntensity) * lerp(_ColorA, _ColorB, distance(i.uv.x, 0.5) + distance(i.uv.y, 0.5));
+                        //float spiralPattern = cos((theta * 4.0 + log(r * 0.4 + 1e-5) * 2.0) * TAU); //2 is the amount of arms
+                        //float spiralPattern = cos(sin(4.0 * theta) * sin(4.0 * theta)); //2 is the amount of arms
+                        float spiralPattern = 1;
+
+                        float4 combined = (baseTexture * _GlowIntensity) * lerp(_ColorA, _ColorB, distance(i.uv.x, 0.5) + distance(i.uv.y, 0.5));
                         return combined;
 
                     // float4 combined = (baseTexture + ( baseTexture  * (cos((i.uv.y + (cos(i.uv.x * TAU * 8) * 0.01) - _Time.y) * TAU * 5) * 0.5 + 0.5) * _GlowIntensity)) * lerp(_ColorA, _ColorB, i.uv.y);
                     // return combined;
 
                     }
-                    float4 combined = baseTexture + (getOutline(i.uv) * lerp(_ColorA, _ColorB, i.uv.y) * (cos((i.uv.y + (cos(i.uv.x * TAU * 8) * 0.01) - _AnimationSpeed) * TAU * 5) * 0.5 + 0.5) * _GlowIntensity);
+                    float4 combined =  (getOutline(i.uv) * lerp(_ColorA, _ColorB, i.uv.y) * (cos((i.uv.y + (cos(i.uv.x * TAU * 8) * 0.01) - _AnimationSpeed) * TAU * 5) * 0.5 + 0.5) * _GlowIntensity);
                     return combined;
                 }
                 else{
