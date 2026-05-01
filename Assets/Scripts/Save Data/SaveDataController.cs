@@ -24,9 +24,7 @@ public class SaveDataController : MonoBehaviour
         //Debug.Log($"deese count: {current.run.Deese.Count}");
         for (int i = current.run.Deese.Count; i < 6; i++)
         {
-            Debug.Log("gurt: yo");
             current.run.Deese.Add(defaultDie);
-            Debug.Log("meep");
         }
 
         //Application.wantsToQuit += () => //Do this for a warning when quiting that you would have unsave data

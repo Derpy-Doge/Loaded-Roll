@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class DiceCollision : MonoBehaviour
     public List<AudioClip> diceCardboard;
     public List<AudioClip> diceRock;//floor
 
-    void Start()
+    void Awake()
     {
         if (sfxSource == null)
         {
@@ -20,6 +21,7 @@ public class DiceCollision : MonoBehaviour
                 Debug.LogError("AudioSource component not found on " + gameObject.name);
             }
         }
+        StartCoroutine(PlsNoSound());
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -35,11 +37,27 @@ public class DiceCollision : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Wall"))//cardboard
         {
-            sfxSource.PlayOneShot(diceCardboard[Random.Range(0, diceCardboard.Count)]);
+            if(collision.gameObject.transform.parent != null && collision.gameObject.transform.parent.name == "Bounds")
+            {
+                sfxSource.PlayOneShot(diceRock[Random.Range(0, diceRock.Count)]);
+                return;
+            }
+            else
+            {
+                sfxSource.PlayOneShot(diceCardboard[Random.Range(0, diceCardboard.Count)]);
+            }            
         }
         else // if its not a wall or a dice its probably the floor
         {
             sfxSource.PlayOneShot(diceRock[Random.Range(0, diceRock.Count)]);
         }
+    }
+
+    public IEnumerator PlsNoSound()
+    {
+        DiceCollision dc = this;
+        dc.enabled = false;
+        yield return new WaitForSeconds(2f);
+        dc.enabled = true;
     }
 }
