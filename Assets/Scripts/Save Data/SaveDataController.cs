@@ -22,8 +22,11 @@ public class SaveDataController : MonoBehaviour
         Load();
         //Debug.Log("beep");
         //Debug.Log($"deese count: {current.run.Deese.Count}");
-        for (int i = current.run.Deese.Count; i < 6; i++)
+        for (int i = current.run.Deese.Count; i < 5; i++)
         {
+            if (current.run.Deese.Count >= 5)
+                return;
+
             Debug.Log("gurt: yo");
             current.run.Deese.Add(defaultDie);
             Debug.Log("meep");
