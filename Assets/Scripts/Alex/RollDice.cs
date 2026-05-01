@@ -28,6 +28,8 @@ public class RollDice : MonoBehaviour
 
     public static RollDice Instance;
 
+    private bool isDiceBouncing = false;
+
     //public List<RawImage> resultFaces = new ();
     [HideInInspector] public List<Face> rolledFaces = new ();
     public List<RawImage> UnselectedDice = new();
@@ -61,24 +63,33 @@ public class RollDice : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
+    private IEnumerator ResetBouncing()
+    {
+        yield return new WaitForSeconds(0.2f);
+        isDiceBouncing = false;
+    }
+
     void Update()
     {
         timeSinceCalc -= Time.deltaTime;
-        if (!calculated && timeSinceCalc <= 0f && (CalculateSpeed() < .2f)) //Add check here 
+        if (!calculated && timeSinceCalc <= 0f && (CalculateSpeed() < .5f)) //Add check here 
         {
-            Collider[] hits = Physics.OverlapBox(invalidBounds.center, invalidBounds.size / 2);
 
-            foreach (var hit in hits)
+            if (CalculateSpeed() > .2f)
             {
-                Vector3 randomDir = new Vector3(Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)));
-                randomDir *= 4f;
-                diceRB[hit.gameObject.transform].angularVelocity += randomDir;
-                diceRB[hit.gameObject.transform].linearVelocity += new Vector3(randomDir.x, 3f, randomDir.z) * Random.Range(.8f, 1.5f);
-            }
-            if (hits == null)
-            {
-                timeSinceCalc = calcCooldown;
+                Collider[] hits = Physics.OverlapBox(invalidBounds.center, invalidBounds.size / 2);
+
+                foreach (var hit in hits)
+                {
+                    Vector3 randomDir = new Vector3(Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)));
+                    randomDir *= 4f;
+                    diceRB[hit.gameObject.transform].angularVelocity += randomDir;
+                    diceRB[hit.gameObject.transform].linearVelocity += new Vector3(randomDir.x, 3f, randomDir.z) * Random.Range(.8f, 1.5f);
+                }
+
                 return;
+                
+
             }
 
             calculated = true;

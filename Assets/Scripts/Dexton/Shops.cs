@@ -71,7 +71,13 @@ public class Shops : MonoBehaviour
 
         Restock();
         ++restockCount;
-    } 
+    }
+
+
+    public void ResetValues()
+    {
+        restockCount = 0;
+    }
 
 
 }
