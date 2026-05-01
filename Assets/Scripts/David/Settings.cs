@@ -74,11 +74,6 @@ public class Settings : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        //Audio Calculation For Save Data
-        mainMenuMusic = GameObject.Find("MainMenuMusic").GetComponent<AudioSource>();
-        gameMusic = GameObject.Find("GameMusic").GetComponent<AudioSource>();
-        sfx = GameObject.Find("SFX").GetComponent<AudioSource>();
-
 
         mainMenuMusicSlider.value = SaveDataController.Instance.current.Settings.MenuMusicVolume;
         gameMusicSlider.value = SaveDataController.Instance.current.Settings.MusicVolume;
