@@ -20,8 +20,7 @@ public class DiceCollision : MonoBehaviour
             {
                 Debug.LogError("AudioSource component not found on " + gameObject.name);
             }
-        }
-        StartCoroutine(PlsNoSound());
+        }      
     }
 
     private void OnCollisionEnter(Collision collision)
