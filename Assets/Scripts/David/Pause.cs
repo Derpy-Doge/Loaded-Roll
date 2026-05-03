@@ -117,13 +117,13 @@ public class Pause : MonoBehaviour
     public void Erase()
     {
         Debug.Log("Erase");
-        settings.sfx.clip = settings.Eraser;
-        settings.sfx.Play();
+        settings.sfx1.clip = settings.Eraser;
+        settings.sfx1.Play();
     }
     public void Unerase()
     { 
         Debug.Log("unerase");
-        settings.sfx.clip = settings.Marker;
-        settings.sfx.Play();
+        settings.sfx1.clip = settings.Marker;
+        settings.sfx1.Play();
     }
 }
