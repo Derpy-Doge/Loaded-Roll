@@ -21,6 +21,8 @@ public class DiceScoreCalc : MonoBehaviour
 
     public float zeros;
 
+    private bool isrunning;
+
 
     private float onePoints = 100f;
     private float twoPoints = 200f;
@@ -104,7 +106,11 @@ public class DiceScoreCalc : MonoBehaviour
 
     public void Skip()
     { 
-        StartCoroutine(TotalPoints());
+        if (isrunning)
+        {
+            StartCoroutine(TotalPoints());
+        }
+        
         //StartCoroutine(TotalZeros());
     }
 
@@ -113,6 +119,7 @@ public class DiceScoreCalc : MonoBehaviour
         diceValues = faces;
         SortDice();
         CalculateTotal();
+        isrunning = true;
         StartCoroutine(CalculateScore());
 
     }
@@ -141,6 +148,7 @@ public class DiceScoreCalc : MonoBehaviour
             StartCoroutine(show.TotalCalc("Total"));
             yield return new WaitForSeconds(show.speed + show.CurrentTime);
             Debug.Log("total points should be leaving");
+            isrunning = false;
         }
     }
 
