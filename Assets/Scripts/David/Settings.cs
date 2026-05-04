@@ -27,7 +27,7 @@ public class Settings : MonoBehaviour
     [Space]
     [Header("SFX")]
     public AudioSource sfx1;
-    public AudioSource sfx2;
+    public AudioSource sfx2; // just for saw sound
     public AudioClip Eraser;
     public AudioClip Marker;
     [SerializeField] private Slider sfxSlider;
@@ -94,6 +94,8 @@ public class Settings : MonoBehaviour
         mainMenuMusicSlider.onValueChanged.AddListener(delegate { SetMMM(mainMenuMusicSlider.value); });
         gameMusicSlider.onValueChanged.AddListener(delegate { SetGM(gameMusicSlider.value); });
         sfxSlider.onValueChanged.AddListener(delegate { SetSFX(sfxSlider.value); });
+
+        this.gameObject.SetActive(false);
     }
 
     public void SetMMM(float value)
