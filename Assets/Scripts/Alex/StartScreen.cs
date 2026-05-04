@@ -1,13 +1,17 @@
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
+
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class StartScreen : MonoBehaviour
 {
     [SerializeField] private GameObject continueButton;
     [SerializeField] private RectTransform NewGameOptions;
     [SerializeField] private GameObject ButtonParent;
+    [HideInInspector] public List<Vector2> buttonAnchoredPositions = new();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,6 +20,12 @@ public class StartScreen : MonoBehaviour
         {
             Debug.Log("sojgojsoghjosjg");
             continueButton.SetActive(true);
+        }
+
+        foreach (Transform button in ButtonParent.transform)
+        {
+            RectTransform rect = button.GetComponent<RectTransform>();
+            buttonAnchoredPositions.Add(rect.anchoredPosition);
         }
     }
 
@@ -29,7 +39,7 @@ public class StartScreen : MonoBehaviour
                 StartCoroutine(Fall(button));
             }
             AceDieVisual.Instance.UpdateTextBoxes();
-            StartCoroutine(ICANTNAMETHINGSPLEASEHELP(NewGameOptions, new (-200f, 0f)));
+            StartCoroutine(ICANTNAMETHINGSPLEASEHELP(NewGameOptions, new (-200f, 0f), 90f));
             //SceneManager.LoadScene("TestWithInv");
             return;
 
@@ -53,7 +63,7 @@ public class StartScreen : MonoBehaviour
         
     }
 
-    private IEnumerator Fall(Transform button)
+    public IEnumerator Fall(Transform button)
     {
         RectTransform rect = button as RectTransform;
         if (rect == null || !rect is RectTransform)
@@ -75,7 +85,7 @@ public class StartScreen : MonoBehaviour
         }
     }
 
-    private IEnumerator ICANTNAMETHINGSPLEASEHELP(RectTransform rect, Vector2 finalPos)
+    public IEnumerator ICANTNAMETHINGSPLEASEHELP(RectTransform rect, Vector2 finalPos, float angle)
     {
         float duration = 1f;
 
@@ -96,7 +106,7 @@ public class StartScreen : MonoBehaviour
         float dir = Random.value > 0.5f ? 1f : -1f;
         float startRot = rect.eulerAngles.z;
         int spins = Random.Range(1, 3);
-        float targetRot = 90f + 360f * spins * dir;
+        float targetRot = angle + 360f * spins * dir;
 
         float time = 0f;
 
@@ -116,7 +126,7 @@ public class StartScreen : MonoBehaviour
         }
 
         rect.anchoredPosition = finalPos;
-        rect.rotation = Quaternion.Euler(0f, 0f, 90f);
+        rect.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
 }
