@@ -59,6 +59,23 @@ public class AceDieVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
             UnlockedDie.Add((AceDie) i);
         }
+
+        if (currentState == State.Game)
+        {
+            currentAceDie = (AceDie) SaveDataController.Instance.current.run.AceDie;
+            switch (currentAceDie)
+            {
+                case AceDie.Gamble:
+                    aceFaceChange.Dice.Faces = gambleDice;
+                    break;
+
+                case AceDie.Horse:
+                    aceFaceChange.Dice.Faces = horseDice;
+                    break;
+            }
+            aceFaceChange.UpdateDiceFaces();
+            Debug.Log("AAAAAAAAAAAAAAAAAA");
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
