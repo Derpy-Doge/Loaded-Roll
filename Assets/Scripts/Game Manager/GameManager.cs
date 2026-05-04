@@ -216,6 +216,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
+        SaveDataController.Instance.current.DebtInstallmentsCompleted++;
+
         interest *= 1 + interestIncrease; 
         float r = ((float)run.TotalEarnedPoints + 100f) / ((float) run.TotalDebtPayment + 100f);
         float i = Mathf.Log(r+1f);
