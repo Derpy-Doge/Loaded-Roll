@@ -1,3 +1,4 @@
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -47,6 +48,11 @@ public class Pause : MonoBehaviour
         //}
     }
 
+    public void EndRun()
+    { 
+        SaveDataController.Instance.current.run = new Run();
+        SceneManager.LoadScene("StartMenu");
+    }
     public void PauseGame(InputAction.CallbackContext ctx)
     {
 
@@ -111,7 +117,7 @@ public class Pause : MonoBehaviour
    
     public void MainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("StartMenu");
     }
 
     public void Erase()

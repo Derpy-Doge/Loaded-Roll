@@ -3069,12 +3069,7 @@ MonoBehaviour:
 
     -
 
-    Score Calculation
-
-    -
-
-    Pause/Settings
-    Menu
+    System Control
 
 '
   m_isRightToLeft: 0
@@ -3470,8 +3465,8 @@ Transform:
   m_GameObject: {fileID: 876171666}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -400, y: -219, z: -9326.927}
-  m_LocalScale: {x: 103.632515, y: 103.632515, z: 103.632515}
+  m_LocalPosition: {x: -608.82, y: -233.68, z: -9326.927}
+  m_LocalScale: {x: 68.39746, y: 77.72439, z: 103.632515}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 590854994}
@@ -6366,8 +6361,8 @@ Transform:
   m_GameObject: {fileID: 1968775680}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 197, y: -124, z: -9326.927}
-  m_LocalScale: {x: 61.14318, y: 59.070534, z: 103.632515}
+  m_LocalPosition: {x: 123, y: -255, z: -9326.927}
+  m_LocalScale: {x: 52.583138, y: 46.075016, z: 103.632515}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 590854994}
@@ -6586,8 +6581,8 @@ Transform:
   m_GameObject: {fileID: 1997971676}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 131, y: 233, z: -9326.927}
-  m_LocalScale: {x: 46.634632, y: 47.67096, z: 103.632515}
+  m_LocalPosition: {x: -294, y: -232, z: -9326.927}
+  m_LocalScale: {x: 36.37501, y: 37.183346, z: 103.632515}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 590854994}
