@@ -164,9 +164,9 @@ public class ShowPoints : MonoBehaviour
             yield return new WaitForSeconds(1f);
             CalcTexts.text = CalcText;
             pointText.text = amount.ToString();
-            pointText.color = Color.white;
+            //pointText.color = Color.white;
             pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
-            ColorCalc();
+            //ColorCalc();
             yield return new WaitForSeconds(speed);
             Debug.Log("Points added");
             Timer = CurrentTime;
@@ -185,9 +185,9 @@ public class ShowPoints : MonoBehaviour
         yield return new WaitForSeconds(1f);
         CalcTexts.text = CalcText;
         pointText.text = Calc.addedPoints.ToString();
-        pointText.color = Color.white;
+        //pointText.color = Color.white;
         pointText.fontMaterial.SetVector("_GlowColor", new Vector4(1f, 1f, 1f, 1f));
-        ColorCalc();
+        //ColorCalc();
         yield return new WaitForSeconds(speed);
         Debug.Log("Points added");
         GameManagerGO.SendMessage("AddPoints", Mathf.RoundToInt(Calc.addedPoints));

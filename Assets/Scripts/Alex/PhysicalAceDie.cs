@@ -17,11 +17,25 @@ public class PhysicalAceDie : MonoBehaviour
     [SerializeField] private GlobalDie globalDie;
     [SerializeField] private FaceChange faceChange;
 
+    [SerializeField] private GlobalDie stolenGlobalDie;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         aceDie = (AceDieVisual.AceDie) SaveDataController.Instance.current.run.AceDie;
+        if (aceDie == AceDieVisual.AceDie.Horse)
+        {
+            GetComponent<DiceCollision>().isHorse = true;
+        }
+
+
+        this.LateStart(() => {
+            globalDie.Faces = stolenGlobalDie.Faces;
+            faceChange.UpdateDiceFaces();
+        });
+
         rb = GetComponent<Rigidbody>();
+
     }
 
     
