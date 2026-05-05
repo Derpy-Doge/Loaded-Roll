@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.XR;
 using UnityEngine;
 
 public class DiceCollision : MonoBehaviour
@@ -10,6 +11,9 @@ public class DiceCollision : MonoBehaviour
     public List<AudioClip> diceDice;
     public List<AudioClip> diceCardboard;
     public List<AudioClip> diceRock;//floor
+    [SerializeField] private List<AudioClip> neigh;
+    [HideInInspector] public bool isHorse;
+
 
     void Awake()
     {
@@ -29,6 +33,18 @@ public class DiceCollision : MonoBehaviour
         if (collision == null) return;
 
         if (collision.gameObject == null) return;
+
+        if (isHorse)
+        {
+            int horseIndex = Random.Range(0, neigh.Count);
+            sfxSource.PlayOneShot(neigh[horseIndex]);
+            if (horseIndex == neigh.Count - 1)
+            {
+                SendMessage("AddPoints", Random.Range(5, 11) * 100 * 5);
+            }
+            SendMessage("AddPoints", Random.Range(5, 11) * 100);
+            return;
+        }
 
         if (collision.gameObject.CompareTag("Dice"))
         {
