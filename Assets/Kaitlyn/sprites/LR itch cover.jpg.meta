@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 815a98ee7ca45574e86cc657159011bf
+guid: 1ee15496e0e2d1c498ac700480d26a1e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2887903660446137359
-    second: RecyclingBin_0
-  - first:
-      213: -320523777202812729
-    second: RecyclingBin_1
-  - first:
-      213: -7787166960052942110
-    second: RecyclingBin_2
-  - first:
-      213: -8989703219884371571
-    second: RecyclingBin_3
+      213: 1763515841120593806
+    second: LR itch cover_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -135,23 +126,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: RecyclingBin_3
+      name: LR itch cover_0
       rect:
         serializedVersion: 2
-        x: 292
-        y: 115
-        width: 446
-        height: 592
+        x: 0
+        y: 0
+        width: 630
+        height: 500
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d815b9e0d882e3380800000000000000
-      internalID: -8989703219884371571
+      spriteID: e8764c16054497810800000000000000
+      internalID: 1763515841120593806
       vertices: []
       indices: 
       edges: []
@@ -160,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -170,10 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      RecyclingBin_0: -2887903660446137359
-      RecyclingBin_1: -320523777202812729
-      RecyclingBin_2: -7787166960052942110
-      RecyclingBin_3: -8989703219884371571
+      LR itch cover_0: 1763515841120593806
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
