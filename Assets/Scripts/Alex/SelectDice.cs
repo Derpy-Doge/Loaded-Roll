@@ -85,7 +85,7 @@ public class SelectDice : MonoBehaviour
             if (closest != null) 
             {
 
-                DiceHolder.Instance.SelectDice(RollDice.Instance.AllSlots[RollDice.Instance.dices.IndexOf(closest.gameObject.transform)].GetSlot());
+                DiceHolder.Instance.SelectDice(RollDice.Instance.AllSlots[RollDice.Instance.dices.IndexOf(closest.gameObject.transform)].GetSlot());//fix it
                 //closest.gameObject.SetActive(false);
                 Debug.Log("test");
             }

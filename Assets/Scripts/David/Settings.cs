@@ -26,10 +26,12 @@ public class Settings : MonoBehaviour
     [SerializeField] private Slider gameMusicSlider;
     [Space]
     [Header("SFX")]
-    public AudioSource sfx;
+    public AudioSource sfx1;
+    public AudioSource sfx2; // just for saw sound
     public AudioClip Eraser;
     public AudioClip Marker;
     [SerializeField] private Slider sfxSlider;
+    [SerializeField] private List<AudioSource> diceSfxSources; // list to hold all the dice audio sources
 
 
     UnityEngine.Resolution[] resolutions; // Change type to UnityEngine.Resolution[]
@@ -74,11 +76,16 @@ public class Settings : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
 
-        //Audio Calculation For Save Data
-        mainMenuMusic = GameObject.Find("MainMenuMusic").GetComponent<AudioSource>();
-        gameMusic = GameObject.Find("GameMusic").GetComponent<AudioSource>();
-        sfx = GameObject.Find("SFX").GetComponent<AudioSource>();
-
+        List<GameObject> deese = new List<GameObject>(GameObject.FindGameObjectsWithTag("Dice")); // Find all the dice game objects
+        diceSfxSources = new List<AudioSource>(); // Initialize the list of audio sources
+        foreach (GameObject dice in deese)
+        {
+            AudioSource audioSource = dice.GetComponent<AudioSource>();
+            if (audioSource != null)
+            {
+                diceSfxSources.Add(audioSource);
+            }
+        }
 
         mainMenuMusicSlider.value = SaveDataController.Instance.current.Settings.MenuMusicVolume;
         gameMusicSlider.value = SaveDataController.Instance.current.Settings.MusicVolume;
@@ -87,6 +94,8 @@ public class Settings : MonoBehaviour
         mainMenuMusicSlider.onValueChanged.AddListener(delegate { SetMMM(mainMenuMusicSlider.value); });
         gameMusicSlider.onValueChanged.AddListener(delegate { SetGM(gameMusicSlider.value); });
         sfxSlider.onValueChanged.AddListener(delegate { SetSFX(sfxSlider.value); });
+
+        this.gameObject.SetActive(false);
     }
 
     public void SetMMM(float value)
@@ -105,7 +114,12 @@ public class Settings : MonoBehaviour
     public void SetSFX(float value)
     {
         SaveDataController.Instance.current.Settings.SFXVolume = value;
-        sfx.volume = SaveDataController.Instance.current.Settings.SFXVolume;
+        sfx1.volume = SaveDataController.Instance.current.Settings.SFXVolume;
+        sfx2.volume = sfx1.volume * .35f;
+        foreach (AudioSource diceSfx in diceSfxSources)
+        {
+            diceSfx.volume = sfx1.volume * .5f;
+        }
     }
     public void SetResolution(int resolutionIndex)
     {
@@ -134,14 +148,14 @@ public void Changed(bool value)
     public void Erase()
     {
         Debug.Log("Erase");
-        sfx.clip = Eraser;
-        sfx.Play();
+        sfx1.clip = Eraser;
+        sfx1.Play();
     }
 
     public void Unerase()
     {
         Debug.Log("unerase");
-        sfx.clip = Marker;
-        sfx.Play();
+        sfx1.clip = Marker;
+        sfx1.Play();
     }
 }

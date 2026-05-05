@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("The Button for roll & select.")] [SerializeField] private Button stateButton;
     [Tooltip("The dice manager.")][SerializeField] private GameObject DiceManager;
+    [Tooltip("The shop animatior")] [SerializeField] private Animator shopAnim;
+
+
 
     public TMPro.TMP_Text tutorialTitle; 
     public TMPro.TMP_Text tutorialDescription; 
@@ -47,12 +50,13 @@ public class GameManager : MonoBehaviour
     [Range(1f, 10f)] [SerializeField] private float glowAmount;
 
     public int rolls; //the amount of rolls the player has taken this round
-    private float currentRound; //The current round number for this debt installment /
-    public float CurrentRound
+    private int currentRound; //The current round number for this debt installment /
+    public int CurrentRound
     {
         get {return currentRound;}
         set 
         {
+            SaveDataController.Instance.current.run.CurrentRound = value;
             currentRound = value;
             if (currentRound % roundsPerDebt == 0) //May need to be currentRound - 1 idk
             {
@@ -81,6 +85,12 @@ public class GameManager : MonoBehaviour
         }
         interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
         interestText.fontMaterial.SetVector("_FaceColor", new Vector4(glowAmount, 0.5f, 0.5f, 1.0f)); 
+
+    }
+
+    void Start()
+    {
+        currentRound = SaveDataController.Instance.current.run.CurrentRound;
 
     }
 
@@ -197,7 +207,11 @@ public class GameManager : MonoBehaviour
 
     public void NewDebtInstallment()
     {
+    
+        SaveDataController.Instance.current.run.CurrentInstallment++;
+
         UpdateInterest();
+        shopAnim.SetTrigger("Swap");
         //SaveDataController.Instance.current.run.Points += 10;
         //SendMessage("Save");
         //SaveDataController.Instance.Save();
@@ -215,6 +229,8 @@ public class GameManager : MonoBehaviour
             EndGame();
             return;
         }
+
+        SaveDataController.Instance.current.DebtInstallmentsCompleted++;
 
         interest *= 1 + interestIncrease; 
         float r = ((float)run.TotalEarnedPoints + 100f) / ((float) run.TotalDebtPayment + 100f);

@@ -12,6 +12,7 @@ public class RollDice : MonoBehaviour
     [SerializeField] private Transform diceCamera;
     [SerializeField] private bool follow;
     [SerializeField] private RectTransform arcReference;
+    [HideInInspector] public List<int> acePip;
 
     public List<Transform> dices = new();
     private Dictionary<Transform, Rigidbody> diceRB = new();
@@ -27,6 +28,8 @@ public class RollDice : MonoBehaviour
     [SerializeField] private Bounds invalidBounds;
 
     public static RollDice Instance;
+
+    private bool isDiceBouncing = false;
 
     //public List<RawImage> resultFaces = new ();
     [HideInInspector] public List<Face> rolledFaces = new ();
@@ -61,24 +64,33 @@ public class RollDice : MonoBehaviour
         gameManager = GameManager.Instance;
     }
 
+    private IEnumerator ResetBouncing()
+    {
+        yield return new WaitForSeconds(0.2f);
+        isDiceBouncing = false;
+    }
+
     void Update()
     {
         timeSinceCalc -= Time.deltaTime;
-        if (!calculated && timeSinceCalc <= 0f && (CalculateSpeed() < .2f)) //Add check here 
+        if (!calculated && timeSinceCalc <= 0f && (CalculateSpeed() < .5f)) //Add check here 
         {
-            Collider[] hits = Physics.OverlapBox(invalidBounds.center, invalidBounds.size / 2);
 
-            foreach (var hit in hits)
+            if (CalculateSpeed() > .2f)
             {
-                Vector3 randomDir = new Vector3(Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)));
-                randomDir *= 4f;
-                diceRB[hit.gameObject.transform].angularVelocity += randomDir;
-                diceRB[hit.gameObject.transform].linearVelocity += new Vector3(randomDir.x, 3f, randomDir.z) * Random.Range(.8f, 1.5f);
-            }
-            if (hits == null)
-            {
-                timeSinceCalc = calcCooldown;
+                Collider[] hits = Physics.OverlapBox(invalidBounds.center, invalidBounds.size / 2);
+
+                foreach (var hit in hits)
+                {
+                    Vector3 randomDir = new Vector3(Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)), Random.Range(1f, 2f) * (1 - Random.Range(0, 2)));
+                    randomDir *= 4f;
+                    diceRB[hit.gameObject.transform].angularVelocity += randomDir;
+                    diceRB[hit.gameObject.transform].linearVelocity += new Vector3(randomDir.x, 3f, randomDir.z) * Random.Range(.8f, 1.5f);
+                }
+
                 return;
+                
+
             }
 
             calculated = true;
@@ -90,23 +102,8 @@ public class RollDice : MonoBehaviour
     {   
         if (gameManager.CurrentState == GameManager.GameStates.Select)
         {
-            if (UnselectedDice.Count == 5 && !ignoreSelectWarning)
-            {
-                if (selectWarningSpawned)
-                {
-                    //Means the user pressed the select button again after the warning, either like shake the warning or just assume its the same as press okay but not dont show again
-                }
-                else
-                {
-                    selectWarningSpawned = true;
-                    //play a warning here
-                    
-                }
-            }
-            else
-            {
-                StartCoroutine(Select()); 
-            }
+            
+            StartCoroutine(Select()); 
             return;
         }
 
@@ -169,6 +166,12 @@ public class RollDice : MonoBehaviour
                     floats.Add(rolledFaces[i].pips);
                 }
             }
+
+            for (int i = 0; i < acePip.Count; i++)
+            {
+                floats.Add(acePip[i]);
+            }
+            acePip.Clear();
             Calc.OIJaojgojaogja(floats);
 
             //Recycle Anim Pt 2.

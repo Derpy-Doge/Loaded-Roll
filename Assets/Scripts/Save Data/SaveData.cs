@@ -14,6 +14,7 @@ public struct SaveData
 
     public Run run; //SaveDataController.Instance.current.Run
     public UserSettings Settings;
+    public int DebtInstallmentsCompleted;
 
     public object this[string index]
     {
@@ -44,12 +45,17 @@ public struct SaveData
 public class Run // data saved in that run :skull:
 {
     public bool IsGamePlayed = false;
+    public int AceDieCharges = 1;
+    public int AceDie;
     public int Points;
     public int TotalEarnedPoints;
     public int TotalDebtPayment;
     public int CurrentDebt = 8000;
     public float CurrentInterestRate;
     public float CurrentInterestIncrease;
+    public int CurrentRound = 1;
+    public int CurrentInstallment = 1;
+    public float ScoreMultiplier = 1;
     public List<AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>> Deese;
     //public float InterestRate
 }
