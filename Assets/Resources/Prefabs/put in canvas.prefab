@@ -261,8 +261,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 100
+      time: 0.017112732
+      value: 515.4948
       inSlope: 3.6111429
       outSlope: 3.6111429
       tangentMode: 0
@@ -270,14 +270,77 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 1
     - serializedVersion: 3
-      time: 9.964115
-      value: 17983.309
-      inSlope: 1814.0923
-      outSlope: 1814.0923
+      time: 3.0129464
+      value: 708.03564
+      inSlope: 121.22868
+      outSlope: 121.22868
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.111192614
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4.021805
+      value: 1492.6842
+      inSlope: 154.95872
+      outSlope: 154.95872
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 8.992454
+      value: 2841.727
+      inSlope: 295.2119
+      outSlope: 295.2119
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10.007556
+      value: 5011.6035
+      inSlope: 256.46274
+      outSlope: 256.46274
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 19.05995
+      value: 8001.2397
+      inSlope: 377.5481
+      outSlope: 377.5481
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 20.045624
+      value: 10000.775
+      inSlope: 381.1804
+      outSlope: 381.1804
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 26.060062
+      value: 10645.653
+      inSlope: 362.13608
+      outSlope: 362.13608
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 71.97659
+      value: 39748.63
+      inSlope: 936.67804
+      outSlope: 936.67804
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.21296033
+      outWeight: 0.42384404
     - serializedVersion: 3
       time: 100
       value: 100000
@@ -286,7 +349,7 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.3407328
-      outWeight: 0
+      outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -1919,6 +1982,7 @@ GameObject:
   - component: {fileID: 8966371411175930170}
   - component: {fileID: 1245709328084584003}
   - component: {fileID: 2494999214816934870}
+  - component: {fileID: 3424530077824554810}
   m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1975,8 +2039,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Restock
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 17b9c1cdb8654f24995a651583235b7b, type: 2}
+  m_sharedMaterial: {fileID: -5917579261909984879, guid: 17b9c1cdb8654f24995a651583235b7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2044,6 +2108,20 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3424530077824554810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944184268509654078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c92e9201a911c8246afe8026c88641fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  format: 'Price: {0}$'
+  whatToShow: 2
 --- !u!1 &3002663757412389094
 GameObject:
   m_ObjectHideFlags: 0
@@ -5625,8 +5703,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 238.75, y: 321.75}
-  m_SizeDelta: {x: 160, y: 163}
+  m_AnchoredPosition: {x: 95.08, y: 337.72}
+  m_SizeDelta: {x: 447.35, y: 131.07}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2704843677272607723
 CanvasRenderer:

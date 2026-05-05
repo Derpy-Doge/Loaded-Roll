@@ -22,7 +22,7 @@ public class ShowCash : MonoBehaviour
         {
             GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, FindAnyObjectByType<DiceScoreCalc>().points));
         }
-        else if (whatToShow == WhatToShow.DebtInstallment)
+        else if (whatToShow == WhatToShow.RestockCost)
         {
             GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, FindAnyObjectByType<Shops>().RestockPrice)); 
         }
