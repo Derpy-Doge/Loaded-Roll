@@ -12,17 +12,20 @@ public class Scoring : MonoBehaviour
     }
     public IEnumerator AnimScore(int score)
     {
-        scoreText.gameObject.SetActive(true);
-        scoreText.text = $"+{score}";
-        while (scoreText.fontSize < 100)
+        GameObject paul = Instantiate(scoreText.gameObject);
+        paul.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(-100f,100f), Random.Range(0f,300f));
+        TMPro.TMP_Text scoreTextCopy = paul.GetComponent<TMPro.TMP_Text>();
+        paul.SetActive(true);
+        scoreTextCopy.text = $"+{score}";
+        while (scoreTextCopy.fontSize < 100)
         {
-            scoreText.fontSize += 1;
+            scoreTextCopy.fontSize += 1;
         }
         yield return new WaitForSeconds(2f);
-        while (scoreText.fontSize > 0)
+        while (scoreTextCopy.fontSize > 0)
         {
-            scoreText.fontSize -= 1;
+            scoreTextCopy.fontSize -= 1;
         }
-        scoreText.gameObject.SetActive(false);
+        paul.SetActive(false);
     }
 }
