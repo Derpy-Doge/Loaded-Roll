@@ -16,17 +16,22 @@ public class ShowCash : MonoBehaviour
     {
         if (whatToShow == WhatToShow.DebtInstallment)
         {
-            GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, SaveDataController.Instance.current.run.CurrentInstallment /*SaveDataController.current.run.CurrentDebt*/)); //alex this is the place holder 
+            GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, SaveDataController.Instance.current.run.CurrentInstallment));
         }
         else if (whatToShow == WhatToShow.TotalCash)
         {
             GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, FindAnyObjectByType<DiceScoreCalc>().points));
         }
+        else if (whatToShow == WhatToShow.DebtInstallment)
+        {
+            GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, FindAnyObjectByType<Shops>().RestockPrice)); 
+        }
     }
     public enum WhatToShow
     {
         DebtInstallment,
-        TotalCash
+        TotalCash,
+        RestockCost
 
     }
 }

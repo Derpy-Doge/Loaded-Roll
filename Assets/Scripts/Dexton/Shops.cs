@@ -14,7 +14,7 @@ public class Shops : MonoBehaviour
     public int restockCount;
     public Texture2D soldOut;
 
-    private int RestockPrice => (int)restockPriceCurve.Evaluate(restockCount);
+    public int RestockPrice => (int)restockPriceCurve.Evaluate(restockCount);
 
     public AnimationCurve restockPriceCurve;
 

@@ -411,11 +411,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &244910802 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5093333106724801713, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-  m_PrefabInstance: {fileID: 334531048633610465}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &332289606
 GameObject:
   m_ObjectHideFlags: 0
@@ -1267,12 +1262,17 @@ MonoBehaviour:
   current:
     run:
       IsGamePlayed: 0
+      AceDieCharges: 1
+      AceDie: 0
       Points: 0
       TotalEarnedPoints: 0
       TotalDebtPayment: 0
       CurrentDebt: 8000
       CurrentInterestRate: 0
       CurrentInterestIncrease: 0
+      CurrentRound: 1
+      CurrentInstallment: 1
+      ScoreMultiplier: 1
       Deese: []
     Settings:
       MusicVolume: 1
@@ -1284,6 +1284,7 @@ MonoBehaviour:
       IgnoreSelectWarning: 0
       ShowTutorial: 1
       ClosedTutorials: 
+    DebtInstallmentsCompleted: 0
   _directory: SaveData
   _fileName: SaveData.json
 --- !u!1 &1247538385
@@ -2306,34 +2307,6 @@ PrefabInstance:
     - target: {fileID: 5313312953077964605, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5719552097101062428, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5719552097101062428, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6114532782267187782, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 244910802}
-    - target: {fileID: 6114532782267187782, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6541850639163597600, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-      propertyPath: restockPriceCurve.m_Curve.Array.data[1].inSlope
-      value: 1814.0923
-      objectReference: {fileID: 0}
-    - target: {fileID: 6541850639163597600, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-      propertyPath: restockPriceCurve.m_Curve.Array.data[1].outSlope
-      value: 1814.0923
-      objectReference: {fileID: 0}
-    - target: {fileID: 6541850639163597600, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
-      propertyPath: restockPriceCurve.m_Curve.Array.data[1].outWeight
-      value: 0.111192614
       objectReference: {fileID: 0}
     - target: {fileID: 6996237621693296637, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
       propertyPath: m_AnchorMax.y
