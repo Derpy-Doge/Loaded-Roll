@@ -2696,7 +2696,6 @@ GameObject:
   m_Component:
   - component: {fileID: 600900427}
   - component: {fileID: 600900426}
-  - component: {fileID: 600900425}
   - component: {fileID: 600900424}
   m_Layer: 0
   m_Name: BoxFlapCamera
@@ -2749,14 +2748,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &600900425
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 600900423}
-  m_Enabled: 1
 --- !u!20 &600900426
 Camera:
   m_ObjectHideFlags: 0
