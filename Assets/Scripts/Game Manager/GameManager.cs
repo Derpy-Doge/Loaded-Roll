@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("The percent of interest added to the player's debt per installment")] [SerializeField] private float interest = .1f; //Make these use save data later
     [Tooltip("The percent of increase to interest per installment")] [SerializeField] private float interestIncrease = .02f; //Make these use save data later
 
+    [SerializeField]private TMPro.TMP_Text pointsText; //The text for the amount of points the player has.
+
     [Tooltip("The amount of rounds per debt installment")] [SerializeField] private int roundsPerDebt = 5;
     [Tooltip("The amount of rools per round")] public int rollsPerRound = 3;
     [Tooltip("The Animator Component for the inventory.")] [SerializeField] private Animator invAnim; 
@@ -251,6 +253,7 @@ public class GameManager : MonoBehaviour
     public void AddPoints(int amount)
     {
         SaveDataController.Instance.current.run.Points += amount;
+        pointsText.text = "Points: " + SaveDataController.Instance.current.run.Points.ToString();
         SaveDataController.Instance.current.run.TotalEarnedPoints += amount;
         DiceManager.SendMessage("ResetValues"); 
 
