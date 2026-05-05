@@ -87,7 +87,13 @@ public class AceDie : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
     public void Click(InputAction.CallbackContext ctx)
     {
-        if (!ctx.performed || charges < 1)
+
+        if (!ctx.performed || !hovered)
+        {
+            return;
+        }
+
+        if (charges < 1)
         {
             dieImage.material = noChargesGlow;
             StartCoroutine(ResetMaterial(dieImage, .25f));

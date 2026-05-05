@@ -3,18 +3,8 @@ using UnityEngine;
 
 public class Scoring : MonoBehaviour
 {
-    TMPro.TMP_Text scoreText; //The text for the amount of points the player has.
+    [SerializeField] private TMPro.TMP_Text scoreText; //The text for the amount of points the player has.
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void AddPoints(int points)
     { 
@@ -23,7 +13,7 @@ public class Scoring : MonoBehaviour
     public IEnumerator AnimScore(int score)
     {
         scoreText.gameObject.SetActive(true);
-        scoreText.text = $"{score}";
+        scoreText.text = $"+{score}";
         while (scoreText.fontSize < 100)
         {
             scoreText.fontSize += 1;
