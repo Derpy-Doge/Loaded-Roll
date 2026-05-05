@@ -53,6 +53,9 @@ public class Run // data saved in that run :skull:
     public int CurrentDebt = 8000;
     public float CurrentInterestRate;
     public float CurrentInterestIncrease;
+    public int CurrentRound = 1;
+    public int CurrentInstallment = 1;
+    public float ScoreMultiplier = 1;
     public List<AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>> Deese;
     //public float InterestRate
 }

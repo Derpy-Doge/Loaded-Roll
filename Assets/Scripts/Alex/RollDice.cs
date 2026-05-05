@@ -12,6 +12,7 @@ public class RollDice : MonoBehaviour
     [SerializeField] private Transform diceCamera;
     [SerializeField] private bool follow;
     [SerializeField] private RectTransform arcReference;
+    [HideInInspector] public List<int> acePip;
 
     public List<Transform> dices = new();
     private Dictionary<Transform, Rigidbody> diceRB = new();
@@ -101,23 +102,8 @@ public class RollDice : MonoBehaviour
     {   
         if (gameManager.CurrentState == GameManager.GameStates.Select)
         {
-            if (UnselectedDice.Count == 5 && !ignoreSelectWarning)
-            {
-                if (selectWarningSpawned)
-                {
-                    //Means the user pressed the select button again after the warning, either like shake the warning or just assume its the same as press okay but not dont show again
-                }
-                else
-                {
-                    selectWarningSpawned = true;
-                    //play a warning here
-                    
-                }
-            }
-            else
-            {
-                StartCoroutine(Select()); 
-            }
+            
+            StartCoroutine(Select()); 
             return;
         }
 
@@ -180,6 +166,12 @@ public class RollDice : MonoBehaviour
                     floats.Add(rolledFaces[i].pips);
                 }
             }
+
+            for (int i = 0; i < acePip.Count; i++)
+            {
+                floats.Add(acePip[i]);
+            }
+            acePip.Clear();
             Calc.OIJaojgojaogja(floats);
 
             //Recycle Anim Pt 2.
