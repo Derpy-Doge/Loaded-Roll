@@ -4048,12 +4048,13 @@ MonoBehaviour:
   title: {fileID: 2077092908}
   description: {fileID: 430434502}
   titles:
-  - Gamble Die
+  - Generic Ace Die
   - Horse Die
+  - Gamble Die
   descriptions:
-  - "Rolling Gamble Die\u2122 will multiply the score of your next roll by its resulting
-    face."
-  - 'Neigh Neigh Neigh Neigh. Neigh Neigh? Neigh Neigh Neigh. Neigh Neigh Neigh NEIGH! '
+  - With a 1/3 chance of multiplying your score by 1.25,  a 1/3 chance of multiplying
+    your score by 0.75, and a 1/6 chance of getting nothing, will you take the risk?
+  - 'This dice neighs with each bounce, and each neigh grants you bonus points. NEIGH! '
   currentState: -1
   lockImage: {fileID: 1476856563}
   CanContinue: 0

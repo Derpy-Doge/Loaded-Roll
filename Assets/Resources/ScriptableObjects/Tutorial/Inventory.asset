@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d67e59d4e1e1b4393f5ec76b762e5a, type: 3}
   m_Name: Inventory
   m_EditorClassIdentifier: 
-  Title: Inventory!?!?!?!??!
-  Description: "This 1.25ft^3 cardboard box is the perfect home for your new shiny
-    dice. \nYou can place them in here simply by dragging them in from your precious
-    egg carton (hotbar) and left clicking, then you can take them out by left clicking
-    them and dragging it into your egg carton. \nYou can also pull dice around in
-    your inventory by holding right click and if you scroll while pulling you can
+  Title: The Inventory
+  Description: "This cardboard box is the perfect home for your shiny new dice, or
+    dice you simply don't wanna use. \n\ndragging them in from your precious egg
+    carton and left clicking will drop them in, and you can take them out by left
+    clicking them and dragging them into your egg carton. \n\nYou can also pull dice
+    around in your inventory by holding right click, scrolling while pulling will
     increase the range."
