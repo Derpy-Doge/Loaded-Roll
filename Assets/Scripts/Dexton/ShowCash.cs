@@ -14,9 +14,9 @@ public class ShowCash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (whatToShow == WhatToShow.DebtInstalment)
+        if (whatToShow == WhatToShow.DebtInstallment)
         {
-            GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, FindAnyObjectByType<DiceScoreCalc>().points /*SaveDataController.current.run.CurrentDebt*/)); //alex this is the place holder 
+            GetComponent<TMPro.TMP_Text>().SetText(string.Format(format, SaveDataController.Instance.current.run.CurrentInstallment /*SaveDataController.current.run.CurrentDebt*/)); //alex this is the place holder 
         }
         else if (whatToShow == WhatToShow.TotalCash)
         {
@@ -25,7 +25,7 @@ public class ShowCash : MonoBehaviour
     }
     public enum WhatToShow
     {
-        DebtInstalment,
+        DebtInstallment,
         TotalCash
 
     }
