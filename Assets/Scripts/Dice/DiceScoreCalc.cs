@@ -1,13 +1,6 @@
-using NUnit.Compatibility;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.InputSystem;
-using UnityEngine.UI;
-using TMPro;
 using System.Collections;
-using System.Net;
 
 public class DiceScoreCalc : MonoBehaviour
 {
