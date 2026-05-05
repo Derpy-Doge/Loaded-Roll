@@ -10,6 +10,8 @@ public class AceDieVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         Gamble = 0,
         Horse = 1,
+        Interest = 3,
+        Generic = 4,
 
     }
 
