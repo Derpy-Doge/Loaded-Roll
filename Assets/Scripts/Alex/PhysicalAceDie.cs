@@ -83,6 +83,7 @@ public class PhysicalAceDie : MonoBehaviour
         rb.angularVelocity = new Vector3(Random.Range(-8f, 8f), Random.Range(-8f, 8f), Random.Range(-8f, 8f));
         calculated = false;
         CurrentlyRolling = true;
+        SaveDataController.Instance.current.run.AceDieCharges--;
 
         
     }

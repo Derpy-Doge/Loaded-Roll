@@ -12,8 +12,12 @@ public class Scoring : MonoBehaviour
     }
     public IEnumerator AnimScore(int score)
     {
-        GameObject paul = Instantiate(scoreText.gameObject);
+        GameObject paul = Instantiate(scoreText.gameObject, scoreText.transform);
+        
+
         paul.GetComponent<RectTransform>().anchoredPosition = new Vector2(Random.Range(-100f,100f), Random.Range(0f,300f));
+        
+        
         TMPro.TMP_Text scoreTextCopy = paul.GetComponent<TMPro.TMP_Text>();
         paul.SetActive(true);
         scoreTextCopy.text = $"+{score}";
@@ -26,6 +30,6 @@ public class Scoring : MonoBehaviour
         {
             scoreTextCopy.fontSize -= 1;
         }
-        paul.SetActive(false);
+        Destroy(paul);
     }
 }
