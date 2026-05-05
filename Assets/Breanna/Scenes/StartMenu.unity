@@ -6312,8 +6312,8 @@ MonoBehaviour:
   m_text: I worked on the dice score calculation and its animation, I also worked
     on the pause and settings menus; I worked on all of their animations as well.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 17b9c1cdb8654f24995a651583235b7b, type: 2}
+  m_sharedMaterial: {fileID: -5917579261909984879, guid: 17b9c1cdb8654f24995a651583235b7b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
