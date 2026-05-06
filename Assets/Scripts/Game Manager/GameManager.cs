@@ -213,7 +213,7 @@ public class GameManager : MonoBehaviour
     {
     
         SaveDataController.Instance.current.run.CurrentInstallment++;
-        holder.SendMessage("ExecuteDice");
+        //holder.SendMessage("ExecuteDice");
         UpdateInterest();
         shopAnim.SetTrigger("Swap");
         //SaveDataController.Instance.current.run.Points += 10;
