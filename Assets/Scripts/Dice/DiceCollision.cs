@@ -25,7 +25,7 @@ public class DiceCollision : MonoBehaviour
             }
         }      
 
-        StartCoroutine(PlsNoSound());
+        //StartCoroutine(PlsNoSound());
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -34,8 +34,14 @@ public class DiceCollision : MonoBehaviour
 
         if (collision.gameObject == null) return;
 
-        if (isHorse)
+        if (collision.gameObject.CompareTag("ParkingLot"))
         {
+            return;
+        }
+
+        if (isHorse && !collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("ESOFOSJFOSJOFJSOFJOSJ");
             int horseIndex = Random.Range(0, neigh.Count);
             sfxSource.PlayOneShot(neigh[horseIndex]);
             if (horseIndex == neigh.Count - 1)

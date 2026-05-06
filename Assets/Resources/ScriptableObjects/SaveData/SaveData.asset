@@ -14,13 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _saveData:
     run:
-      IsGameOver: 0
+      IsGamePlayed: 0
+      AceDieCharges: 1
+      AceDie: 0
       Points: 1000
       TotalEarnedPoints: 0
       TotalDebtPayment: 0
       CurrentDebt: 20000
       CurrentInterestRate: 0
       CurrentInterestIncrease: 0
+      CurrentRound: 1
+      CurrentInstallment: 1
+      ScoreMultiplier: 1
       Deese: []
     Settings:
       MusicVolume: 1
@@ -32,3 +37,4 @@ MonoBehaviour:
       IgnoreSelectWarning: 0
       ShowTutorial: 1
       ClosedTutorials: 
+    DebtInstallmentsCompleted: 0

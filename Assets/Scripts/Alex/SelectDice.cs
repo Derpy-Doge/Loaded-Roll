@@ -25,7 +25,7 @@ public class SelectDice : MonoBehaviour
 
 
     public bool TryGetPosition(out Vector3 worldPos)
-    {
+    {     
         worldPos = Vector3.zero;
 
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -82,9 +82,9 @@ public class SelectDice : MonoBehaviour
             float minDist = hits.Min(hit => Vector3.Distance(pos, hit.transform.position));
             Collider closest = hits.First(hit => Vector3.Distance(pos, hit.transform.position) == minDist);
             
-            if (closest != null) 
+            if (closest != null && !closest.gameObject.CompareTag("Untagged")) 
             {
-
+                Debug.Log(closest.gameObject.name);
                 DiceHolder.Instance.SelectDice(RollDice.Instance.AllSlots[RollDice.Instance.dices.IndexOf(closest.gameObject.transform)].GetSlot());//fix it
                 //closest.gameObject.SetActive(false);
                 Debug.Log("test");

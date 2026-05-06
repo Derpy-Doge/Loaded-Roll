@@ -17,6 +17,9 @@ public class AceDie : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     private int charges;
     private RawImage dieImage;
     [SerializeField] private Transform aceDieTransform;
+    [SerializeField] private TMPro.TMP_Text ChargesText;
+    [SerializeField] private RectTransform chargesBackground;
+    private Coroutine chargesCoroutine;
     private Material glow;
     private Material noChargesGlow;
     private bool hovered;
@@ -28,15 +31,15 @@ public class AceDie : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         phyAceDie = physicalAceDie.gameObject;
         dieImage = GetComponent<RawImage>();
         charges = SaveDataController.Instance.current.run.AceDieCharges;
+        SaveDataController.Instance.current.run.AceDieCharges = 55;
         noChargesGlow = Resources.Load<Material>("Materials/AReject");
         glow = Resources.Load<Material>("Materials/AceGlow");
         aceDie = (AceDieVisual.AceDie) SaveDataController.Instance.current.run.AceDie;
+        ChargesText.text = $"Charges: {charges}"; 
 
         switch (aceDie)
         {
             case AceDieVisual.AceDie.Gamble:
-
-
                 break;
 
             case AceDieVisual.AceDie.Horse:
@@ -47,16 +50,45 @@ public class AceDie : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
      public void OnPointerEnter(PointerEventData eventData)
     {
+        if (chargesCoroutine != null)
+            StopCoroutine(chargesCoroutine);
+        chargesCoroutine = StartCoroutine(ChargesAnim(true));
 
         if (charges > 0)
         {
-            hovered = true;
             dieImage.material = glow;
+            hovered = true;
         }
     }
 
+
+    IEnumerator ChargesAnim(bool dir)
+    {
+        
+        Vector2 startPos = dir ? new Vector2(0, -512f): new Vector2 (0, -412f);
+        Vector2 targetPos = dir ? new Vector2 (0, -412f): new Vector2(0, -512f);
+        float duration = 0.25f;
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            float t = elapsed / duration;
+            chargesBackground.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        chargesBackground.anchoredPosition = targetPos;
+
+
+    } 
+
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (chargesCoroutine != null)
+            StopCoroutine(chargesCoroutine);
+        chargesCoroutine = StartCoroutine(ChargesAnim(false));
         if (dieImage.material == glow)
         {
             hovered = false;
@@ -92,15 +124,19 @@ public class AceDie : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         {
             return;
         }
-
         if (charges < 1)
         {
             dieImage.material = noChargesGlow;
+
             StartCoroutine(ResetMaterial(dieImage, .25f));
             return;
         }
+        
+
 
         physicalAceDie.Roll();
+        charges--;
+        ChargesText.text = $"Charges: {charges}"; 
 
         Debug.Log("here");
         switch (aceDie)

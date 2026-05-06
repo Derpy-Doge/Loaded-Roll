@@ -84,13 +84,15 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogError("There is multiple Game Managers in this scene and it will not work properly");
         }
-        interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
+
         interestText.fontMaterial.SetVector("_FaceColor", new Vector4(glowAmount, 0.5f, 0.5f, 1.0f));      
     }
 
     void Start()
     {
         currentRound = SaveDataController.Instance.current.run.CurrentRound;
+        pointsText.text = "Points: " + SaveDataController.Instance.current.run.Points.ToString();
+        interestText.text = $"Debt: {SaveDataController.Instance.current.run.CurrentDebt}$";
 
     }
 
@@ -238,7 +240,7 @@ public class GameManager : MonoBehaviour
         interestIncrease += .3f * i;
         
         run.CurrentDebt = Mathf.FloorToInt((float)run.CurrentDebt * (1 + interest));
-        interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
+        interestText.text = $"Debt: {run.CurrentDebt}";
     }
 
     private void EndGame()

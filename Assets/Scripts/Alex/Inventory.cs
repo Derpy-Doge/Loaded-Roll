@@ -54,6 +54,30 @@ public class Inventory : MonoBehaviour
         minX = inventoryWorldCenter.GetChild(1).position.x;
         maxZ = inventoryWorldCenter.GetChild(2).position.z;
         minZ = inventoryWorldCenter.GetChild(3).position.z;
+
+        LoadSavedDice();
+    }
+
+    private void LoadSavedDice()
+    {
+        List<AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face>> savedDice = SaveDataController.Instance.current.run.Deese;
+        int i = 0;
+        foreach (var die in savedDice)
+        {
+            if (i < 5)
+            {
+                i++;
+                continue;       
+            }
+            //spawnPos
+            GameObject newDice = Instantiate(dicePrefab, spawnPos, Quaternion.identity);
+            GlobalDie gDie = newDice.AddComponent<GlobalDie>();
+            FaceChange fc = newDice.AddComponent<FaceChange>();
+            gDie.Faces = die; 
+            fc.Dice = gDie;
+
+            diceInv.Add(newDice);
+        }
     }
 
     private void FixedUpdate()
@@ -153,7 +177,7 @@ public class Inventory : MonoBehaviour
                         Debug.LogError("Trying to display more dice than available cameras");
                         return;
                     }
-                    diceHolder.CreateDice(closest.gameObject.GetComponent<FaceChange>().Dice, visuals[openVisuals[0]], openVisuals[0]); //When we change global dice this will have to chagne too'
+                    diceHolder.CreateDice(closest.gameObject.GetComponent<FaceChange>().Dice.Faces, visuals[openVisuals[0]], openVisuals[0]); //When we change global dice this will have to chagne too'
                     openVisuals.RemoveAt(0);
                     diceInv.Remove(closest.gameObject);
                     Destroy(closest.gameObject);
@@ -259,7 +283,7 @@ public class Inventory : MonoBehaviour
             pos = spawnPos;
             
         }
-
+        //spawnPos
         GameObject newDice = Instantiate(dicePrefab, pos, dice.diceTF.rotation);
         GlobalDie gDie = newDice.AddComponent<GlobalDie>();
         FaceChange fc = newDice.AddComponent<FaceChange>();

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DiceDragging : MonoBehaviour
 {
-
+ 
     public Transform diceTF;
     public int cameraIndex;
     [SerializeField] private float rotationSpeed = 1f;
@@ -17,6 +17,7 @@ public class DiceDragging : MonoBehaviour
     [HideInInspector] public FaceChange visualFC;
     [HideInInspector] public bool Dragging;
     [HideInInspector] public bool selectable = true;
+    [SerializeField] private bool startWithDice;
     public RawImage diceTexture;
 
     private DiceHolder holder;
@@ -27,6 +28,8 @@ public class DiceDragging : MonoBehaviour
         diceTexture = GetComponent<RawImage>();
         rect = GetComponent<RectTransform>();
         visualFC = diceTF.GetComponent<FaceChange>();
+        if (startWithDice)
+            visualFC.Dice.Faces = SaveDataController.Instance.current.run.Deese[currentSlot.boxIndex];
     }
 
 

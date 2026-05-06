@@ -13,6 +13,10 @@ public class RollDice : MonoBehaviour
     [SerializeField] private bool follow;
     [SerializeField] private RectTransform arcReference;
     [HideInInspector] public List<int> acePip;
+    
+    private List<Vector3> startPoses = new();
+
+
 
     public List<Transform> dices = new();
     private Dictionary<Transform, Rigidbody> diceRB = new();
@@ -35,7 +39,7 @@ public class RollDice : MonoBehaviour
     [HideInInspector] public List<Face> rolledFaces = new ();
     public List<RawImage> UnselectedDice = new();
     public List<DiceDragging> UnselectedSlot = new();
-    public DiceDragging[] AllSlots = new DiceDragging[5]; 
+    public DiceDragging[] AllSlots = new DiceDragging[5];  
     public RawImage[] AllDice = new RawImage[5]; //When i have more time remove this in place of using allslots
     public DiceDragging[] Selected = new DiceDragging[5];
 
@@ -62,6 +66,10 @@ public class RollDice : MonoBehaviour
         //     resultFaces.Add(gO.GetComponent<RawImage>());
         // } 
         gameManager = GameManager.Instance;
+        foreach (var die in dices)
+        {
+            startPoses.Add(die.position);
+        }
     }
 
     private IEnumerator ResetBouncing()
@@ -149,6 +157,12 @@ public class RollDice : MonoBehaviour
 
     IEnumerator Select()
     {
+        int k = 0;
+        foreach (var die in dices)
+        {
+            die.position = startPoses[k];
+            k++;
+        }
         gameManager.CurrentState = GameManager.GameStates.Busy;
         int count = UnselectedDice.Count;
 
@@ -274,8 +288,14 @@ public class RollDice : MonoBehaviour
                 if (Selected[i] != null)
                 {
                     Selected[i].ToggleSelectable();
+                    // Vector3 pos = startPoses[Selected[i].GetSlot().boxIndex];
+                    // pos.y += 1f;
+
+                    // dices[Selected[i].GetSlot().boxIndex].position = pos;
                 }
             }
+
+            
 
             gameManager.SwapInventory(0);
             if (Inventory.Instance.GetDiceCount() < nextDiceRoll)
@@ -309,7 +329,6 @@ public class RollDice : MonoBehaviour
             {
                 continue;
             }
-
             dices[i].GetComponent<FaceChange>().Dice = diceTextures[i];
             dices[i].GetComponent<FaceChange>().UpdateDiceFaces();
             dices[i].gameObject.GetComponent<MeshRenderer>().enabled = true;
@@ -389,6 +408,10 @@ public class RollDice : MonoBehaviour
         }
         gameManager.rolls = 0;
         gameManager.CurrentRound++;
+        for (int i = 0; i < 5; i++)
+        {
+            diceTextures[i] = null;
+        }
         Debug.LogError("AAAAAAAAAAAAA");
     }
 

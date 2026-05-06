@@ -237,14 +237,17 @@ public class DiceHolder : MonoBehaviour //test
         recycleSlot.EmptyDice();
     }
 
-    public void CreateDice(GlobalDie die, GameObject visualReference, int index)
+    public void CreateDice(AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> die, GameObject visualReference, int index)
     {
         GameObject newDie =  Instantiate(diceTexturePrefab, draggingLayer.transform);
         newDie.GetComponent<RawImage>().texture = visualReference.transform.GetChild(1).GetComponent<Camera>().targetTexture;
         newDie.GetComponent<RawImage>().material = glow;
         DiceDragging diceDragging = newDie.GetComponent<DiceDragging>();
         diceDragging.diceTF = visualReference.transform.GetChild(0);
-        diceDragging.diceTF.GetComponent<FaceChange>().Dice = die; //When we change GlobalDie to not be a scriptable object this will need changed too
+        diceDragging.diceTF.GetComponent<FaceChange>().Dice = diceDragging.diceTF.GetComponent<GlobalDie>();
+        diceDragging.diceTF.GetComponent<FaceChange>().Dice.Faces = die; //When we change GlobalDie to not be a scriptable object this will need changed too
+        Debug.Log(diceDragging.diceTF.gameObject.name);
+        diceDragging.visualFC = diceDragging.diceTF.GetComponent<FaceChange>();
         diceDragging.diceTF.GetComponent<FaceChange>().UpdateDiceFaces();
         diceDragging.cameraIndex = index;
         diceDragging.SetSlot(inventorySlot);
