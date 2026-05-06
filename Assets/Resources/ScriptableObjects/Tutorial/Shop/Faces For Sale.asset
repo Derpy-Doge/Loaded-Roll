@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d67e59d4e1e1b4393f5ec76b762e5a, type: 3}
+  m_Name: Faces For Sale
+  m_EditorClassIdentifier: 
+  Title: Faces for Sale
+  Description: 'The main commodity of the store is dice faces. Buying a new face
+    will replace the visible face of the die in the middle of the shop.
+
+
+    Buying
+    faces could help you increase your odds of rolling a certain number, so use that
+    wisely.
+
+
+    But remember, spending points too recklessly will make it harder
+    to pay the next installment!'

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d67e59d4e1e1b4393f5ec76b762e5a, type: 3}
+  m_Name: Shop Die
+  m_EditorClassIdentifier: 
+  Title: Main Shop Die
+  Description: This is the die that will have its faces swapped should you buy any
+    new faces. Clicking the arrows will rotate it in that direction. Whichever face
+    is visible is the one that will be swapped, so keep that in mind.

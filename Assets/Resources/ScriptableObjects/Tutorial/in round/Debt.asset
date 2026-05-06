@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d67e59d4e1e1b4393f5ec76b762e5a, type: 3}
+  m_Name: Debt
+  m_EditorClassIdentifier: 
+  Title: Debt
+  Description: 'This is how much you owe this installment. You''ll have to pay it
+    back in 5 rounds.
+
+
+    You better make sure you have enough points by the end
+    of round 5!'

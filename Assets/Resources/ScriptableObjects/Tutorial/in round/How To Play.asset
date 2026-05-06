@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d67e59d4e1e1b4393f5ec76b762e5a, type: 3}
+  m_Name: How To Play
+  m_EditorClassIdentifier: 
+  Title: How To Play
+  Description: "You roll 5 dice at once and get scored based on what you rolled,
+    each number on the dice is worth 100 times its value. The best roll you could
+    get is having all the dice roll the same number, so try to get as many dice to
+    roll the same number as you can! \n\nThankfully though, if you don't think your
+    roll was as good as it could've been you can reroll up to 2 times\n\nBy clicking
+    on the rolled dice or the dice in your egg carton you can slelect to keep them,
+    choosing to keep dice will make it so if you choose to reroll your dice, the
+    selected dice will stay, keeping the numbers they rolled, and the rest of the
+    dice will be recycled to the cardboard box. Once the dice are recycled you can
+    either add new dice to your egg carton to be rolled or, if you only have 5 dice,
+    you can put the same dice back in your egg carton to roll again. \n\nSelectng
+    all 5 dice will forfeit your rerolls and calculate your score based off the current
+    roll. \n\nthere are many different catagories you can score points in and during
+    scoring you get scored for all elegible catagories, but in case you're curious,
+    I'll list all the catagories and how they're scored\n\nFirst, there's a catagory
+    for each number on a die (ex. 1, 2, 3...), those catagories are scored by adding
+    the number multiplied by how many times you rolled it (ex. four 3s = 1200$)\n\nThen,
+    there are catagories baseds off of poker hands..."
