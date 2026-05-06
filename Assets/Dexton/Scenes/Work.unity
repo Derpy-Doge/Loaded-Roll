@@ -1142,6 +1142,7 @@ GameObject:
   - component: {fileID: 1185630462}
   - component: {fileID: 1185630461}
   - component: {fileID: 1185630465}
+  - component: {fileID: 1185630466}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1287,6 +1288,36 @@ MonoBehaviour:
     DebtInstallmentsCompleted: 0
   _directory: SaveData
   _fileName: SaveData.json
+--- !u!114 &1185630466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1185630460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: df70fa95-8a34-4494-b137-73ab6b9c7d37
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1247538385
 GameObject:
   m_ObjectHideFlags: 0

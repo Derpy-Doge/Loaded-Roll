@@ -10264,6 +10264,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6114532782267187782, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 314541092}
+    - target: {fileID: 6114532782267187782, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetTrigger
+      objectReference: {fileID: 0}
     - target: {fileID: 6475182126833037325, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
       propertyPath: m_IsActive
       value: 0
