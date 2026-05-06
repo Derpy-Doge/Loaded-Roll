@@ -24,11 +24,12 @@ public class DiceCollision : MonoBehaviour
                 Debug.LogError("AudioSource component not found on " + gameObject.name);
             }
         }      
+
+        StartCoroutine(PlsNoSound());
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision Detected: " + collision.gameObject.name);
         if (collision == null) return;
 
         if (collision.gameObject == null) return;
@@ -69,9 +70,8 @@ public class DiceCollision : MonoBehaviour
 
     public IEnumerator PlsNoSound()
     {
-        DiceCollision dc = this;
-        dc.enabled = false;
+        sfxSource.mute = true;
         yield return new WaitForSeconds(2f);
-        dc.enabled = true;
+        sfxSource.mute = false;
     }
 }

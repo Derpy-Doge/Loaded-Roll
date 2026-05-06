@@ -85,8 +85,7 @@ public class GameManager : MonoBehaviour
             Debug.LogError("There is multiple Game Managers in this scene and it will not work properly");
         }
         interestText.text = $"INTEREST: {Mathf.RoundToInt(interest * 100f)}%";
-        interestText.fontMaterial.SetVector("_FaceColor", new Vector4(glowAmount, 0.5f, 0.5f, 1.0f)); 
-
+        interestText.fontMaterial.SetVector("_FaceColor", new Vector4(glowAmount, 0.5f, 0.5f, 1.0f));      
     }
 
     void Start()
