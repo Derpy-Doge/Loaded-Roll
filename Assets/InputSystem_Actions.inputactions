@@ -140,6 +140,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "k",
+                    "type": "Button",
+                    "id": "f5f066d8-e6ec-4781-93a7-166b48257163",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -591,6 +600,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Skip",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f67a8af-271f-4720-8c55-f6101bad7322",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "k",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

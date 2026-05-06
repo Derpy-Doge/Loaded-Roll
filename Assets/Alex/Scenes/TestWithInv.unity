@@ -3233,6 +3233,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 02eb4bb9-40dc-40bd-94b6-fd95ad80c774
     m_ActionName: 'Player/Skip[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1516604057}
+        m_TargetAssemblyTypeName: GameManager, GameManager
+        m_MethodName: NewDebtInstallment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: f5f066d8-e6ec-4781-93a7-166b48257163
+    m_ActionName: 'Player/k[/Keyboard/k]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
