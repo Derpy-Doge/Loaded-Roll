@@ -3377,7 +3377,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4014842583861452581}
-  - {fileID: 7134006744226275058}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -4042,6 +4041,7 @@ Transform:
   - {fileID: 8517546240418555073}
   - {fileID: 9127120700958408008}
   - {fileID: 544171850843895343}
+  - {fileID: 7134006744226275058}
   - {fileID: 7543189714555578539}
   - {fileID: 5246124685859987758}
   - {fileID: 5027703055045148181}
@@ -6200,7 +6200,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2567782451368236581}
+    m_TransformParent: {fileID: 4014842583861452581}
     m_Modifications:
     - target: {fileID: 4901207235971224269, guid: 7085d05246692424ba211a50e975b02e, type: 3}
       propertyPath: m_Pivot.x
@@ -6323,7 +6323,8 @@ PrefabInstance:
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8197390622733273148, guid: 7085d05246692424ba211a50e975b02e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7085d05246692424ba211a50e975b02e, type: 3}
