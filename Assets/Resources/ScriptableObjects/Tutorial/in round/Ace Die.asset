@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d67e59d4e1e1b4393f5ec76b762e5a, type: 3}
+  m_Name: Ace Die
+  m_EditorClassIdentifier: 
+  Title: Ace Dice
+  Description: "Ace Dice are dice with speacial abilities that can only be used once
+    per installment, but choosing not to use them during an installment will allow
+    you to use them multiple times in another installment. \n\nAce Dice are triggered
+    by clicking on them in your egg carton during a round.\n\nYou can only use 1
+    Ace Die per run, and you pick which Ace Die you'll use before starting your run."
