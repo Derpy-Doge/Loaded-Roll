@@ -157,17 +157,18 @@ public class RollDice : MonoBehaviour
 
     IEnumerator Select()
     {
-        int k = 0;
-        foreach (var die in dices)
-        {
-            die.position = startPoses[k];
-            k++;
-        }
+        
         gameManager.CurrentState = GameManager.GameStates.Busy;
         int count = UnselectedDice.Count;
 
         if (count == 0) //Means all dice are selected //Run calculation here.
         {
+            int k = 0;
+            foreach (var die in dices)
+            {
+                die.position = startPoses[k];
+                k++;
+            }
             nextDiceRoll = 5;
             Debug.Log("tkspgtjpsjgpspgk");
             //StartCoroutine(Calc.CalculateScore());

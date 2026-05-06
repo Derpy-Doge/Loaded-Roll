@@ -11,6 +11,8 @@ public class PhysicalAceDie : MonoBehaviour
     private float timeSinceCalc;
     private bool calculated = true;
     private Face rolledFace;
+    private Coroutine disapear;
+    private Vector3 startPosition;
 
     [HideInInspector] public bool CurrentlyRolling;
 
@@ -22,6 +24,8 @@ public class PhysicalAceDie : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        startPosition = transform.position;
+        startPosition.y++;
         aceDie = (AceDieVisual.AceDie) SaveDataController.Instance.current.run.AceDie;
         if (aceDie == AceDieVisual.AceDie.Horse)
         {
@@ -54,6 +58,13 @@ public class PhysicalAceDie : MonoBehaviour
         }
     }
     
+    IEnumerator Disappear()
+    {
+        yield return new WaitForSeconds(1f);
+        transform.position = startPosition;
+        
+    }
+
     void Update()
     {
         timeSinceCalc -= Time.deltaTime;
@@ -77,6 +88,8 @@ public class PhysicalAceDie : MonoBehaviour
 
     public void Roll()
     {
+        if (disapear != null)
+            StopCoroutine(disapear);
         transform.Rotate(new Vector3(Random.Range(-180f, 180f), Random.Range(-180f, 180f), Random.Range(-180f, 180f)));
         transform.position = new Vector3(0f, -2f, 0f);
         rb.linearVelocity = new Vector3(Random.Range(-16f, 16f), 0f, Random.Range(-16f, 16f));
@@ -104,7 +117,27 @@ public class PhysicalAceDie : MonoBehaviour
 
         rolledFace = sides[ordered.FirstOrDefault()];
         int num = rolledFace.pips;
-        sides[ordered.FirstOrDefault()].Effect.Invoke();
+
+        if (aceDie == AceDieVisual.AceDie.Gamble)
+        {
+            if (rolledFace.price == 3)
+            {
+                SaveDataController.Instance.current.run.ScoreMultiplier *= 3f;
+            }
+            else
+            {
+                SaveDataController.Instance.current.run.ScoreMultiplier *= .5f;
+                
+            }
+        }
+        else if (aceDie == AceDieVisual.AceDie.Generic)
+        {
+           SaveDataController.Instance.current.run.Points += rolledFace.pips; 
+           SendMessage("AddPoints", rolledFace.pips);
+        }
+        
+        disapear = StartCoroutine(Disappear());
+        //sides[ordered.FirstOrDefault()].Effect.Invoke();
         CurrentlyRolling = false;
 
     }

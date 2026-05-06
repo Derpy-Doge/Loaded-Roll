@@ -115,6 +115,27 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         }
     }
 
+    public void ExecuteDice()
+    {
+        if (storageType != StorageType.Recycle)
+        {
+            Debug.LogError($"A hotbar slot, {gameObject.name}, is trying to run the function ExecuteDice() while not being a recycling slot.");
+            return;
+
+
+        }
+
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            if (transform.GetChild(i).TryGetComponent<DiceDragging>(out DiceDragging diceD))
+            {
+                Destroy(diceD.gameObject);
+            }
+            
+        }
+
+    }
+
     public void PlaceDice(DiceDragging dice)
     {
         if (currentDice == null)

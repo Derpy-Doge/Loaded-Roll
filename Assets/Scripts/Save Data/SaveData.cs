@@ -47,10 +47,10 @@ public class Run // data saved in that run :skull:
     public bool IsGamePlayed = false;
     public int AceDieCharges = 1;
     public int AceDie;
-    public int Points;
+    public int Points = 1000;
     public int TotalEarnedPoints;
     public int TotalDebtPayment;
-    public int CurrentDebt = 8000;
+    public int CurrentDebt = 20000;
     public float CurrentInterestRate;
     public float CurrentInterestIncrease;
     public int CurrentRound = 1;

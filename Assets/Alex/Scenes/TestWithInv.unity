@@ -7662,6 +7662,7 @@ MonoBehaviour:
   stateButton: {fileID: 1042449933}
   DiceManager: {fileID: 566573465}
   shopAnim: {fileID: 314541092}
+  holder: {fileID: 0}
   tutorialTitle: {fileID: 1968693556}
   tutorialDescription: {fileID: 746067005}
   tutorialMessage: {fileID: 101740145}
@@ -8636,6 +8637,20 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: cef02e3527b81084f8708a93a4aa42bc, type: 2}
     - Key: {x: 0, y: 0, z: -1}
       Value: {fileID: 11400000, guid: cef02e3527b81084f8708a93a4aa42bc, type: 2}
+  genericDice:
+    _serializedList:
+    - Key: {x: 1, y: 0, z: 0}
+      Value: {fileID: 11400000, guid: 5a4e0d7ead3dde745995000f08704ebb, type: 2}
+    - Key: {x: -1, y: 0, z: 0}
+      Value: {fileID: 11400000, guid: 5a4e0d7ead3dde745995000f08704ebb, type: 2}
+    - Key: {x: 0, y: 1, z: 0}
+      Value: {fileID: 11400000, guid: f6f84d4a4f1646e40b9f048dc5ad6c67, type: 2}
+    - Key: {x: 0, y: -1, z: 0}
+      Value: {fileID: 11400000, guid: f6f84d4a4f1646e40b9f048dc5ad6c67, type: 2}
+    - Key: {x: 0, y: 0, z: 1}
+      Value: {fileID: 11400000, guid: 39b845b6af6292f44bc6b069b6708fdd, type: 2}
+    - Key: {x: 0, y: 0, z: -1}
+      Value: {fileID: 11400000, guid: 39b845b6af6292f44bc6b069b6708fdd, type: 2}
   currentAceDie: 0
 --- !u!4 &1594711814 stripped
 Transform:

@@ -135,7 +135,7 @@ public class StartScreen : MonoBehaviour
         float dir = Random.value > 0.5f ? 1f : -1f;
         float startRot = rect.eulerAngles.z;
         int spins = Random.Range(1, 3);
-        float targetRot = 0f + 360f * spins * dir;
+        float targetRot = angle + 360f * spins * dir;
 
         float time = 0f;
 

@@ -42,6 +42,8 @@ public class GameManager : MonoBehaviour
     [Tooltip("The dice manager.")][SerializeField] private GameObject DiceManager;
     [Tooltip("The shop animatior")] [SerializeField] private Animator shopAnim;
 
+    [Tooltip("Dice Holder Game Object")] [SerializeField] private GameObject holder;
+
 
 
     public TMPro.TMP_Text tutorialTitle; 
@@ -211,7 +213,7 @@ public class GameManager : MonoBehaviour
     {
     
         SaveDataController.Instance.current.run.CurrentInstallment++;
-
+        holder.SendMessage("ExecuteDice");
         UpdateInterest();
         shopAnim.SetTrigger("Swap");
         //SaveDataController.Instance.current.run.Points += 10;
@@ -252,7 +254,8 @@ public class GameManager : MonoBehaviour
 
     public void AddPoints(int amount)
     {
-        SaveDataController.Instance.current.run.Points += amount;
+        SaveDataController.Instance.current.run.Points += (int) ((float) amount * SaveDataController.Instance.current.run.ScoreMultiplier);
+        SaveDataController.Instance.current.run.ScoreMultiplier = 1f;
         pointsText.text = "Points: " + SaveDataController.Instance.current.run.Points.ToString();
         SaveDataController.Instance.current.run.TotalEarnedPoints += amount;
         DiceManager.SendMessage("ResetValues"); 

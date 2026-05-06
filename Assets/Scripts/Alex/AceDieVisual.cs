@@ -8,10 +8,9 @@ public class AceDieVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public enum AceDie
     {
-        Gamble = 0,
-        Horse = 1,
-        Interest = 3,
-        Generic = 4,
+        Generic = 0,
+        Gamble = 1,
+        Horse = 2,
 
     }
 
@@ -40,6 +39,8 @@ public class AceDieVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> gambleDice;
     [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> horseDice;
+    [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<Vector3, Face> genericDice;
+
 
 
     public AceDie currentAceDie = AceDie.Gamble;
@@ -54,7 +55,7 @@ public class AceDieVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     void Start()
     {
-        for (int i = 0; i < SaveDataController.Instance.current.DebtInstallmentsCompleted / 10 + 1; i++)
+        for (int i = 0; i < 999 / 10 + 1; i++) //SaveDataController.Instance.current.DebtInstallmentsCompleted replace 999 with this in the working version
         {
             if (i == aceDieList.Length)
                 break;
@@ -74,6 +75,11 @@ public class AceDieVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 case AceDie.Horse:
                     aceFaceChange.Dice.Faces = horseDice;
                     break;
+
+                case AceDie.Generic:
+                    aceFaceChange.Dice.Faces = genericDice;
+                    break;
+
             }
             aceFaceChange.UpdateDiceFaces();
             Debug.Log("AAAAAAAAAAAAAAAAAA");
@@ -137,6 +143,9 @@ public class AceDieVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             
             case AceDie.Horse:
                 aceFaceChange.Dice.Faces = horseDice;
+                break;
+            case AceDie.Generic:
+                aceFaceChange.Dice.Faces = genericDice;
                 break;
         }
         if (UnlockedDie.Contains(currentAceDie))

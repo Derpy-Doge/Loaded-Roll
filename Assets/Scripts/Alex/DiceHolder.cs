@@ -177,6 +177,11 @@ public class DiceHolder : MonoBehaviour //test
 
     }
 
+    public void ExecuteDice()
+    {
+        recycleSlot.ExecuteDice();
+    }
+
     public void SelectAllDice()
     {
        for (int i = 0; i < hotbar.Length; i++)
