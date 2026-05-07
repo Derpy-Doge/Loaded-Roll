@@ -179,7 +179,7 @@ public class DiceVisual : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
                 //This is inventory to empty box
 
-                Debug.LogError($"LOOK AT THIS ONE {dice.gameObject.name} vs {holder.GetHeld().gameObject.name} 2 ");
+                //Debug.LogError($"LOOK AT THIS ONE {dice.gameObject.name} vs {holder.GetHeld().gameObject.name} 2 ");
 
                 RollDice.Instance.diceTextures[boxIndex] = dice.visualFC.Dice;
                 RollDice.Instance.AllSlots[boxIndex] = dice;//currentDice;

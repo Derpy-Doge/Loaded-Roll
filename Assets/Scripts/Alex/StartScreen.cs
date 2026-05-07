@@ -57,7 +57,7 @@ public class StartScreen : MonoBehaviour
         }
 
 
-        SceneManager.LoadScene(name);
+        //SceneManager.LoadScene(name);
 
     }
     public void Falls(Transform button)

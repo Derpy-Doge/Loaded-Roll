@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
             if (currentRound % roundsPerDebt == 0) //May need to be currentRound - 1 idk
             {
                 NewDebtInstallment();
+                Debug.Log("New Installment");
             }
         }
     }
@@ -239,8 +241,8 @@ public class GameManager : MonoBehaviour
         interest *= 1 + interestIncrease; 
         float r = ((float)run.TotalEarnedPoints + 100f) / ((float) run.TotalDebtPayment + 100f);
         float i = Mathf.Log(r+1f);
-        interestIncrease += .3f * i;
-        
+        interestIncrease += .3f * i; //use to increase how much interest increases per installment 
+
         run.CurrentDebt = Mathf.FloorToInt((float)run.CurrentDebt * (1 + interest));
         interestText.text = $"Debt: {run.CurrentDebt}";
     }
@@ -248,8 +250,9 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         SaveDataController.Instance.current.run = new();
-        //Go to start scene
-        
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("StartMenu"));
+
     }
 
     public void AddPoints(int amount)
