@@ -209,7 +209,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [ContextMenu("hhhoojafaf")]
+
+    public void SwapStateButton(GameStates state)
+    {
+        Image stateImage = stateButton.gameObject.GetComponent<Image>();
+        rollAnim.SetTrigger("Grow");
+        switch (state)
+        {
+            case GameStates.Rolling:
+                stateImage.sprite = selectSprite;
+                rollText.text = "Select";
+                break;
+            case GameStates.Select:
+                stateImage.sprite = rollSprite;
+                rollText.text = "Roll";
+                break;
+        }
+    }
+
+        [ContextMenu("hhhoojafaf")]
 
     public void NewDebtInstallment()
     {
@@ -230,18 +248,21 @@ public class GameManager : MonoBehaviour
         Run run = SaveDataController.Instance.current.run; //Just realized I should cache this but to lazy rn
         run.TotalDebtPayment += run.CurrentDebt;
 
-        if ((run.Points -= run.CurrentDebt) < 0f)
+        if ((run.Points -= run.CurrentDebt) < 0f) //Display upgraded points 
         {
             EndGame();
             return;
         }
+
+        pointsText.text = "Points: " + SaveDataController.Instance.current.run.Points.ToString();
+
 
         SaveDataController.Instance.current.DebtInstallmentsCompleted++;
 
         interest *= 1 + interestIncrease; 
         float r = ((float)run.TotalEarnedPoints + 100f) / ((float) run.TotalDebtPayment + 100f);
         float i = Mathf.Log(r+1f);
-        interestIncrease += .3f * i; //use to increase how much interest increases per installment 
+        interestIncrease += .9f * i; //use to increase how much interest increases per installment 
 
         run.CurrentDebt = Mathf.FloorToInt((float)run.CurrentDebt * (1 + interest));
         interestText.text = $"Debt: {run.CurrentDebt}";
@@ -257,7 +278,7 @@ public class GameManager : MonoBehaviour
 
     public void AddPoints(int amount)
     {
-        SaveDataController.Instance.current.run.Points += (int) ((float) amount * SaveDataController.Instance.current.run.ScoreMultiplier);
+        SaveDataController.Instance.current.run.Points += (int) ((float) amount * SaveDataController.Instance.current.run.ScoreMultiplier); //Display upgraded points 
         SaveDataController.Instance.current.run.ScoreMultiplier = 1f;
         pointsText.text = "Points: " + SaveDataController.Instance.current.run.Points.ToString();
         SaveDataController.Instance.current.run.TotalEarnedPoints += amount;

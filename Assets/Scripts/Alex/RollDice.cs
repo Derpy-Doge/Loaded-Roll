@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Rendering.Universal;
 
 public class RollDice : MonoBehaviour
 {
@@ -390,6 +391,7 @@ public class RollDice : MonoBehaviour
 
         if (gameManager.rolls  == gameManager.rollsPerRound)
         {
+            gameManager.SwapStateButton(GameManager.GameStates.Select);
             EndRoll();
             return;
         }
@@ -413,7 +415,7 @@ public class RollDice : MonoBehaviour
         {
             diceTextures[i] = null;
         }
-        Debug.LogError("AAAAAAAAAAAAA");
+        //Debug.LogError("AAAAAAAAAAAAA");
     }
 
     public void CloseActiveTutorial() //Attach this to the button
