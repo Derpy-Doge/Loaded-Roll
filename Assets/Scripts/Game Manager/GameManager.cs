@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 
 public class GameManager : MonoBehaviour
@@ -284,6 +285,13 @@ public class GameManager : MonoBehaviour
         SaveDataController.Instance.current.run.TotalEarnedPoints += amount;
         DiceManager.SendMessage("ResetValues"); 
 
+    }
+
+    public void OpenShop(InputAction.CallbackContext ctx) //for my own convenience
+    {
+        if (ctx.ReadValue<float>() == 0) return;
+
+        shopAnim.SetTrigger("Swap");
     }
 
 
