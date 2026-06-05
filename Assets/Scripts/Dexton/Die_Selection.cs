@@ -10,6 +10,9 @@ public class Die_Selection : MonoBehaviour
     //private GlobalDie[] randomDice;
     private Run currentRun;
 
+    [SerializeField] private GameObject shopDie; //to make people select a dice before they buy stuff :skull:
+    [SerializeField] private GameObject selectDietext;
+
 
 
     public void Awake()
@@ -19,6 +22,9 @@ public class Die_Selection : MonoBehaviour
 
         faceChange = FindObjectsByType<FaceChange>(FindObjectsSortMode.None).OrderBy(die => die.name).ToArray();
         //allDice = SaveDataController.Instance.current.run.De();
+
+        shopDie = GameObject.FindGameObjectWithTag("ShopDie");
+        selectDietext = GameObject.FindGameObjectWithTag("SelectDieText");
     }
 
     void Start()
@@ -30,6 +36,7 @@ public class Die_Selection : MonoBehaviour
         loadDice();
         Debug.Log("loaded dice");
 
+        shopDie.SetActive(false);
     }
 
     public void loadDice()
@@ -51,10 +58,13 @@ public class Die_Selection : MonoBehaviour
             GlobalDie die = instance.GetComponent<GlobalDie>();
             die.Faces = currentRun.Deese[i];//
             //FaceChange face = faceChange[i];
+            
 
-            instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
+            //instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
 
-            instance.GetComponent<Button>().onClick.AddListener(() => ChangeDie(die, /*face,*/ GameObject.Find("ShopDie"), die.gameObject));
+            instance.GetComponent<Button>().onClick.AddListener(() => ChangeDie(die, /*face,*/ shopDie, die.gameObject));
+            instance.GetComponent<Button>().onClick.AddListener(() => shopDie.SetActive(true));
+            instance.GetComponent<Button>().onClick.AddListener(() => selectDietext.SetActive(false));
 
             instance.GetComponent<Button>().onClick.AddListener(() => Debug.Log("clicky clicky"));
 

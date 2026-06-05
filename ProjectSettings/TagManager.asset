@@ -10,6 +10,8 @@ TagManager:
   - FaceResults
   - Warnings
   - ParkingLot
+  - ShopDie
+  - SelectDieText
   layers:
   - Default
   - TransparentFX
