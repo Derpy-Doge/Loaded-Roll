@@ -129,7 +129,7 @@ public class DiceScoreCalc : MonoBehaviour
         yield return StartCoroutine(Yippee());
         yield return StartCoroutine(MegaYippee());
         yield return StartCoroutine(TotalPoints());
-        //yield return StartCoroutine(TotalZeros());
+        yield return StartCoroutine(TotalZeros());
         yield break;
     }
     //This IEnumerator is used at the end and shows total points for this round

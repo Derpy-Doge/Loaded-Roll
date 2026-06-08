@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class Die_Selection : MonoBehaviour
 
     [SerializeField] private GameObject shopDie; //to make people select a dice before they buy stuff :skull:
     [SerializeField] private GameObject selectDietext;
+
+    [SerializeField] private List<RenderTexture> diceTextures;
 
 
 
@@ -51,14 +54,22 @@ public class Die_Selection : MonoBehaviour
 
         for (int i = 0; i < currentRun.Deese.Count; i++)
         {
-            GameObject instance = Instantiate(buyButton, selectionArea.transform);
+            GameObject instance = Instantiate(buyButton, selectionArea.transform);            
             instance.name = "Die " + (i + 1);
             instance.AddComponent<GlobalDie>();
+            instance.AddComponent<DiceDragging>();
             //instance.AddComponent<FaceChange>();
+            RawImage image = instance.GetComponent<RawImage>();
             GlobalDie die = instance.GetComponent<GlobalDie>();
+            DiceDragging texture = instance.GetComponent<DiceDragging>();
             die.Faces = currentRun.Deese[i];//
             //FaceChange face = faceChange[i];
-            
+
+            image.texture = diceTextures[i];
+            texture.diceTF = GameObject.Find("DV " + (i + 1)).transform;
+            texture.cameraIndex = i;
+            texture.diceTexture = image;
+
 
             //instance.GetComponentInChildren<TMPro.TMP_Text>().SetText(die.name);
 

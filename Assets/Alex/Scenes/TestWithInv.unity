@@ -10871,6 +10871,30 @@ PrefabInstance:
       propertyPath: m_TagString
       value: ShopDie
       objectReference: {fileID: 0}
+    - target: {fileID: 3965641917845302988, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: diceTextures.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3965641917845302988, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: 'diceTextures.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8400000, guid: f6f0b81387e84f34082d2797a4bd1171, type: 2}
+    - target: {fileID: 3965641917845302988, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: 'diceTextures.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8400000, guid: 8f2001d5be2b49d439f9bff83734bff2, type: 2}
+    - target: {fileID: 3965641917845302988, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: 'diceTextures.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8400000, guid: b965b8657aff8b34f91d9bc74c5700df, type: 2}
+    - target: {fileID: 3965641917845302988, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: 'diceTextures.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8400000, guid: 53c16eedee8a2ca49a8f72fc3b86442f, type: 2}
+    - target: {fileID: 3965641917845302988, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
+      propertyPath: 'diceTextures.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8400000, guid: 343a1a678dfdfd04f8b82e18e29ef3d2, type: 2}
     - target: {fileID: 4126337831882662169, guid: 7111964df214c2f48bc84e0c70ddc934, type: 3}
       propertyPath: m_IsActive
       value: 0
